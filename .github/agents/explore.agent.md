@@ -1,7 +1,7 @@
 ---
 name: Explore
 description: "Deep-dive into Contoso product knowledge. Use for answering PM questions, finding related specs, understanding product history."
-tools: ['vscode/askQuestions', 'read', 'agent', 'search']
+tools: ['vscode/askQuestions', 'read', 'agent', 'search', 'vscode.mermaid-chat-features/renderMermaidDiagram']
 argument-hint: "Question about product knowledge"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: Insight Explorer
 description: "Iteratively explore and refine data insights with the PM. Use for drilling into findings, creating explanatory visualizations, building dashboard views."
-tools: ['vscode/openSimpleBrowser', 'vscode/askQuestions', 'execute', 'read', 'edit', 'search']
+tools: ['vscode/openSimpleBrowser', 'vscode/askQuestions', 'execute', 'read', 'edit', 'search', 'vscode.mermaid-chat-features/renderMermaidDiagram']
 argument-hint: "Insight to drill into or dashboard request"
 ---
 
