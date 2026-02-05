@@ -307,6 +307,12 @@ Agents are specialized modes you switch to using the **agent picker** (click the
 
 ---
 
+## Live Demos
+
+View prototypes and explainers online at **[digitarald.github.io/product-brain](https://digitarald.github.io/product-brain)**
+
+All HTML prototypes in `prototypes/` are automatically deployed to GitHub Pages on every push to `main`.
+
 ## Getting Started
 
 1. **Open in VS Code** with GitHub Copilot enabled

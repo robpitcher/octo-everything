@@ -4,7 +4,9 @@ Interactive single-page scrolling site showcasing the Contoso Product Brain repo
 
 ## Live Demo
 
-Once published: `https://contoso.github.io/product-brain/prototypes/demo-narrative/`
+**[digitarald.github.io/product-brain/demo-narrative](https://digitarald.github.io/product-brain/demo-narrative/)**
+
+Automatically deployed to GitHub Pages on every push to `main`.
 
 ## What It Demonstrates
 

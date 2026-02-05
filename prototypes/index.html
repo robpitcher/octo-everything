@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contoso Product Brain - Prototypes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: '#7a9b7e',
+                        earth: '#8b7b6b',
+                        cream: '#fefcf7'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cream">
+    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <header class="mb-12">
+                <h1 class="text-4xl font-bold text-earth mb-2">Contoso Product Brain</h1>
+                <p class="text-xl text-gray-600">Interactive Prototypes & Demos</p>
+            </header>
+
+            <div class="space-y-6">
+                <!-- Checkout Mockup -->
+                <a href="checkout-mockup/" class="block group">
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-sage">
+                        <h2 class="text-2xl font-semibold text-earth mb-2 group-hover:text-sage transition-colors">
+                            Checkout Redesign
+                        </h2>
+                        <p class="text-gray-600 mb-3">
+                            Streamlined purchase flow prototype reducing cart abandonment with simplified form fields and clear progress indicators.
+                        </p>
+                        <span class="inline-flex items-center text-sage font-medium">
+                            View Prototype
+                            <svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Loyalty V2 Explainer -->
+                <a href="loyalty-v2-explainer/" class="block group">
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-sage">
+                        <h2 class="text-2xl font-semibold text-earth mb-2 group-hover:text-sage transition-colors">
+                            Loyalty Program V2
+                        </h2>
+                        <p class="text-gray-600 mb-3">
+                            Next generation rewards program featuring sustainability incentives, tiered benefits, and gamified outdoor challenges.
+                        </p>
+                        <span class="inline-flex items-center text-sage font-medium">
+                            View Explainer
+                            <svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Demo Narrative -->
+                <a href="demo-narrative/" class="block group">
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-sage">
+                        <h2 class="text-2xl font-semibold text-earth mb-2 group-hover:text-sage transition-colors">
+                            Demo Narrative
+                        </h2>
+                        <p class="text-gray-600 mb-3">
+                            Interactive walkthrough showcasing the complete Product Brain workflow and agentic PM capabilities.
+                        </p>
+                        <span class="inline-flex items-center text-sage font-medium">
+                            View Demo
+                            <svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <footer class="mt-16 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
+                <p>Contoso Product Brain Demo Workspace</p>
+                <p class="mt-2">
+                    <a href="https://github.com/digitarald/product-brain" class="text-sage hover:underline">View on GitHub</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
