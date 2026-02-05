@@ -24,7 +24,41 @@ IMPORTANT: When adding new features, update README.md and prototypes/demo-narrat
 - **Spec headers**: Use Markdown metadata (not YAML frontmatter): `**Status:** Draft`, `**Author:**`, `**Last Updated:**`, `**Stakeholders:**`
 - **Cross-linking**: Specs link to `insights/`, insights link back to `specs/` — unlinked content is "unvalidated"
 - **Prototype stack**: HTML + [Tailwind CDN](https://cdn.tailwindcss.com) + Alpine.js — stakeholders open files directly
-- **Brand colors**: Sage `#7a9b7e`, Earth `#8b7b6b`, Cream `#fefcf7`
+
+### Design System — Adventure Editorial Dark Theme
+
+**Colors:**
+| Token | Value | Usage |
+|-------|-------|-------|
+| Dark base | `#0a0c0a` | Page background |
+| Card bg | `rgba(17, 20, 17, 0.85)` | Glass cards |
+| Border | `rgba(163, 171, 163, 0.12)` | Subtle borders |
+| Text primary | `#e8ebe8` | Body text |
+| Text secondary | `#a3aba3` | Muted text |
+| Forest | `#4ade80` | Primary accent, success, CTAs |
+| Sage | `#7a9b7e` | Brand accent |
+| Ember | `#f97316` | Warning, secondary CTA |
+| Earth | `#8b7b6b` | Muted accents |
+
+**Typography:**
+- **Display:** Source Serif 4 (editorial drama, headers)
+- **Body:** Outfit (modern, readable)
+
+**Card Pattern:**
+```css
+background: rgba(17, 20, 17, 0.85);
+border: 1px solid rgba(163, 171, 163, 0.12);
+backdrop-filter: blur(20px);
+border-radius: 16px;
+```
+
+**Ambient Background:**
+```css
+background: 
+  radial-gradient(ellipse 80% 50% at 50% -20%, rgba(74, 222, 128, 0.06) 0%, transparent 50%),
+  radial-gradient(ellipse 60% 40% at 100% 80%, rgba(249, 115, 22, 0.04) 0%, transparent 50%),
+  #0a0c0a;
+```
 
 ---
 

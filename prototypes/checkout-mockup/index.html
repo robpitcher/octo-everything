@@ -3,97 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contoso Checkout</title>
+    <title>Checkout | Contoso Outdoor Gear</title>
     
     <!-- Tailwind CSS CDN -->
-    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Serif display + sans body -->
+    <!-- Google Fonts: Display serif + sans body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    
+    <!--
+    ╔═══════════════════════════════════════════════════════════════════════════════╗
+    ║  CONTOSO DESIGN SYSTEM — Adventure Editorial Dark Theme                       ║
+    ╠═══════════════════════════════════════════════════════════════════════════════╣
+    ║  COLORS:                                                                       ║
+    ║    Dark base:     #0a0c0a (near-black with warmth)                            ║
+    ║    Card bg:       rgba(17, 20, 17, 0.7) / #111411                             ║
+    ║    Border:        rgba(163, 171, 163, 0.12)                                   ║
+    ║    Text primary:  #e8ebe8                                                     ║
+    ║    Text secondary:#a3aba3                                                     ║
+    ║    Sage accent:   #7a9b7e (brand primary)                                     ║
+    ║    Forest:        #4ade80 (success/highlight)                                 ║
+    ║    Ember:         #f97316 (warning/CTA)                                       ║
+    ║                                                                               ║
+    ║  TYPOGRAPHY:                                                                  ║
+    ║    Display:       Source Serif 4 (editorial drama)                            ║
+    ║    Body:          Outfit (modern, readable)                                   ║
+    ║                                                                               ║
+    ║  TECH STACK:                                                                  ║
+    ║    Tailwind CSS via CDN (no build step)                                       ║
+    ║    Alpine.js for interactivity                                                ║
+    ╚═══════════════════════════════════════════════════════════════════════════════╝
+    -->
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Outfit', 'sans-serif'],
+                        serif: ['Source Serif 4', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        sage: {
+                            50: '#f6f7f6',
+                            100: '#e3e5e3',
+                            200: '#c7ccc7',
+                            300: '#a3aba3',
+                            400: '#7c877c',
+                            500: '#7a9b7e',
+                            600: '#5a7b5e',
+                            700: '#404640',
+                            800: '#363b36',
+                            900: '#2f322f',
+                        },
+                        forest: {
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                        },
+                        ember: {
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                        },
+                        earth: {
+                            400: '#a89b8b',
+                            500: '#8b7b6b',
+                            600: '#6b5b4b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
     <style>
         :root {
-            --color-sage: #7a9b7e;
-            --color-earth: #8b7b6b;
-            --color-cream: #fefcf7;
-            --color-dark: #1a1a1a;
+            --bg-primary: #0a0c0a;
+            --bg-secondary: #111411;
+            --bg-card: rgba(17, 20, 17, 0.85);
+            --border-subtle: rgba(163, 171, 163, 0.15);
+            --border-accent: rgba(74, 222, 128, 0.3);
+            --text-primary: #e8ebe8;
+            --text-secondary: #a3aba3;
+            --text-muted: #7c877c;
+            --accent-sage: #7a9b7e;
+            --accent-forest: #4ade80;
+            --accent-ember: #f97316;
         }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         
         body {
             font-family: 'Outfit', sans-serif;
-            color: var(--color-dark);
-            background: linear-gradient(135deg, var(--color-cream) 0%, #f5f3ef 100%);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        /* Ambient background */
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(74, 222, 128, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 100% 80%, rgba(249, 115, 22, 0.04) 0%, transparent 50%),
+                var(--bg-primary);
+        }
+        
+        /* Noise texture overlay */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
         h1, h2, h3 {
-            font-family: 'Crimson Text', serif;
+            font-family: 'Source Serif 4', Georgia, serif;
+            letter-spacing: -0.02em;
         }
         
-        h1 { font-size: 2.5rem; font-weight: 400; letter-spacing: -1px; }
-        h2 { font-size: 1.75rem; font-weight: 400; }
+        h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; }
+        h2 { font-size: 1.75rem; font-weight: 600; }
         h3 { font-size: 1.25rem; font-weight: 500; }
         
-        /* Section styling */
+        /* Glass card sections */
         .checkout-section {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e5e0d8;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-subtle);
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
         
         .checkout-section:hover {
-            border-color: var(--color-sage);
-            box-shadow: 0 8px 16px rgba(122, 155, 126, 0.08);
+            border-color: var(--border-accent);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(74, 222, 128, 0.05);
         }
         
         .section-header {
-            background: linear-gradient(90deg, #f9f7f3 0%, #fefcf7 100%);
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.05) 0%, transparent 50%);
             padding: 1.5rem;
-            border-bottom: 1px solid #e5e0d8;
+            border-bottom: 1px solid var(--border-subtle);
             cursor: pointer;
             user-select: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .section-header:hover {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.08) 0%, transparent 50%);
         }
         
         .section-number {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
-            background: var(--color-sage);
-            color: white;
-            border-radius: 50%;
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-right: 0.75rem;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-forest), #22c55e);
+            color: var(--bg-primary);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
         }
         
-        /* Form elements */
+        .section-number.completed {
+            background: linear-gradient(135deg, var(--accent-forest), #16a34a);
+        }
+        
+        /* Form elements - Dark theme */
         input, select, textarea {
             font-family: 'Outfit', sans-serif;
-            border: 1px solid #d5cfc5;
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            transition: all 0.2s ease;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 0.875rem 1rem;
+            transition: all 0.3s ease;
             font-size: 1rem;
+            color: var(--text-primary);
+            width: 100%;
         }
         
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--color-sage);
-            box-shadow: 0 0 0 3px rgba(122, 155, 126, 0.1);
-            background: #fafaf8;
+            border-color: var(--accent-forest);
+            box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+            background: rgba(0, 0, 0, 0.4);
         }
         
         input::placeholder {
-            color: #a8a39a;
+            color: var(--text-muted);
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a3aba3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.25rem;
+            padding-right: 2.5rem;
+        }
+        
+        select option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
         
         /* Toggle switch */
@@ -119,7 +248,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #d5cfc5;
+            background-color: rgba(163, 171, 163, 0.3);
             transition: 0.3s;
             border-radius: 32px;
         }
@@ -131,13 +260,13 @@
             width: 26px;
             left: 3px;
             bottom: 3px;
-            background-color: white;
+            background-color: var(--text-primary);
             transition: 0.3s;
             border-radius: 50%;
         }
         
         input:checked + .toggle-slider {
-            background-color: var(--color-sage);
+            background: linear-gradient(135deg, var(--accent-forest), #22c55e);
         }
         
         input:checked + .toggle-slider:before {
@@ -146,31 +275,34 @@
         
         /* Payment methods */
         .payment-option {
-            border: 2px solid #d5cfc5;
-            border-radius: 10px;
+            border: 2px solid var(--border-subtle);
+            border-radius: 12px;
             padding: 1.25rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 1rem;
+            background: rgba(0, 0, 0, 0.2);
         }
         
         .payment-option:hover {
-            border-color: var(--color-sage);
-            background: #fafaf8;
+            border-color: rgba(74, 222, 128, 0.4);
+            background: rgba(74, 222, 128, 0.05);
         }
         
         .payment-option.selected {
-            border-color: var(--color-sage);
-            background: linear-gradient(135deg, rgba(122, 155, 126, 0.05) 0%, rgba(122, 155, 126, 0.02) 100%);
+            border-color: var(--accent-forest);
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.1) 0%, rgba(74, 222, 128, 0.02) 100%);
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.1);
         }
         
         .payment-icon {
-            width: 48px;
-            height: 48px;
-            background: #f0ebe1;
-            border-radius: 8px;
+            width: 52px;
+            height: 52px;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -178,12 +310,12 @@
             flex-shrink: 0;
         }
         
-        /* Summary badge */
+        /* Summary rows */
         .summary-row {
             display: flex;
             justify-content: space-between;
             padding: 0.875rem 0;
-            border-bottom: 1px solid #e5e0d8;
+            border-bottom: 1px solid var(--border-subtle);
         }
         
         .summary-row:last-child {
@@ -194,37 +326,47 @@
         }
         
         .summary-row .label {
-            color: #6b6360;
+            color: var(--text-secondary);
             font-size: 0.95rem;
         }
         
         /* CTA Buttons */
         .btn-primary {
-            background: var(--color-sage);
-            color: white;
+            background: linear-gradient(135deg, var(--accent-forest), #22c55e);
+            color: var(--bg-primary);
             border: none;
             padding: 1rem 2rem;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             font-family: 'Outfit', sans-serif;
             width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .btn-primary:hover {
-            background: #6a8b6e;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(122, 155, 126, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 10px 30px rgba(74, 222, 128, 0.3),
+                0 0 40px rgba(74, 222, 128, 0.1);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .btn-secondary {
             background: transparent;
-            color: var(--color-sage);
-            border: 1px solid var(--color-sage);
+            color: var(--accent-forest);
+            border: 1px solid var(--accent-forest);
             padding: 0.875rem 1.5rem;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
@@ -233,8 +375,8 @@
         }
         
         .btn-secondary:hover {
-            background: var(--color-sage);
-            color: white;
+            background: rgba(74, 222, 128, 0.1);
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.1);
         }
         
         /* Success state */
@@ -242,13 +384,14 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, var(--color-sage) 0%, #6a8b6e 100%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-forest), #16a34a);
             border-radius: 50%;
-            color: white;
-            font-size: 2rem;
+            color: var(--bg-primary);
+            font-size: 2.5rem;
             margin-bottom: 1.5rem;
+            box-shadow: 0 0 60px rgba(74, 222, 128, 0.3);
         }
         
         /* Animations */
@@ -268,6 +411,11 @@
             to { opacity: 1; }
         }
         
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(74, 222, 128, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(74, 222, 128, 0.4); }
+        }
+        
         .animate-slide-down {
             animation: slideDown 0.4s ease forwards;
         }
@@ -276,28 +424,9 @@
             animation: fadeIn 0.5s ease forwards;
         }
         
-        /* Staggered animations */
-        .section-body [x-show] {
-            animation: slideDown 0.4s ease forwards;
-        }
-        
-        /* Progress indicator */
-        .progress-dot {
-            width: 12px;
-            height: 12px;
-            background: #d5cfc5;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .progress-dot.active {
-            background: var(--color-sage);
-            transform: scale(1.3);
-        }
-        
         /* Mobile-specific tweaks */
         @media (max-width: 640px) {
-            h1 { font-size: 2rem; }
+            h1 { font-size: 1.75rem; }
             h2 { font-size: 1.25rem; }
             h3 { font-size: 1.1rem; }
             
@@ -315,16 +444,18 @@
             display: flex;
             gap: 1rem;
             padding: 1rem;
-            background: #fafaf8;
-            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
             margin-bottom: 0.75rem;
         }
         
         .item-image {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #dce4d0 0%, #e8ebe0 100%);
-            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.05));
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 10px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -337,74 +468,132 @@
         }
         
         .item-price {
-            color: var(--color-sage);
+            color: var(--accent-forest);
+            font-weight: 700;
+        }
+        
+        /* Guest checkout banner */
+        .guest-banner {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.02));
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+        }
+        
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        
+        .badge-forest {
+            background: rgba(74, 222, 128, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+        
+        /* Prototype banner */
+        .prototype-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--accent-ember), #ea580c);
+            color: var(--bg-primary);
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 100;
+            letter-spacing: 0.05em;
         }
     </style>
 </head>
 <body>
+    <!-- Ambient background -->
+    <div class="ambient-bg"></div>
+    <div class="noise-overlay"></div>
+    
+    <!-- Prototype banner -->
+    <div class="prototype-banner">
+        ⚡ THIS IS A PROTOTYPE — Not a production checkout
+    </div>
+    
     <!-- Main checkout container -->
-    <div x-data="checkoutFlow()" class="min-h-screen py-8 px-4 sm:px-8">
+    <div x-data="checkoutFlow()" class="min-h-screen py-8 px-4 sm:px-8 pt-16">
         <div class="max-w-2xl mx-auto">
             
             <!-- Header -->
-            <div class="mb-8 sm:mb-12">
-                <h1 class="mb-2">Checkout</h1>
-                <p class="text-gray-600">Complete your order for outdoor gear</p>
+            <div class="mb-8 sm:mb-12 text-center sm:text-left">
+                <div class="inline-flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-forest-500 to-sage-600 flex items-center justify-center text-xl">
+                        🛒
+                    </div>
+                    <span class="badge badge-forest">Secure Checkout</span>
+                </div>
+                <h1 class="mb-2 text-sage-100">Complete Your Order</h1>
+                <p class="text-sage-400">Premium outdoor gear, delivered to your door</p>
             </div>
             
             <!-- Shipping Section -->
             <div class="checkout-section mb-5 animate-fade-in">
                 <div class="section-header" @click="toggleSection('shipping')">
                     <div class="flex items-center">
-                        <span class="section-number" :class="{'bg-emerald-500': steps.shipping}">1</span>
+                        <span class="section-number" :class="{'completed': steps.shipping}">1</span>
                         <div>
-                            <h3 class="m-0">Shipping Address</h3>
-                            <p class="text-sm text-gray-500 m-0" x-show="steps.shipping">Enter where we should send your order</p>
+                            <h3 class="m-0 text-sage-100">Shipping Address</h3>
+                            <p class="text-sm text-sage-500 m-0" x-show="steps.shipping">Where should we send your gear?</p>
                         </div>
                     </div>
-                    <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{'rotate-180': openSections.shipping}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-sage-500 transition-transform" :class="{'rotate-180': openSections.shipping}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                     </svg>
                 </div>
                 
                 <div x-show="openSections.shipping" class="section-body p-6 space-y-4" style="display: none;">
                     <!-- Guest checkout info -->
-                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4 mb-4">
-                        <p class="text-sm font-medium text-gray-700">✓ Checking out as guest. <button @click="alert('Account creation offered post-purchase with order tracking')" class="underline text-green-700 hover:text-green-800">Create account later</button></p>
+                    <div class="guest-banner mb-4">
+                        <p class="text-sm font-medium text-sage-200">✓ Checking out as guest. <button @click="alert('Account creation offered post-purchase with order tracking')" class="underline text-forest-400 hover:text-forest-300">Create account later</button></p>
                     </div>
                     
                     <!-- Address autocomplete simulation -->
                     <div>
-                        <label class="block text-sm font-medium mb-2">Address</label>
+                        <label class="block text-sm font-medium mb-2 text-sage-300">Address</label>
                         <div class="relative">
                             <input type="text" placeholder="Start typing your address..." class="w-full" x-model="form.address" @focus="showAddressDropdown = true">
                             <!-- Address suggestions mockup -->
-                            <div x-show="showAddressDropdown && form.address.length > 0" class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 overflow-hidden" style="display: none;">
-                                <div @click="form.address = '742 Evergreen Terrace, Springfield, OR'; showAddressDropdown = false" class="px-4 py-3 hover:bg-gray-50 cursor-pointer text-sm">📍 742 Evergreen Terrace, Springfield, OR 97477</div>
-                                <div @click="form.address = '123 Mountain View Dr, Boulder, CO'; showAddressDropdown = false" class="px-4 py-3 hover:bg-gray-50 cursor-pointer text-sm border-t border-gray-100">📍 123 Mountain View Dr, Boulder, CO 80301</div>
-                                <div @click="form.address = '456 Lakeside Ave, Seattle, WA'; showAddressDropdown = false" class="px-4 py-3 hover:bg-gray-50 cursor-pointer text-sm border-t border-gray-100">📍 456 Lakeside Ave, Seattle, WA 98101</div>
+                            <div x-show="showAddressDropdown && form.address.length > 0" class="absolute top-full left-0 right-0 mt-1 bg-[#111411] border border-sage-800/50 rounded-lg shadow-2xl z-10 overflow-hidden" style="display: none;">
+                                <div @click="form.address = '742 Evergreen Terrace, Springfield, OR'; showAddressDropdown = false" class="px-4 py-3 hover:bg-forest-500/10 cursor-pointer text-sm text-sage-200">📍 742 Evergreen Terrace, Springfield, OR 97477</div>
+                                <div @click="form.address = '123 Mountain View Dr, Boulder, CO'; showAddressDropdown = false" class="px-4 py-3 hover:bg-forest-500/10 cursor-pointer text-sm border-t border-sage-800/30 text-sage-200">📍 123 Mountain View Dr, Boulder, CO 80301</div>
+                                <div @click="form.address = '456 Lakeside Ave, Seattle, WA'; showAddressDropdown = false" class="px-4 py-3 hover:bg-forest-500/10 cursor-pointer text-sm border-t border-sage-800/30 text-sage-200">📍 456 Lakeside Ave, Seattle, WA 98101</div>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">Powered by address lookup</p>
+                        <p class="text-xs text-sage-500 mt-2">⚡ Powered by address autocomplete</p>
                     </div>
                     
                     <!-- Address fields grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 grid-2col">
                         <div>
-                            <label class="block text-sm font-medium mb-2">City</label>
+                            <label class="block text-sm font-medium mb-2 text-sage-300">City</label>
                             <input type="text" placeholder="City" x-model="form.city">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">State</label>
+                            <label class="block text-sm font-medium mb-2 text-sage-300">State</label>
                             <input type="text" placeholder="State" x-model="form.state">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Postal Code</label>
+                            <label class="block text-sm font-medium mb-2 text-sage-300">Postal Code</label>
                             <input type="text" placeholder="Postal Code" x-model="form.postalCode">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Country</label>
+                            <label class="block text-sm font-medium mb-2 text-sage-300">Country</label>
                             <select x-model="form.country">
                                 <option>United States</option>
                                 <option>Canada</option>
@@ -416,11 +605,11 @@
                     <!-- Contact info -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 grid-2col">
                         <div>
-                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <label class="block text-sm font-medium mb-2 text-sage-300">Email</label>
                             <input type="email" placeholder="your@email.com" x-model="form.email">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Phone</label>
+                            <label class="block text-sm font-medium mb-2 text-sage-300">Phone</label>
                             <input type="tel" placeholder="(555) 000-0000" x-model="form.phone">
                         </div>
                     </div>
@@ -433,21 +622,21 @@
             <div class="checkout-section mb-5 animate-fade-in" style="animation-delay: 0.1s;">
                 <div class="section-header" @click="toggleSection('billing')" :class="{'opacity-50 pointer-events-none': !steps.shipping}">
                     <div class="flex items-center">
-                        <span class="section-number" :class="{'bg-emerald-500': steps.billing}">2</span>
+                        <span class="section-number" :class="{'completed': steps.billing}">2</span>
                         <div>
-                            <h3 class="m-0">Billing Address</h3>
-                            <p class="text-sm text-gray-500 m-0" x-show="steps.billing">{{ form.sameAsBilling ? 'Same as shipping' : 'Enter billing address' }}</p>
+                            <h3 class="m-0 text-sage-100">Billing Address</h3>
+                            <p class="text-sm text-sage-500 m-0" x-show="steps.billing">{{ form.sameAsBilling ? 'Same as shipping' : 'Enter billing address' }}</p>
                         </div>
                     </div>
-                    <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{'rotate-180': openSections.billing}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-sage-500 transition-transform" :class="{'rotate-180': openSections.billing}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                     </svg>
                 </div>
                 
                 <div x-show="openSections.billing && steps.shipping" class="section-body p-6 space-y-4" style="display: none;">
                     <!-- Same as shipping toggle -->
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <label class="text-sm font-medium cursor-pointer">Same as shipping address</label>
+                    <div class="flex items-center justify-between p-4 bg-black/20 border border-sage-800/30 rounded-lg">
+                        <label class="text-sm font-medium cursor-pointer text-sage-200">Same as shipping address</label>
                         <label class="toggle-switch">
                             <input type="checkbox" x-model="form.sameAsBilling">
                             <span class="toggle-slider"></span>
@@ -476,19 +665,19 @@
             <div class="checkout-section mb-5 animate-fade-in" style="animation-delay: 0.2s;">
                 <div class="section-header" @click="toggleSection('payment')" :class="{'opacity-50 pointer-events-none': !steps.billing}">
                     <div class="flex items-center">
-                        <span class="section-number" :class="{'bg-emerald-500': steps.payment}">3</span>
+                        <span class="section-number" :class="{'completed': steps.payment}">3</span>
                         <div>
-                            <h3 class="m-0">Payment Method</h3>
-                            <p class="text-sm text-gray-500 m-0" x-show="steps.payment">{{ form.paymentMethod || 'Select a payment method' }}</p>
+                            <h3 class="m-0 text-sage-100">Payment Method</h3>
+                            <p class="text-sm text-sage-500 m-0" x-show="steps.payment">{{ form.paymentMethod || 'Select a payment method' }}</p>
                         </div>
                     </div>
-                    <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{'rotate-180': openSections.payment}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-sage-500 transition-transform" :class="{'rotate-180': openSections.payment}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                     </svg>
                 </div>
                 
                 <div x-show="openSections.payment && steps.billing" class="section-body p-6 space-y-4" style="display: none;">
-                    <p class="text-sm text-gray-600 mb-4">Choose your preferred payment method</p>
+                    <p class="text-sm text-sage-400 mb-4">Choose your preferred payment method</p>
                     
                     <!-- Express payment options -->
                     <div class="space-y-3">
@@ -496,8 +685,8 @@
                         <div class="payment-option" :class="{'selected': form.paymentMethod === 'Apple Pay'}" @click="form.paymentMethod = 'Apple Pay'">
                             <div class="payment-icon">🍎</div>
                             <div>
-                                <p class="font-medium m-0">Apple Pay</p>
-                                <p class="text-xs text-gray-500 m-0">Fast & secure</p>
+                                <p class="font-medium m-0 text-sage-100">Apple Pay</p>
+                                <p class="text-xs text-sage-500 m-0">Fast & secure checkout</p>
                             </div>
                         </div>
                         
@@ -505,8 +694,8 @@
                         <div class="payment-option" :class="{'selected': form.paymentMethod === 'Google Pay'}" @click="form.paymentMethod = 'Google Pay'">
                             <div class="payment-icon">🔵</div>
                             <div>
-                                <p class="font-medium m-0">Google Pay</p>
-                                <p class="text-xs text-gray-500 m-0">Stored payment method</p>
+                                <p class="font-medium m-0 text-sage-100">Google Pay</p>
+                                <p class="text-xs text-sage-500 m-0">Stored payment method</p>
                             </div>
                         </div>
                         
@@ -514,14 +703,14 @@
                         <div class="payment-option" :class="{'selected': form.paymentMethod === 'PayPal'}" @click="form.paymentMethod = 'PayPal'">
                             <div class="payment-icon">P</div>
                             <div>
-                                <p class="font-medium m-0">PayPal</p>
-                                <p class="text-xs text-gray-500 m-0">Buyer protection included</p>
+                                <p class="font-medium m-0 text-sage-100">PayPal</p>
+                                <p class="text-xs text-sage-500 m-0">Buyer protection included</p>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Card option (fallback) -->
-                    <div class="pt-4 border-t border-gray-200">
+                    <div class="pt-4 border-t border-sage-800/30">
                         <button class="btn-secondary w-full" @click="showCardForm = !showCardForm">
                             <span x-show="!showCardForm">+ Credit or Debit Card</span>
                             <span x-show="showCardForm">Hide Card Form</span>
@@ -545,13 +734,13 @@
             <div class="checkout-section mb-8 animate-fade-in" style="animation-delay: 0.3s;">
                 <div class="section-header" @click="toggleSection('review')" :class="{'opacity-50 pointer-events-none': !steps.payment}">
                     <div class="flex items-center">
-                        <span class="section-number" :class="{'bg-emerald-500': steps.review}">4</span>
+                        <span class="section-number" :class="{'completed': steps.review}">4</span>
                         <div>
-                            <h3 class="m-0">Review Order</h3>
-                            <p class="text-sm text-gray-500 m-0" x-show="steps.review">Everything looks good?</p>
+                            <h3 class="m-0 text-sage-100">Review Order</h3>
+                            <p class="text-sm text-sage-500 m-0" x-show="steps.review">Everything looks good?</p>
                         </div>
                     </div>
-                    <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{'rotate-180': openSections.review}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-sage-500 transition-transform" :class="{'rotate-180': openSections.review}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                     </svg>
                 </div>
@@ -559,13 +748,13 @@
                 <div x-show="openSections.review && steps.payment" class="section-body p-6 space-y-6" style="display: none;">
                     <!-- Order summary -->
                     <div>
-                        <h4 class="font-semibold mb-4 text-sm text-gray-700">Your Order</h4>
+                        <h4 class="font-semibold mb-4 text-sm text-sage-400 uppercase tracking-wide">Your Order</h4>
                         
                         <div class="order-item">
                             <div class="item-image">⛺</div>
                             <div class="item-details">
-                                <p class="font-medium m-0">Lightweight 3-Season Tent</p>
-                                <p class="text-xs text-gray-500 m-0">Qty: 1 • Eco-Certified</p>
+                                <p class="font-medium m-0 text-sage-100">Lightweight 3-Season Tent</p>
+                                <p class="text-xs text-sage-500 m-0">Qty: 1 • Eco-Certified</p>
                                 <p class="item-price mt-2">$249.99</p>
                             </div>
                         </div>
@@ -573,58 +762,58 @@
                         <div class="order-item">
                             <div class="item-image">🎒</div>
                             <div class="item-details">
-                                <p class="font-medium m-0">Trail Backpack 60L</p>
-                                <p class="text-xs text-gray-500 m-0">Qty: 1</p>
+                                <p class="font-medium m-0 text-sage-100">Trail Backpack 60L</p>
+                                <p class="text-xs text-sage-500 m-0">Qty: 1</p>
                                 <p class="item-price mt-2">$189.99</p>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Pricing breakdown -->
-                    <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+                    <div class="bg-black/20 border border-sage-800/30 rounded-lg p-4 space-y-3">
                         <div class="summary-row">
                             <span class="label">Subtotal</span>
-                            <span>$439.98</span>
+                            <span class="text-sage-200">$439.98</span>
                         </div>
                         <div class="summary-row">
                             <span class="label">Shipping</span>
-                            <span>$12.00</span>
+                            <span class="text-sage-200">$12.00</span>
                         </div>
                         <div class="summary-row">
                             <span class="label">Tax</span>
-                            <span>$36.00</span>
+                            <span class="text-sage-200">$36.00</span>
                         </div>
                         <div class="summary-row">
                             <span class="label">🌱 Carbon Offset (Free)</span>
-                            <span class="text-green-600">-$5.00</span>
+                            <span class="text-forest-400">-$5.00</span>
                         </div>
                         <div class="summary-row">
-                            <span>Total</span>
-                            <span class="text-xl">$482.98</span>
+                            <span class="text-sage-100">Total</span>
+                            <span class="text-xl text-forest-400">$482.98</span>
                         </div>
                     </div>
                     
                     <!-- Summary details -->
                     <div class="space-y-3 text-sm">
-                        <div class="pb-3 border-b border-gray-200">
-                            <p class="font-medium mb-1">Shipping to:</p>
-                            <p class="text-gray-600">{{ form.address || 'Your address' }}, {{ form.city }}, {{ form.state }}</p>
+                        <div class="pb-3 border-b border-sage-800/30">
+                            <p class="font-medium mb-1 text-sage-300">Shipping to:</p>
+                            <p class="text-sage-500">{{ form.address || 'Your address' }}, {{ form.city }}, {{ form.state }}</p>
                         </div>
-                        <div class="pb-3 border-b border-gray-200">
-                            <p class="font-medium mb-1">Payment Method:</p>
-                            <p class="text-gray-600">{{ form.paymentMethod }}</p>
+                        <div class="pb-3 border-b border-sage-800/30">
+                            <p class="font-medium mb-1 text-sage-300">Payment Method:</p>
+                            <p class="text-sage-500">{{ form.paymentMethod }}</p>
                         </div>
                         <div>
-                            <p class="font-medium mb-1">Contact:</p>
-                            <p class="text-gray-600">{{ form.email }}</p>
+                            <p class="font-medium mb-1 text-sage-300">Contact:</p>
+                            <p class="text-sage-500">{{ form.email }}</p>
                         </div>
                     </div>
                     
                     <!-- Place order button -->
                     <button class="btn-primary mt-6" @click="placeOrder()">Place Order</button>
                     
-                    <p class="text-xs text-gray-500 text-center">
-                        By placing your order, you agree to our <button class="underline text-gray-700 hover:text-gray-900">Terms of Service</button>
+                    <p class="text-xs text-sage-500 text-center">
+                        By placing your order, you agree to our <button class="underline text-sage-400 hover:text-sage-300">Terms of Service</button>
                     </p>
                 </div>
             </div>
@@ -632,10 +821,10 @@
             <!-- Success State (shown after order placed) -->
             <div x-show="orderPlaced" class="checkout-section p-12 text-center" style="display: none;">
                 <div class="success-icon">✓</div>
-                <h2 class="mb-2">Order Confirmed!</h2>
-                <p class="text-gray-600 mb-6">Order #{{  orderNumber }} shipped to {{ form.address }}</p>
-                <p class="text-sm text-gray-500 mb-8">We've sent a confirmation email to <strong>{{ form.email }}</strong></p>
-                <div class="space-y-2">
+                <h2 class="mb-2 text-sage-100">Order Confirmed!</h2>
+                <p class="text-sage-400 mb-6">Order #{{  orderNumber }} shipped to {{ form.address }}</p>
+                <p class="text-sm text-sage-500 mb-8">We've sent a confirmation email to <strong class="text-forest-400">{{ form.email }}</strong></p>
+                <div class="space-y-3">
                     <button class="btn-primary" @click="resetCheckout()">Start New Order</button>
                     <button class="btn-secondary w-full" @click="alert('Offer account creation with order tracking')">Create Account for Order Tracking</button>
                 </div>

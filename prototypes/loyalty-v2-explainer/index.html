@@ -3,54 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trail Rewards: The Future of Loyalty</title>
+  <title>Trail Rewards: The Future of Loyalty | Contoso</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  
+  <!--
+  ╔═══════════════════════════════════════════════════════════════════════════════╗
+  ║  CONTOSO DESIGN SYSTEM — Adventure Editorial Dark Theme                       ║
+  ╠═══════════════════════════════════════════════════════════════════════════════╣
+  ║  COLORS:                                                                       ║
+  ║    Dark base:     #0a0c0a (near-black with warmth)                            ║
+  ║    Card bg:       rgba(17, 20, 17, 0.7) / #111411                             ║
+  ║    Border:        rgba(163, 171, 163, 0.12)                                   ║
+  ║    Text primary:  #e8ebe8                                                     ║
+  ║    Text secondary:#a3aba3                                                     ║
+  ║    Sage accent:   #7a9b7e (brand primary)                                     ║
+  ║    Forest:        #4ade80 (success/highlight)                                 ║
+  ║    Ember:         #f97316 (warning/CTA)                                       ║
+  ║                                                                               ║
+  ║  TYPOGRAPHY:                                                                  ║
+  ║    Display:       Source Serif 4 (editorial drama)                            ║
+  ║    Body:          Outfit (modern, readable)                                   ║
+  ║                                                                               ║
+  ║  TECH STACK:                                                                  ║
+  ║    Tailwind CSS via CDN (no build step)                                       ║
+  ║    Alpine.js for interactivity                                                ║
+  ╚═══════════════════════════════════════════════════════════════════════════════╝
+  -->
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Outfit', 'sans-serif'],
+            serif: ['Source Serif 4', 'Georgia', 'serif'],
+          },
+          colors: {
+            sage: {
+              50: '#f6f7f6',
+              100: '#e3e5e3',
+              200: '#c7ccc7',
+              300: '#a3aba3',
+              400: '#7c877c',
+              500: '#7a9b7e',
+              600: '#5a7b5e',
+              700: '#404640',
+              800: '#363b36',
+              900: '#2f322f',
+            },
+            forest: {
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+            },
+            ember: {
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+            },
+            earth: {
+              400: '#a89b8b',
+              500: '#8b7b6b',
+              600: '#6b5b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+    :root {
+      --bg-primary: #0a0c0a;
+      --bg-secondary: #111411;
+      --bg-card: rgba(17, 20, 17, 0.85);
+      --border-subtle: rgba(163, 171, 163, 0.12);
+      --text-primary: #e8ebe8;
+      --text-secondary: #a3aba3;
+      --accent-sage: #7a9b7e;
+      --accent-forest: #4ade80;
+      --accent-ember: #f97316;
+    }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1a2d 100%);
-      color: #e6edf3;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
     }
     
-    h1, h2, h3 { font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: -0.5px; }
+    /* Ambient background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(74, 222, 128, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 80%, rgba(249, 115, 22, 0.04) 0%, transparent 50%),
+        var(--bg-primary);
+    }
+    
+    h1, h2, h3 { font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; letter-spacing: -0.02em; }
     
     /* Gradient Text */
     .gradient-text {
-      background: linear-gradient(90deg, #58a6ff 0%, #a371f7 50%, #58a6ff 100%);
+      background: linear-gradient(135deg, var(--accent-forest) 0%, var(--accent-sage) 50%, var(--accent-forest) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     
     /* Accent Colors by Tier */
-    .explorer-accent { border-color: #1f6feb; }
-    .trailblazer-accent { border-color: #d29922; }
-    .summit-accent { border-color: #79c0ff; }
+    .explorer-accent { border-color: #60a5fa; }
+    .trailblazer-accent { border-color: #fbbf24; }
+    .summit-accent { border-color: #a78bfa; }
     
-    .explorer-bg { background: linear-gradient(135deg, rgba(31, 111, 235, 0.1) 0%, rgba(31, 111, 235, 0.05) 100%); }
-    .trailblazer-bg { background: linear-gradient(135deg, rgba(210, 153, 34, 0.1) 0%, rgba(210, 153, 34, 0.05) 100%); }
-    .summit-bg { background: linear-gradient(135deg, rgba(121, 192, 255, 0.15) 0%, rgba(121, 192, 255, 0.05) 100%); }
+    .explorer-bg { background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(96, 165, 250, 0.02) 100%); }
+    .trailblazer-bg { background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.02) 100%); }
+    .summit-bg { background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(167, 139, 250, 0.02) 100%); }
     
     /* Cards & Depth */
     .card {
-      background: rgba(22, 27, 34, 0.8);
-      border: 1px solid rgba(230, 237, 243, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      transition: all 0.3s ease;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
     .card:hover {
-      border-color: rgba(230, 237, 243, 0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(10, 10, 20, 0.4);
+      border-color: rgba(74, 222, 128, 0.25);
+      transform: translateY(-4px);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 60px rgba(74, 222, 128, 0.05);
     }
     
     /* Tier Cards */
@@ -67,12 +162,12 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, rgba(88, 166, 255, 0.8), transparent);
+      background: linear-gradient(90deg, var(--color-sage), transparent);
     }
     
-    .tier-card.explorer::before { background: linear-gradient(90deg, #1f6feb, transparent); }
-    .tier-card.trailblazer::before { background: linear-gradient(90deg, #d29922, transparent); }
-    .tier-card.summit::before { background: linear-gradient(90deg, #79c0ff, transparent); }
+    .tier-card.explorer::before { background: linear-gradient(90deg, var(--color-sage), transparent); }
+    .tier-card.trailblazer::before { background: linear-gradient(90deg, var(--color-earth), transparent); }
+    .tier-card.summit::before { background: linear-gradient(90deg, var(--color-sage-light), transparent); }
     
     .tier-icon {
       width: 64px;
@@ -80,20 +175,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 12px;
+      border-radius: 16px;
       font-size: 36px;
       margin-bottom: 16px;
     }
     
-    .explorer-icon { background: rgba(31, 111, 235, 0.2); color: #79c0ff; }
-    .trailblazer-icon { background: rgba(210, 153, 34, 0.2); color: #ffd500; }
-    .summit-icon { background: rgba(121, 192, 255, 0.25); color: #d9e8ff; }
+    .explorer-icon { background: rgba(96, 165, 250, 0.15); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.3); }
+    .trailblazer-icon { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .summit-icon { background: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3); }
     
     /* Metrics Grid */
     .metric-value {
       font-size: 32px;
       font-weight: 700;
-      background: linear-gradient(135deg, #58a6ff, #a371f7);
+      background: linear-gradient(135deg, var(--accent-forest), #22c55e);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -113,13 +208,13 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: #58a6ff;
+      background: var(--accent-forest);
     }
     
-    .timeline-item.completed::before { background: #3fb950; }
+    .timeline-item.completed::before { background: #22c55e; }
     .timeline-item.current::before { 
-      background: #d29922;
-      box-shadow: 0 0 0 4px rgba(210, 153, 34, 0.3);
+      background: var(--accent-ember);
+      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.3);
     }
     
     .timeline-item::after {
@@ -129,27 +224,32 @@
       top: 18px;
       width: 2px;
       height: calc(100% + 8px);
-      background: rgba(88, 166, 255, 0.2);
+      background: rgba(74, 222, 128, 0.2);
     }
     
     .timeline-item:last-child::after { display: none; }
     
     /* Button Styles */
     .btn-primary {
-      background: linear-gradient(135deg, #58a6ff, #79c0ff);
-      color: #0d1117;
-      padding: 12px 32px;
-      border-radius: 8px;
-      font-weight: 600;
+      background: linear-gradient(135deg, var(--accent-forest), #22c55e);
+      color: var(--bg-primary);
+      padding: 14px 36px;
+      border-radius: 12px;
+      font-weight: 700;
       border: none;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       font-size: 16px;
+      font-family: 'Outfit', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(88, 166, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 
+        0 10px 30px rgba(74, 222, 128, 0.3),
+        0 0 40px rgba(74, 222, 128, 0.1);
     }
     
     /* Comparison Grid */
@@ -167,20 +267,26 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(88, 166, 255, 0.15);
-      border: 1px solid rgba(88, 166, 255, 0.3);
-      padding: 8px 16px;
-      border-radius: 6px;
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+      padding: 10px 16px;
+      border-radius: 10px;
       font-size: 14px;
       margin: 6px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .benefit-badge:hover {
+      background: rgba(74, 222, 128, 0.15);
+      border-color: rgba(74, 222, 128, 0.4);
     }
     
     /* Section Spacing */
     .section {
-      margin-bottom: 80px;
+      margin-bottom: 100px;
     }
     
-    section:first-of-type { margin-top: 60px; }
+    section:first-of-type { margin-top: 80px; }
     
     /* Problem Stats */
     .pain-stat {
@@ -191,12 +297,12 @@
     }
     
     .pain-stat .value {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 700;
-      color: #f85149;
+      color: #f87171;
     }
     
-    .pain-stat .label { color: #79c0ff; font-size: 16px; }
+    .pain-stat .label { color: var(--accent-forest); font-size: 16px; }
     
     /* Scroll Animation Trigger */
     .fade-in {
@@ -217,10 +323,10 @@
     
     /* Footer */
     footer {
-      border-top: 1px solid rgba(88, 166, 255, 0.2);
-      padding: 40px 0;
+      border-top: 1px solid rgba(74, 222, 128, 0.15);
+      padding: 48px 0;
       margin-top: 120px;
-      color: rgba(230, 237, 243, 0.6);
+      color: var(--text-secondary);
       font-size: 14px;
     }
   </style>
@@ -317,17 +423,17 @@
         <div 
           class="tier-card card explorer p-8 explorer-bg rounded-lg"
           @click="expanded = expanded === 'explorer' ? '' : 'explorer'"
-          :class="{ 'ring-2 ring-offset-2 ring-offset-[#0d1117] ring-blue-500': expanded === 'explorer' }"
+          :class="{ 'ring-2 ring-offset-2 ring-offset-[#1a1a1a] ring-[#7a9b7e]': expanded === 'explorer' }"
         >
           <div class="explorer-icon tier-icon">🧭</div>
-          <h3 class="text-2xl font-bold mb-2" style="color: #79c0ff;">Explorer</h3>
+          <h3 class="text-2xl mb-2" style="color: var(--color-sage-light);">Explorer</h3>
           <p class="text-sm text-gray-400 mb-4">The Discovery Tier</p>
           
           <div class="mb-4 p-3 bg-black/40 rounded text-sm">
             <strong>Get Started:</strong> Free signup
           </div>
           
-          <div x-show="expanded === 'explorer'" class="space-y-3 mt-6 pt-6 border-t border-blue-500/20">
+          <div x-show="expanded === 'explorer'" class="space-y-3 mt-6 pt-6 border-t border-[#7a9b7e]/20">
             <div class="benefit-badge">
               <span>🎁</span> 5% rewards back on all purchases
             </div>
@@ -347,17 +453,17 @@
         <div 
           class="tier-card card trailblazer p-8 trailblazer-bg rounded-lg"
           @click="expanded = expanded === 'trailblazer' ? '' : 'trailblazer'"
-          :class="{ 'ring-2 ring-offset-2 ring-offset-[#0d1117] ring-yellow-500': expanded === 'trailblazer' }"
+          :class="{ 'ring-2 ring-offset-2 ring-offset-[#1a1a1a] ring-[#8b7b6b]': expanded === 'trailblazer' }"
         >
           <div class="trailblazer-icon tier-icon">⛰️</div>
-          <h3 class="text-2xl font-bold mb-2" style="color: #ffd500;">Trailblazer</h3>
+          <h3 class="text-2xl mb-2" style="color: var(--color-earth-light);">Trailblazer</h3>
           <p class="text-sm text-gray-400 mb-4">The Active Adventurer</p>
           
           <div class="mb-4 p-3 bg-black/40 rounded text-sm">
             <strong>Qualify:</strong> $500/year spend or 3+ purchases
           </div>
           
-          <div x-show="expanded === 'trailblazer'" class="space-y-3 mt-6 pt-6 border-t border-yellow-500/20">
+          <div x-show="expanded === 'trailblazer'" class="space-y-3 mt-6 pt-6 border-t border-[#8b7b6b]/20">
             <div class="benefit-badge">
               <span>💰</span> 10% rewards back
             </div>
@@ -380,17 +486,17 @@
         <div 
           class="tier-card card summit p-8 summit-bg rounded-lg"
           @click="expanded = expanded === 'summit' ? '' : 'summit'"
-          :class="{ 'ring-2 ring-offset-2 ring-offset-[#0d1117] ring-cyan-400': expanded === 'summit' }"
+          :class="{ 'ring-2 ring-offset-2 ring-offset-[#1a1a1a] ring-[#9bb89e]': expanded === 'summit' }"
         >
           <div class="summit-icon tier-icon">🏔️</div>
-          <h3 class="text-2xl font-bold mb-2" style="color: #d9e8ff;">Summit</h3>
+          <h3 class="text-2xl mb-2" style="color: var(--color-cream);">Summit</h3>
           <p class="text-sm text-gray-400 mb-4">The Community Leader</p>
           
           <div class="mb-4 p-3 bg-black/40 rounded text-sm">
             <strong>Qualify:</strong> $1,500+/year spend
           </div>
           
-          <div x-show="expanded === 'summit'" class="space-y-3 mt-6 pt-6 border-t border-cyan-400/30">
+          <div x-show="expanded === 'summit'" class="space-y-3 mt-6 pt-6 border-t border-[#9bb89e]/30">
             <div class="benefit-badge">
               <span>⭐</span> 15% rewards back
             </div>
@@ -425,7 +531,7 @@
       <div class="grid md:grid-cols-3 gap-6">
         <div class="card p-8 summit-bg">
           <div class="text-4xl mb-4">🧪</div>
-          <h3 class="text-xl font-bold mb-3" style="color: #79c0ff;">Gear Try-Before-Buy</h3>
+          <h3 class="text-xl mb-3" style="color: var(--color-sage-light);">Gear Try-Before-Buy</h3>
           <p class="text-gray-300 text-sm mb-4">
             Summit members rent new gear for 2 weeks before committing to purchase. Real-world testing builds trust and reduces buyer anxiety.
           </p>
@@ -434,7 +540,7 @@
         
         <div class="card p-8 trailblazer-bg">
           <div class="text-4xl mb-4">🗺️</div>
-          <h3 class="text-xl font-bold mb-3" style="color: #ffd500;">Adventure Access</h3>
+          <h3 class="text-xl mb-3" style="color: var(--color-earth-light);">Adventure Access</h3>
           <p class="text-gray-300 text-sm mb-4">
             AllTrails Pro maps, national park passes, REI Experiences discounts. Members aren't earning points—they're unlocking journeys.
           </p>
@@ -443,7 +549,7 @@
         
         <div class="card p-8 explorer-bg">
           <div class="text-4xl mb-4">🌱</div>
-          <h3 class="text-xl font-bold mb-3" style="color: #79c0ff;">Sustainability Loop</h3>
+          <h3 class="text-xl mb-3" style="color: var(--color-sage-light);">Sustainability Loop</h3>
           <p class="text-gray-300 text-sm mb-4">
             Donate old gear for bonus rewards. Contoso carbon-offsets every redemption. Mission-driven members feel good about engagement.
           </p>

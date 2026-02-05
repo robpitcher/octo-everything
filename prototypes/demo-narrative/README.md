@@ -1,10 +1,14 @@
 # Product Brain Demo Narrative
 
-Interactive single-page scrolling site showcasing the Contoso Product Brain repository for conference talks and self-serve exploration.
+> **🎬 Primary Demo Entry Point** — Start here when presenting the Product Brain workflow
+
+Interactive single-page scrolling site showcasing the Contoso Product Brain repository for conference talks and self-serve exploration. This is the flagship demo that tells the complete story from customer crisis to shipped solution.
 
 ## Live Demo
 
-**[digitarald.github.io/product-brain/demo-narrative](https://digitarald.github.io/product-brain/demo-narrative/)**
+**[digitarald.github.io/product-brain/prototypes/demo-narrative](https://digitarald.github.io/product-brain/prototypes/demo-narrative/)**
+
+Also accessible via Mission Control: **[digitarald.github.io/product-brain/prototypes](https://digitarald.github.io/product-brain/prototypes/)**
 
 Automatically deployed to GitHub Pages on every push to `main`.
 
