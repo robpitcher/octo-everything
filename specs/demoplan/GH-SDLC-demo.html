@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub for the Full SDLC | Demo Overview</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Outfit', 'sans-serif'],
+                        serif: ['Source Serif 4', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        sage: {
+                            300: '#a3aba3',
+                            500: '#7a9b7e',
+                            600: '#5a7b5e',
+                        },
+                        forest: {
+                            400: '#4ade80',
+                            500: '#22c55e',
+                        },
+                        ember: {
+                            400: '#fb923c',
+                            500: '#f97316',
+                        },
+                        earth: {
+                            500: '#8b7b6b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --bg-primary: #0a0c0a;
+            --bg-card: rgba(17, 20, 17, 0.85);
+            --border-subtle: rgba(163, 171, 163, 0.12);
+            --text-primary: #e8ebe8;
+            --text-secondary: #a3aba3;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(74, 222, 128, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 100% 80%, rgba(249, 115, 22, 0.04) 0%, transparent 50%),
+                #0a0c0a;
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+        }
+        
+        .glow-forest {
+            box-shadow: 0 0 30px rgba(74, 222, 128, 0.15);
+        }
+        
+        .glow-ember {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.15);
+        }
+        
+        .phase-connector {
+            position: relative;
+        }
+        .phase-connector::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+        }
+        .phase-connector:last-child::after {
+            display: none;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #4ade80 0%, #7a9b7e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <!-- Prototype Banner -->
+    <div class="bg-ember-500/20 border-b border-ember-500/30 px-4 py-2 text-center text-sm text-ember-400">
+        📌 Demo Reference Material — Not for external distribution
+    </div>
+
+    <!-- Hero Section -->
+    <header class="px-6 py-16 max-w-6xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-forest-400/10 border border-forest-400/20 text-forest-400 text-sm mb-6">
+            <span>🚀</span>
+            <span>Full SDLC Demo Guide</span>
+        </div>
+        <h1 class="font-serif text-5xl md:text-6xl font-bold mb-6">
+            <span class="gradient-text">GitHub</span> for the Full SDLC
+        </h1>
+        <p class="text-xl text-sage-300 max-w-3xl mx-auto leading-relaxed">
+            One platform for your entire development lifecycle—planning, coding, testing, deploying, and documenting—with AI that understands your code, your team, and your workflow.
+        </p>
+    </header>
+
+    <!-- SDLC Flow Visualization -->
+    <section class="px-6 py-12 max-w-6xl mx-auto">
+        <div class="glass-card p-8">
+            <h2 class="font-serif text-2xl font-semibold mb-8 text-center">The SDLC Journey</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="phase-connector flex flex-col items-center p-4 rounded-xl bg-forest-400/10 border border-forest-400/20">
+                    <div class="icon-box bg-forest-400/20 text-forest-400 mb-2">📋</div>
+                    <span class="font-semibold">PLAN</span>
+                    <span class="text-xs text-sage-300 mt-1">Issues + Projects</span>
+                </div>
+                <div class="phase-connector flex flex-col items-center p-4 rounded-xl bg-sage-500/10 border border-sage-500/20">
+                    <div class="icon-box bg-sage-500/20 text-sage-500 mb-2">✏️</div>
+                    <span class="font-semibold">DESIGN</span>
+                    <span class="text-xs text-sage-300 mt-1">Markdown + Mermaid</span>
+                </div>
+                <div class="phase-connector flex flex-col items-center p-4 rounded-xl bg-forest-400/10 border border-forest-400/20">
+                    <div class="icon-box bg-forest-400/20 text-forest-400 mb-2">💻</div>
+                    <span class="font-semibold">DEVELOP</span>
+                    <span class="text-xs text-sage-300 mt-1">Copilot + PRs</span>
+                </div>
+                <div class="phase-connector flex flex-col items-center p-4 rounded-xl bg-sage-500/10 border border-sage-500/20">
+                    <div class="icon-box bg-sage-500/20 text-sage-500 mb-2">🧪</div>
+                    <span class="font-semibold">TEST</span>
+                    <span class="text-xs text-sage-300 mt-1">Actions + Security</span>
+                </div>
+                <div class="phase-connector flex flex-col items-center p-4 rounded-xl bg-ember-500/10 border border-ember-500/20">
+                    <div class="icon-box bg-ember-500/20 text-ember-500 mb-2">🚀</div>
+                    <span class="font-semibold">DEPLOY</span>
+                    <span class="text-xs text-sage-300 mt-1">Actions + Envs</span>
+                </div>
+                <div class="flex flex-col items-center p-4 rounded-xl bg-sage-500/10 border border-sage-500/20">
+                    <div class="icon-box bg-sage-500/20 text-sage-500 mb-2">📊</div>
+                    <span class="font-semibold">OPERATE</span>
+                    <span class="text-xs text-sage-300 mt-1">Insights + Feedback</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personas Grid -->
+    <section class="px-6 py-12 max-w-6xl mx-auto">
+        <h2 class="font-serif text-3xl font-semibold mb-8 text-center">Personas & Capabilities</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Product Manager -->
+            <div class="glass-card p-6 glow-forest">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-box bg-forest-400/20 text-forest-400">📊</div>
+                    <h3 class="font-semibold text-lg">Product Manager</h3>
+                </div>
+                <ul class="space-y-2 text-sm text-sage-300">
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> PRDs in Markdown</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Copilot Spaces for context</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> AI-generated Issues</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Projects Roadmap & Insights</li>
+                </ul>
+            </div>
+            
+            <!-- Developer -->
+            <div class="glass-card p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-box bg-sage-500/20 text-sage-500">💻</div>
+                    <h3 class="font-semibold text-lg">Developer</h3>
+                </div>
+                <ul class="space-y-2 text-sm text-sage-300">
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Copilot code completions</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> AI-powered code review</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Coding Agent for issues</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Multi-file edits</li>
+                </ul>
+            </div>
+            
+            <!-- QA Engineer -->
+            <div class="glass-card p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-box bg-sage-500/20 text-sage-500">🧪</div>
+                    <h3 class="font-semibold text-lg">QA Engineer</h3>
+                </div>
+                <ul class="space-y-2 text-sm text-sage-300">
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Test generation from specs</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Actions CI/CD workflows</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Automated bug reporting</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Failure analysis</li>
+                </ul>
+            </div>
+            
+            <!-- Security Engineer -->
+            <div class="glass-card p-6 glow-ember">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-box bg-ember-500/20 text-ember-500">🔐</div>
+                    <h3 class="font-semibold text-lg">Security Engineer</h3>
+                </div>
+                <ul class="space-y-2 text-sm text-sage-300">
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Copilot Autofix</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Dependabot native</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Secret scanning + push protection</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> CodeQL analysis</li>
+                </ul>
+            </div>
+            
+            <!-- Release Manager -->
+            <div class="glass-card p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-box bg-sage-500/20 text-sage-500">📦</div>
+                    <h3 class="font-semibold text-lg">Release Manager</h3>
+                </div>
+                <ul class="space-y-2 text-sm text-sage-300">
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Auto release notes</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Environment gates</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Approval workflows</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Milestones tracking</li>
+                </ul>
+            </div>
+            
+            <!-- DevOps/SRE -->
+            <div class="glass-card p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-box bg-sage-500/20 text-sage-500">🛠️</div>
+                    <h3 class="font-semibold text-lg">DevOps / SRE</h3>
+                </div>
+                <ul class="space-y-2 text-sm text-sage-300">
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> GitHub Actions CI/CD</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Copilot writes YAML</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Environment secrets</li>
+                    <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Deployment monitoring</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Story Arc -->
+    <section class="px-6 py-12 max-w-6xl mx-auto">
+        <h2 class="font-serif text-3xl font-semibold mb-4 text-center">The Demo Story</h2>
+        <p class="text-sage-300 text-center mb-8 max-w-2xl mx-auto">Follow Alex, a Product Manager, through a sprint cycle using GitHub + Copilot</p>
+        
+        <div class="glass-card p-8">
+            <div class="grid md:grid-cols-4 gap-6">
+                <!-- Explore -->
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-forest-400/20 flex items-center justify-center text-2xl mb-4">🔍</div>
+                    <h4 class="font-semibold mb-2">Explore</h4>
+                    <p class="text-sm text-sage-300">Query Copilot Spaces for existing knowledge</p>
+                </div>
+                
+                <!-- Analyze -->
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-sage-500/20 flex items-center justify-center text-2xl mb-4">📊</div>
+                    <h4 class="font-semibold mb-2">Analyze</h4>
+                    <p class="text-sm text-sage-300">AI-powered data analysis + Power BI</p>
+                </div>
+                
+                <!-- Prototype -->
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-ember-500/20 flex items-center justify-center text-2xl mb-4">⚡</div>
+                    <h4 class="font-semibold mb-2">Prototype</h4>
+                    <p class="text-sm text-sage-300">Scaffold Agent builds working demo in 2 min</p>
+                </div>
+                
+                <!-- Challenge -->
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-sage-500/20 flex items-center justify-center text-2xl mb-4">🤔</div>
+                    <h4 class="font-semibold mb-2">Challenge</h4>
+                    <p class="text-sm text-sage-300">Design Partner Agent stress-tests ideas</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-sage-300/10 mt-8 pt-8">
+                <div class="flex flex-wrap justify-center gap-3 text-sm">
+                    <span class="px-3 py-1 rounded-full bg-forest-400/10 text-forest-400">Act 0: Explore</span>
+                    <span class="px-3 py-1 rounded-full bg-sage-500/10 text-sage-300">Act 1: PRD Creation</span>
+                    <span class="px-3 py-1 rounded-full bg-sage-500/10 text-sage-300">Act 2: Issue Generation</span>
+                    <span class="px-3 py-1 rounded-full bg-ember-500/10 text-ember-400">Act 3: Sprint Planning</span>
+                    <span class="px-3 py-1 rounded-full bg-sage-500/10 text-sage-300">Act 4-6: Execute</span>
+                    <span class="px-3 py-1 rounded-full bg-forest-400/10 text-forest-400">Act 7-8: Ship & Doc</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Capabilities -->
+    <section class="px-6 py-12 max-w-6xl mx-auto">
+        <h2 class="font-serif text-3xl font-semibold mb-8 text-center">AI-Powered Capabilities</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass-card p-6">
+                <h3 class="font-semibold text-lg mb-4 text-forest-400">🤖 Copilot Suite</h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="text-forest-400 mt-1">●</span>
+                        <div>
+                            <span class="font-medium">Copilot Chat</span>
+                            <p class="text-sm text-sage-300">Conversational AI for code, docs, and project context</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-forest-400 mt-1">●</span>
+                        <div>
+                            <span class="font-medium">Copilot Edits</span>
+                            <p class="text-sm text-sage-300">Multi-file refactoring with AI guidance</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-forest-400 mt-1">●</span>
+                        <div>
+                            <span class="font-medium">Copilot Code Review</span>
+                            <p class="text-sm text-sage-300">AI-powered PR review with fix suggestions</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-forest-400 mt-1">●</span>
+                        <div>
+                            <span class="font-medium">Copilot Coding Agent</span>
+                            <p class="text-sm text-sage-300">Autonomous issue resolution with human oversight</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6">
+                <h3 class="font-semibold text-lg mb-4 text-ember-500">🔒 Security & Compliance</h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="text-ember-500 mt-1">●</span>
+                        <div>
+                            <span class="font-medium">Copilot Autofix</span>
+                            <p class="text-sm text-sage-300">Automatic security vulnerability remediation</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-ember-500 mt-1">●</span>
+                        <div>
+                            <span class="font-medium">Dependabot</span>
+                            <p class="text-sm text-sage-300">Automated dependency updates with context</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-ember-500 mt-1">●</span>
+                        <div>
+                            <span class="font-medium">Secret Scanning</span>
+                            <p class="text-sm text-sage-300">Push protection prevents credential leaks</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-ember-500 mt-1">●</span>
+                        <div>
+                            <span class="font-medium">CodeQL</span>
+                            <p class="text-sm text-sage-300">Semantic code analysis for vulnerabilities</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compliance & Data Residency -->
+    <section class="px-6 py-12 max-w-6xl mx-auto">
+        <h2 class="font-serif text-3xl font-semibold mb-8 text-center">Enterprise Compliance</h2>
+        <div class="glass-card p-8 glow-ember">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-semibold text-lg mb-4 flex items-center gap-2">
+                        <span class="text-xl">🏛️</span> Certifications
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-full bg-forest-400/20 text-forest-400 text-sm">SOC 2 Type II</span>
+                        <span class="px-3 py-1 rounded-full bg-forest-400/20 text-forest-400 text-sm">ISO 27001</span>
+                        <span class="px-3 py-1 rounded-full bg-forest-400/20 text-forest-400 text-sm">FedRAMP</span>
+                        <span class="px-3 py-1 rounded-full bg-forest-400/20 text-forest-400 text-sm">GDPR</span>
+                        <span class="px-3 py-1 rounded-full bg-forest-400/20 text-forest-400 text-sm">HIPAA</span>
+                        <span class="px-3 py-1 rounded-full bg-forest-400/20 text-forest-400 text-sm">PCI DSS</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4 flex items-center gap-2">
+                        <span class="text-xl">🌍</span> Data Residency
+                    </h3>
+                    <p class="text-sm text-sage-300 mb-3">GitHub Enterprise Cloud offers data residency options:</p>
+                    <ul class="text-sm text-sage-300 space-y-1">
+                        <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> EU Data Residency</li>
+                        <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Australia Data Residency</li>
+                        <li class="flex items-center gap-2"><span class="text-forest-400">✓</span> Expanding regions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-sage-300/10 mt-8 pt-8">
+                <h3 class="font-semibold text-lg mb-4 flex items-center gap-2">
+                    <span class="text-xl">🔑</span> Copilot BYOK (Bring Your Own Key)
+                </h3>
+                <p class="text-sage-300 mb-4">For organizations requiring complete control over AI encryption:</p>
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="text-center p-4 rounded-xl bg-sage-500/10">
+                        <div class="text-2xl mb-2">🔐</div>
+                        <span class="text-sm font-medium">Customer-Managed Keys</span>
+                    </div>
+                    <div class="text-center p-4 rounded-xl bg-sage-500/10">
+                        <div class="text-2xl mb-2">🔄</div>
+                        <span class="text-sm font-medium">Key Rotation Control</span>
+                    </div>
+                    <div class="text-center p-4 rounded-xl bg-sage-500/10">
+                        <div class="text-2xl mb-2">⛔</div>
+                        <span class="text-sm font-medium">Revocation Control</span>
+                    </div>
+                    <div class="text-center p-4 rounded-xl bg-sage-500/10">
+                        <div class="text-2xl mb-2">📋</div>
+                        <span class="text-sm font-medium">Audit Logging</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Timing -->
+    <section class="px-6 py-12 max-w-6xl mx-auto">
+        <h2 class="font-serif text-3xl font-semibold mb-8 text-center">Demo Flow</h2>
+        <div class="glass-card p-8">
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <div class="text-4xl font-bold text-forest-400">44</div>
+                <div class="text-left">
+                    <div class="font-semibold">Minutes</div>
+                    <div class="text-sm text-sage-300">+ 6 min buffer</div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-4 text-sm">
+                <div class="p-3 rounded-lg bg-forest-400/10 text-center">
+                    <div class="font-semibold text-forest-400">3 min</div>
+                    <div class="text-sage-300">Explore Knowledge</div>
+                </div>
+                <div class="p-3 rounded-lg bg-sage-500/10 text-center">
+                    <div class="font-semibold">8 min</div>
+                    <div class="text-sage-300">PRD + Analysis</div>
+                </div>
+                <div class="p-3 rounded-lg bg-ember-500/10 text-center">
+                    <div class="font-semibold text-ember-400">11 min</div>
+                    <div class="text-sage-300">Issues + Prototype</div>
+                </div>
+                <div class="p-3 rounded-lg bg-sage-500/10 text-center">
+                    <div class="font-semibold">22 min</div>
+                    <div class="text-sage-300">Plan → Ship → Doc</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="px-6 py-12 max-w-6xl mx-auto">
+        <h2 class="font-serif text-3xl font-semibold mb-8 text-center">Resources</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <a href="https://github.com/digitarald/product-brain" target="_blank" class="glass-card p-6 hover:border-forest-400/40 transition-colors group">
+                <div class="text-2xl mb-3">📦</div>
+                <h3 class="font-semibold mb-2 group-hover:text-forest-400 transition-colors">Product Brain Repo</h3>
+                <p class="text-sm text-sage-300">Reference implementation with demo scenarios</p>
+            </a>
+            <a href="https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/about-github-enterprise-cloud-with-data-residency" target="_blank" class="glass-card p-6 hover:border-forest-400/40 transition-colors group">
+                <div class="text-2xl mb-3">🌍</div>
+                <h3 class="font-semibold mb-2 group-hover:text-forest-400 transition-colors">Data Residency Docs</h3>
+                <p class="text-sm text-sage-300">Official documentation for enterprise compliance</p>
+            </a>
+            <a href="https://github.blog/changelog/2026-01-15-github-copilot-bring-your-own-key-byok-enhancements/" target="_blank" class="glass-card p-6 hover:border-ember-400/40 transition-colors group">
+                <div class="text-2xl mb-3">🔑</div>
+                <h3 class="font-semibold mb-2 group-hover:text-ember-400 transition-colors">BYOK Enhancements</h3>
+                <p class="text-sm text-sage-300">January 2026 changelog for Copilot BYOK</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-6 py-8 border-t border-sage-300/10">
+        <div class="max-w-6xl mx-auto text-center text-sm text-sage-300">
+            <p>GitHub for the Full SDLC — Demo Reference Material</p>
+            <p class="mt-2 text-sage-300/60">Full details: <a href="GH-SDLC-demo.md" class="underline hover:text-forest-400">GH-SDLC-demo.md</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
