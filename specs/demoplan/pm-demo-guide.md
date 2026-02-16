@@ -7,15 +7,65 @@
 ║ leadership. The content includes the story, personas, product tool         ║
 ║ mapping, and demo instructions.                                            ║
 ║                                                                            ║
+║ DEMO STORY:                                                                ║
+║ The demo uses GitHub MCP to connect Copilot directly to GitHub. The PM     ║
+║ creates plan/spec markdown, then Copilot via MCP creates real GitHub       ║
+║ artifacts (projects, issues, PRs) from the markdown content.               ║
+║                                                                            ║
+║ ARCHITECTURE:                                                              ║
+║ This document drives automated generation of customer-facing assets:       ║
+║                                                                            ║
+║   pm-demo-guide.md ──► GitHub Actions Workflow ──► pm-demo.html            ║
+║         │                     │                         │                  ║
+║         │                     └──► Updates README.md    │                  ║
+║         │                          (table of contents)  │                  ║
+║         │                                               │                  ║
+║         └───────────────► Source of truth ◄─────────────┘                  ║
+║                                                                            ║
+║ WORKFLOW TRIGGER:                                                          ║
+║ When this markdown is updated and pushed to main:                          ║
+║ 1. GitHub Actions workflow detects changes to specs/demoplan/*.md          ║
+║ 2. Copilot/AI summarizes content into sleek HTML brochure (pm-demo.html)   ║
+║ 3. README.md is updated with table of contents linking to HTML assets      ║
+║ 4. Changes are committed back to the repository                            ║
+║                                                                            ║
+║ DEMO VERIFICATION:                                                         ║
+║ The demo must reflect the story in this markdown. Use GitHub MCP tools:    ║
+║ - mcp_io_github_git_* tools for repository operations                      ║
+║ - Create issues, PRs, and projects that match the narrative                ║
+║ - Verify feature claims against actual GitHub product capabilities         ║
+║                                                                            ║
 ║ RULES:                                                                     ║
-║ 1. Every update to this markdown MUST sync to pm-demo.html                 ║
-║ 2. The HTML is the customer-facing brochure - keep it visual & sleek       ║
+║ 1. This markdown is the SOURCE OF TRUTH - HTML is generated from it        ║
+║ 2. The HTML brochure is customer-facing - keep it visual & sleek           ║
 ║ 3. All feature claims must be grounded on verified product capability      ║
 ║ 4. DO NOT include pricing or cost comparisons                              ║
 ║ 5. DO NOT reference specific demo repositories or implementation details   ║
 ║ 6. Focus on capability differentiation, not cost                           ║
 ║ 7. Keep the HTML email-safe for Outlook (inline styles, no external deps)  ║
 ║ 8. Author and date must always be current in the header                    ║
+║                                                                            ║
+║ GITHUB ACTIONS WORKFLOW (specs-to-brochure.yml):                           ║
+║ ┌──────────────────────────────────────────────────────────────────────┐   ║
+║ │ on:                                                                  │   ║
+║ │   push:                                                              │   ║
+║ │     paths: ['specs/demoplan/*.md']                                   │   ║
+║ │   workflow_dispatch:                                                 │   ║
+║ │                                                                      │   ║
+║ │ jobs:                                                                │   ║
+║ │   generate-brochure:                                                 │   ║
+║ │     - Extract personas, SDLC phases, tool mappings from markdown     │   ║
+║ │     - Generate/update pm-demo.html with modern sleek styling         │   ║
+║ │     - Update README.md with table of contents                        │   ║
+║ │     - Commit changes back to repository                              │   ║
+║ └──────────────────────────────────────────────────────────────────────┘   ║
+║                                                                            ║
+║ MCP INTEGRATION FOR DEMO SETUP:                                            ║
+║ Use GitHub MCP server tools to programmatically create demo artifacts:     ║
+║ - mcp_io_github_git_create_repository: Create demo workspace               ║
+║ - mcp_io_github_git_push_files: Push spec templates                        ║
+║ - mcp_io_github_git_issue_write: Create sample issues matching narrative   ║
+║ - mcp_io_github_git_create_pull_request: Create PRs for demo flow          ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 -->
 
@@ -41,7 +91,7 @@ Tell the story of the **complete Software Development Lifecycle (SDLC)**—from 
 
 | Persona | Atlassian Today | GitHub Tomorrow |
 |---------|-----------------|-----------------|
-| **Product Manager** | Confluence + Jira | GitHub Issues + Projects + Copilot Spaces |
+| **Product Manager** | Confluence + Jira | GitHub Issues + Projects + Copilot Spaces + MCP |
 | **Developer** | Jira + Bitbucket | GitHub Issues + Repos + Copilot |
 | **QA Engineer** | Jira + Confluence (test plans) | GitHub Issues + Actions + Copilot |
 | **Security Engineer** | Jira + third-party scanners | GitHub Advanced Security + Copilot Autofix |
@@ -109,7 +159,80 @@ product-brain/
 
 ---
 
-## 📈 The Evolution of Development Tools
+## � GitHub MCP: The PM's Automation Engine
+
+**Model Context Protocol (MCP)** is the backbone of this demo. It connects Copilot directly to GitHub, enabling PMs to turn plan documents into real project artifacts without leaving VS Code.
+
+### What is GitHub MCP?
+
+MCP is a server that exposes GitHub APIs to AI assistants. When the user runs Copilot in VS Code with the GitHub MCP server enabled:
+
+1. **Copilot can read** — repos, issues, PRs, projects, file contents
+2. **Copilot can write** — create issues, push files, open PRs, update projects
+3. **Everything is authenticated** — uses the user's GitHub credentials
+4. **Full context** — AI understands your plan markdown AND can act on it
+
+### The PM Workflow with GitHub MCP
+
+```
+┌─────────────────────┐     ┌─────────────────────┐     ┌─────────────────────┐
+│  Plan Markdown      │────▶│  Copilot + MCP      │────▶│  GitHub Artifacts   │
+│  (specs/dark-mode.md)│     │  Reads & Executes   │     │  Projects, Issues   │
+└─────────────────────┘     └─────────────────────┘     └─────────────────────┘
+         │                           │                           │
+         │                           ▼                           │
+         │                  ┌─────────────────┐                  │
+         │                  │ GitHub MCP Tools │                  │
+         │                  │ • issue_write    │                  │
+         │                  │ • push_files     │                  │
+         │                  │ • create_pr      │                  │
+         │                  │ • search_issues  │                  │
+         │                  └─────────────────┘                  │
+         │                                                        │
+         └────────────────── Bidirectional Sync ──────────────────┘
+```
+
+### Demo Flow: Plan Markdown → GitHub Project
+
+| Step | PM Action | MCP Tool | Result |
+|------|-----------|----------|--------|
+| 1 | Open PRD in VS Code | — | Copilot has context |
+| 2 | "Create a project for this feature" | `mcp_io_github_git_*` | GitHub Project created |
+| 3 | "Generate issues from requirements" | `mcp_io_github_git_issue_write` | Issues created & linked |
+| 4 | "Assign based on code ownership" | `mcp_io_github_git_*` + repo analysis | Smart assignments |
+| 5 | "Update the PRD with issue links" | `mcp_io_github_git_push_files` | Markdown updated |
+
+### Why This Beats Atlassian
+
+| Atlassian + Rovo | GitHub + Copilot MCP |
+|------------------|----------------------|
+| Rovo can search Confluence | Copilot can search AND create |
+| Manual issue creation from docs | Automated issue creation from markdown |
+| No code context | Full codebase awareness |
+| Separate tool integrations | Native MCP server built-in |
+| AI suggests, human executes | AI executes (with human approval) |
+
+### Enabling GitHub MCP
+
+```json
+// VS Code settings.json
+{
+  "mcp": {
+    "servers": {
+      "github": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"]
+      }
+    }
+  }
+}
+```
+
+> **Demo Tip:** Show the MCP server connection in VS Code status bar. When green, Copilot can execute GitHub operations directly.
+
+---
+
+## �📈 The Evolution of Development Tools
 
 > "AI agents are a much better product manager than I ever was" — Dennis Yang, Principal PM at Chime
 
@@ -184,7 +307,7 @@ Follow **Alex**, a Product Manager, through a typical sprint cycle using the **P
 | **0** | Explore existing knowledge | Search Confluence | Copilot Spaces + semantic search |
 | **1** | Write a PRD | Confluence page | Markdown in `specs/` |
 | **1.5** | Analyze customer data | Export to Excel, manual analysis | Copilot + Power BI |
-| **2** | Break down into work items | Manual Jira issues | Copilot generates Issues |
+| **2** | Break down into work items | Manual Jira issues | Copilot + GitHub MCP creates Issues & Projects |
 | **2.5** | Build a prototype | Wait for engineering | Scaffold Agent builds demo |
 | **2.75** | Challenge the approach | Hope for feedback in review | Design Partner Agent stress-tests |
 | **3** | Plan the sprint | Jira backlog + board | GitHub Projects |
@@ -340,6 +463,136 @@ SECURITY: "Approve and merge."
 | **Security/Compliance** | Autofix, Secret Scanning, Dependabot | Audit trails |
 | **QA Leadership** | Test Generation, PR Automation | Copilot Spaces for context |
 | **Release Management** | Release Notes, Actions Workflows | Change Impact Analysis |
+
+---
+
+## 🏛️ Regulatory & Compliance: GitHub for Regulated Industries
+
+GitHub Enterprise provides enterprise-grade compliance capabilities that meet the stringent requirements of regulated industries—financial services, healthcare, and government.
+
+### GitHub Compliance Certifications
+
+| Certification | GitHub Status | Atlassian Status | Why It Matters |
+|---------------|---------------|------------------|----------------|
+| **SOC 2 Type II** | ✅ Certified | ✅ Certified | Independent audit of security controls |
+| **SOC 3** | ✅ Certified | ✅ Certified | Public-facing security attestation |
+| **FedRAMP High** | ✅ GitHub ATO | ⚠️ Moderate only | Federal agencies requiring High baseline |
+| **FedRAMP Moderate** | ✅ Certified | ✅ Certified | Most federal workloads |
+| **HIPAA BAA** | ✅ Available | ✅ Available | Healthcare data processing |
+| **ISO 27001** | ✅ Certified | ✅ Certified | Information security management |
+| **ISO 27017** | ✅ Certified | ✅ Certified | Cloud-specific security controls |
+| **ISO 27018** | ✅ Certified | ✅ Certified | PII protection in cloud |
+| **PCI DSS** | ✅ Level 1 | ✅ Certified | Payment card data handling |
+| **StateRAMP** | ✅ Authorized | ❌ Not listed | State & local government |
+| **DoD IL4** | ✅ GitHub ATO | ⚠️ Limited | Department of Defense workloads |
+
+> **Key Differentiator:** GitHub has achieved **FedRAMP High** authorization, enabling use for the most sensitive federal workloads. Atlassian Cloud is FedRAMP Moderate only, limiting its use in high-security federal environments.
+
+### Regulated Industries Use Cases
+
+#### 🏦 Financial Services
+
+| Requirement | GitHub Capability | Demo Point |
+|-------------|-------------------|------------|
+| **Segregation of Duties** | Branch protection + required approvals | No single person can push to production |
+| **Change Management** | PR-based workflow with audit trail | Every change linked to approval |
+| **Audit Trail** | Git history + deploy logs + Actions | Immutable record of who, what, when |
+| **Vendor Risk** | SBOM generation via Actions | Know every dependency in production |
+| **Encryption** | At-rest and in-transit (AES-256, TLS 1.3) | Meets banking encryption standards |
+
+**Demo Script (Financial Services):**
+```
+ALEX: "For our banking clients, compliance isn't optional. 
+       Let me show how GitHub meets SOX and FFIEC requirements..."
+
+[Show branch protection rules]
+
+ALEX: "No code reaches production without at least two approvals.
+       This rule is enforced by GitHub—not just policy, but technically enforced."
+
+[Show audit log]
+
+ALEX: "Every action is logged: who approved, when, what SHA was deployed.
+       This is the audit trail your compliance team needs for SOX 404."
+
+[Show SBOM generation in Actions]
+
+ALEX: "We generate a Software Bill of Materials on every release.
+       Your security team knows exactly what's in production."
+```
+
+#### 🏥 Healthcare
+
+| Requirement | GitHub Capability | Demo Point |
+|-------------|-------------------|------------|
+| **HIPAA BAA** | ✅ Available with Enterprise | Business associate agreement for PHI |
+| **Access Control** | SSO + SCIM + team sync | Principle of least privilege |
+| **Audit Logging** | Enterprise audit log API | Export to SIEM for compliance monitoring |
+| **Secret Protection** | Push protection + secret scanning | Prevent PHI in code |
+| **Data Residency** | GitHub Enterprise Server option | On-premises for strict requirements |
+
+**Demo Script (Healthcare):**
+```
+ALEX: "Healthcare clients need HIPAA compliance built into their workflow..."
+
+[Show GitHub Enterprise HIPAA BAA documentation]
+
+ALEX: "We have a signed BAA with GitHub. That means we can use GitHub
+       for repositories that touch PHI—with proper access controls."
+
+[Show secret scanning alert]
+
+ALEX: "If someone accidentally commits a patient ID pattern, 
+       GitHub blocks the push before it ever reaches the server."
+```
+
+#### 🏛️ Government (Federal, State, Local)
+
+| Requirement | GitHub Capability | Demo Point |
+|-------------|-------------------|------------|
+| **FedRAMP High** | ✅ GitHub.com (ATO) | Authorized for sensitive federal data |
+| **ITAR** | GitHub Enterprise Server | Air-gapped for defense |
+| **StateRAMP** | ✅ Authorized | State/local agency compliance |
+| **CJIS** | GitHub Enterprise Server | Criminal justice data |
+| **508 Compliance** | VPAT available | Accessibility for federal web apps |
+
+**Demo Script (Government):**
+```
+ALEX: "For federal agencies, FedRAMP authorization is table stakes..."
+
+[Show GitHub FedRAMP marketplace listing]
+
+ALEX: "GitHub has FedRAMP High authorization—not just Moderate like Atlassian.
+       This means agencies with higher security classifications can use us."
+
+[Show StateRAMP listing]
+
+ALEX: "For state and local government, we're StateRAMP authorized.
+       Atlassian isn't on the StateRAMP marketplace."
+```
+
+### Compliance Comparison: GitHub vs Atlassian
+
+| Capability | GitHub Enterprise | Atlassian Cloud | Winner |
+|------------|-------------------|-----------------|--------|
+| FedRAMP High | ✅ Authorized | ❌ Moderate only | **GitHub** |
+| StateRAMP | ✅ Authorized | ❌ Not listed | **GitHub** |
+| DoD IL4 | ✅ ATO available | ⚠️ Limited | **GitHub** |
+| HIPAA BAA | ✅ Available | ✅ Available | Tie |
+| SOC 2 Type II | ✅ Certified | ✅ Certified | Tie |
+| On-premises option | ✅ Enterprise Server | ✅ Data Center | Tie |
+| Air-gapped deployment | ✅ Supported | ✅ Supported | Tie |
+| Audit log API | ✅ Streaming to SIEM | ✅ Available | Tie |
+
+### What This Means for Sales
+
+When competing for regulated industry accounts:
+
+1. **Federal (High baseline)**: GitHub wins outright—FedRAMP High vs Moderate
+2. **State/Local**: GitHub has StateRAMP; Atlassian does not
+3. **Financial Services**: Equivalent certifications, but GitHub has native SBOM, immutable history
+4. **Healthcare**: Both offer HIPAA BAA; GitHub secret scanning adds protection
+5. **Defense**: GitHub Enterprise Server for ITAR/air-gapped; similar to Atlassian Data Center
 
 ---
 
@@ -1032,6 +1285,8 @@ For advanced analytics beyond built-in Insights, Power BI integrates with GitHub
 | **GitHub (Beta) Connector** | Issues, PRs, commits, contributors, repos | Repository metrics, team performance |
 | **Web/REST API Connector** | Any GitHub REST API endpoint | Custom data extraction |
 | **GraphQL API + Python** | Projects, custom fields, roadmaps, all data | Full project analytics, Gantt charts |
+| **GraphQL API + .NET Core** | Projects, custom fields, all data | Enterprise pipelines, OneLake integration |
+| **OneLake (Fabric)** | Aggregated GitHub data via scheduled exports | Natural language queries, enterprise analytics |
 | **CSV Export → Power BI** | Exported project data | One-time reports, offline analysis |
 
 #### Power BI GitHub Connector (Built-in)
@@ -1150,13 +1405,15 @@ COPILOT: "I've created analysis/powerbi/release-gantt.py that:
 
 ### What This Replaces
 
-| Atlassian Today | GitHub + Power BI |
-|-----------------|-------------------|
+| Atlassian Today | GitHub + Power BI + OneLake |
+|-----------------|----------------------------|
 | Jira dashboards (limited customization) | Power BI with full visualization library |
 | Jira Roadmap (no dependency lines) | Gantt charts with dependencies in Power BI |
 | Export to Excel, manual charts | Automated pipelines from repo to dashboard |
 | Velocity/burndown only in Jira Premium | GitHub Insights + Power BI (any tier) |
 | Analytics locked in Jira | Data in Git repo, visualized anywhere |
+| SQL queries for data access | Natural language queries via Copilot |
+| Static PDF exports | Version-controlled HTML dashboards in repo |
 
 ### Output Artifacts
 
@@ -1177,6 +1434,164 @@ analysis/
 └── exports/
     ├── project-items.json            # Cached project data
     └── sprint-velocity.csv           # Historical velocity
+```
+
+### Advanced: OneLake Integration & Natural Language Analytics
+
+For enterprise-scale analytics, GitHub data can flow into Microsoft Fabric OneLake, enabling natural language queries and automated HTML report generation.
+
+#### Architecture: GitHub → OneLake → Power BI → HTML Reports
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          Data Pipeline Architecture                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌──────────────┐     ┌──────────────┐     ┌──────────────────────────────┐│
+│  │   GitHub     │     │  .NET Core   │     │      OneLake / Local         ││
+│  │   GraphQL    │────▶│  Exporter    │────▶│      Storage                 ││
+│  │   API        │     │  (scheduled) │     │                              ││
+│  └──────────────┘     └──────────────┘     └─────────────┬────────────────┘│
+│                                                          │                  │
+│                                                          ▼                  │
+│                              ┌────────────────────────────────────────────┐ │
+│                              │         Power BI / Copilot                 │ │
+│                              │   ┌─────────────────────────────────────┐  │ │
+│                              │   │  Natural Language Query Interface  │  │ │
+│                              │   │  "What's our sprint velocity trend?"│  │ │
+│                              │   └─────────────────────────────────────┘  │ │
+│                              │                    │                       │ │
+│                              │                    ▼                       │ │
+│                              │   ┌─────────────────────────────────────┐  │ │
+│                              │   │   Export as HTML → Git Repo         │  │ │
+│                              │   │   (version-controlled dashboards)   │  │ │
+│                              │   └─────────────────────────────────────┘  │ │
+│                              └────────────────────────────────────────────┘ │
+│                                                          │                  │
+│                                                          ▼                  │
+│                              ┌────────────────────────────────────────────┐ │
+│                              │   prototypes/dashboards/                   │ │
+│                              │   ├── velocity-report.html                 │ │
+│                              │   ├── sprint-burndown.html                 │ │
+│                              │   └── dora-metrics.html                    │ │
+│                              └────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### .NET Core GitHub Data Exporter
+
+A scheduled .NET Core service extracts GitHub data and lands it in OneLake or local storage:
+
+```csharp
+// GitHubDataExporter.cs
+public class GitHubProjectExporter
+{
+    private readonly GitHubClient _client;
+    private readonly OneLakeClient _oneLake; // or local file output
+    
+    public async Task ExportProjectDataAsync(string org, int projectNumber)
+    {
+        // Query GitHub GraphQL for project data
+        var projectItems = await _client.GraphQL.QueryAsync<ProjectV2Items>(
+            @"query { organization(login: $org) { 
+                projectV2(number: $number) { items { ... } } 
+              }}"
+        );
+        
+        // Transform to analytics-friendly format
+        var records = projectItems.Select(item => new {
+            IssueId = item.Content.Id,
+            Title = item.Content.Title,
+            Status = item.GetFieldValue("Status"),
+            StoryPoints = item.GetFieldValue<int>("Story Points"),
+            Iteration = item.GetFieldValue("Iteration"),
+            CreatedAt = item.Content.CreatedAt,
+            ClosedAt = item.Content.ClosedAt
+        });
+        
+        // Export to OneLake (or local JSON)
+        await _oneLake.WriteAsync("github-projects/items.parquet", records);
+        // Or: await File.WriteAllTextAsync("exports/project-items.json", JsonConvert.SerializeObject(records));
+    }
+}
+```
+
+#### Scheduling Options
+
+| Method | Frequency | Best For |
+|--------|-----------|----------|
+| **GitHub Actions** | On push, on schedule | Repo-native, commits exports to repo |
+| **Azure Functions** | Timer trigger | Serverless, scales automatically |
+| **Power Automate** | Scheduled flow | Low-code, integrates with Teams |
+| **.NET Worker Service** | Continuous/interval | On-premises, enterprise control |
+
+#### Natural Language Queries with Copilot
+
+Once data lands in OneLake, Copilot in Power BI can answer questions directly:
+
+```
+PM: "What's our average cycle time for P1 issues in the last 3 sprints?"
+
+COPILOT (via Power BI): "Based on your GitHub project data:
+         Average P1 cycle time: 4.2 days
+         Trend: ↓ 15% improvement from Sprint 21
+         Outlier: Issue #342 took 12 days (blocked on external dependency)"
+
+PM: "Create a chart showing that trend"
+
+COPILOT: "I've created a line chart showing P1 cycle time by sprint.
+         Shall I export this as HTML for the repo?"
+
+PM: "Yes, save it to prototypes/dashboards/p1-cycle-time.html"
+```
+
+#### HTML Export Pattern
+
+Export Power BI visuals as self-contained HTML for version control:
+
+```
+analysis/
+├── exports/
+│   └── ...
+└── html-reports/                      # Git-versioned dashboard snapshots
+    ├── sprint-23-velocity.html        # Embedded chart + data
+    ├── q1-2026-dora-metrics.html      # Leadership quarterly view
+    └── dark-mode-progress.html        # Feature-specific tracking
+```
+
+Benefits of HTML exports in repo:
+- **Version history**: Track dashboard changes over time
+- **Offline access**: View reports without Power BI license
+- **Stakeholder sharing**: Send as email attachments or GitHub Pages
+- **Audit trail**: Know exactly what leadership saw at each review
+
+#### Demo Script (Advanced Analytics)
+```
+ALEX: "For our quarterly review, I need automated reports that update from GitHub..."
+
+[Show scheduled exporter running]
+
+ALEX: "Our .NET service runs nightly, pulling GitHub Project data into OneLake.
+       Now I can ask Copilot questions in natural language."
+
+[Open Power BI with OneLake connection]
+
+PM: "Copilot, what's the risk level for the Dark Mode release?"
+
+COPILOT: "Based on current project data:
+         ⚠️ Risk: MEDIUM
+         - 2 P1 issues still in progress (target: 0)
+         - QA coverage at 68% (target: 80%)
+         - 3 days until release date
+         
+         Recommend: Extend release by 2 days or descope settings-toggle story."
+
+ALEX: "Export this risk assessment as HTML for the repo."
+
+[Copilot generates HTML → commits to prototypes/dashboards/]
+
+ALEX: "Now my entire team can see the same data, versioned in Git,
+       without needing Power BI access. And it updates automatically."
 ```
 
 ---
@@ -1205,30 +1620,54 @@ ALEX: "Traditionally, I'd manually create each issue from my PRD—
 [Create one epic, one story manually to show it works]
 ```
 
-### Demo Script (The AI Way)
+### Demo Script (The AI Way — GitHub MCP)
+
+> **Key Demo Point:** This is where we show GitHub MCP (Model Context Protocol) in action. Copilot connects directly to GitHub via MCP server to create real artifacts from your plan markdown.
+
 ```
-ALEX: "But here's where GitHub changes the game. Watch this..."
+ALEX: "But here's where GitHub changes the game. Watch this...
+       I have my PRD in markdown—now I want to turn it into real work items."
+
+[Open VS Code with GitHub MCP server connected]
+
+ALEX: "Copilot is connected to GitHub through the MCP server.
+       It can read my repo, create issues, set up projects—all from this chat."
 
 [Select PRD requirements section]
 
-ALEX: "Copilot, create GitHub Issues for each requirement in this PRD.
-       Use our standard epic/story structure."
+ALEX: "Copilot, read this PRD and create a GitHub Project for Dark Mode.
+       Then create issues for each requirement using epic/story structure."
 
-[Copilot drafts 8-10 issues for review]
+[Copilot via MCP:]
+- Creates GitHub Project: "Dark Mode Implementation"
+- Creates Epic issue with sub-issues
+- Links all issues to the PRD markdown
+- Assigns to appropriate project columns
 
-ALEX: "In 30 seconds, I have my entire backlog drafted. Let me review 
-       before creating them...
-       - Epic: Dark Mode Implementation
-       - Story: Update color tokens
-       - Story: Add system preference detection
-       - Story: Create settings toggle
-       
-       I'll confirm each one, then Copilot creates them with links back to the PRD."
+COPILOT: "I've created a GitHub Project 'Dark Mode Implementation' with 8 issues:
+          → Epic: Dark Mode Implementation (#142)
+            → Story: Update color tokens (#143) — Priority: P1
+            → Story: Add system preference detection (#144) — Priority: P1  
+            → Story: Create settings toggle (#145) — Priority: P2
+            → Story: Update onboarding screens (#146) — Priority: P3
+          All issues are linked to your PRD and added to the project board.
+          
+          View project: github.com/contoso/mobile-app/projects/12"
 
-[Create issues after review, show issues linked back to PRD in repo]
+ALEX: "From a single markdown file to a fully structured project in seconds.
+       No copy-paste, no manual data entry, no Jira import headaches."
 ```
 
-> **Demo Note:** Copilot generates issue drafts that require human review and confirmation before creation. This ensures quality and allows PMs to refine acceptance criteria.
+> **Demo Note:** Copilot uses GitHub MCP tools (`mcp_io_github_git_*`) to create real artifacts. The PM reviews before confirming, ensuring quality while eliminating manual work.
+
+#### GitHub MCP Tools Used in This Flow
+
+| Action | MCP Tool | What It Does |
+|--------|----------|-------------|
+| Create project | `mcp_io_github_git_*` | Creates GitHub Project from plan |
+| Create issues | `mcp_io_github_git_issue_write` | Generates issues from requirements |
+| Push files | `mcp_io_github_git_push_files` | Updates spec with issue links |
+| Search existing | `mcp_io_github_git_search_issues` | Checks for duplicates first |
 
 ### The Differentiator
 ```
