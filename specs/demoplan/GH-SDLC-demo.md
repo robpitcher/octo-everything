@@ -23,6 +23,7 @@ Tell the story of the **complete Software Development Lifecycle (SDLC)**—from 
 | **Release Manager** | GitHub Releases + Actions + Projects |
 | **DevOps/SRE** | GitHub Actions + Environments + Deployments |
 | **Technical Writer** | GitHub Markdown + Pages + Copilot |
+| **Leadership / Executive** | GitHub Projects Insights + Power BI + Copilot |
 
 ---
 
@@ -33,7 +34,7 @@ Tell the story of the **complete Software Development Lifecycle (SDLC)**—from 
 │  PLAN   │───▶│ DESIGN  │───▶│ DEVELOP │───▶│  TEST   │───▶│ DEPLOY  │───▶│ OPERATE │
 └─────────┘    └─────────┘    └─────────┘    └─────────┘    └─────────┘    └─────────┘
      │              │              │              │              │              │
-   PM, QA      PM, Dev        Dev, QA      QA, Security   Release, SRE    SRE, Dev
+PM, QA, Lead   PM, Dev        Dev, QA      QA, Security   Release, SRE    SRE, Dev
 ```
 
 Each phase below shows:
@@ -289,6 +290,84 @@ SECURITY: "Approve and merge."
 [Auto-merge with required approvals]
 ```
 
+### 👔 Leadership / Executive Workflows
+
+> **Competitive Context:** Unlike Jira + Confluence + Trello (requiring 3 separate Atlassian products with separate billing), GitHub provides a unified platform where leadership gets visibility without context-switching or additional licenses.
+
+| Workflow | GitHub + Copilot Agentic | Atlassian Equivalent |
+|----------|--------------------------|----------------------|
+| **Portfolio Visibility** | Projects Insights dashboards | Jira Portfolio (Premium tier) |
+| **Progress Tracking** | Native burndown, velocity charts | Jira + third-party plugins |
+| **Cross-Team Rollups** | Multi-project views, org-level Projects | Jira Align (Enterprise tier) |
+| **Executive Reporting** | Shareable links, no login required | Confluence + manual exports |
+| **Data Analysis** | Power BI connector + GitHub API | Separate BI tool integration |
+| **Strategic Planning** | Roadmap view + custom fields | Jira Roadmaps (Premium) |
+| **Risk Identification** | Copilot analyzes blockers, flags at-risk | Manual triage |
+
+#### GitHub Built-in Metrics for Leadership
+
+| Metric | Where to Find | Use Case |
+|--------|---------------|----------|
+| **Sprint Burndown** | Projects → Insights | "Are we on track this sprint?" |
+| **Velocity Trend** | Projects → Insights | "Is team capacity predictable?" |
+| **Status Distribution** | Projects → Insights | "What % is done vs blocked?" |
+| **Cycle Time** | Projects → Insights (custom) | "How fast do issues move?" |
+| **Lead Time** | Actions + Projects | "Idea to production duration" |
+| **Deployment Frequency** | Actions → Workflow runs | "How often do we ship?" |
+| **PR Merge Time** | Repository Insights | "How fast are we reviewing?" |
+
+#### Power BI Integration for Advanced Analytics
+
+For executive dashboards requiring cross-repo aggregation or custom KPIs:
+
+| Integration Method | Data Available | Best For |
+|--------------------|----------------|----------|
+| **GitHub Connector (Native)** | Issues, PRs, commits, contributors | Standard dev metrics |
+| **GraphQL API → Power Query** | Projects, custom fields, labels | Portfolio dashboards |
+| **Webhooks → Data Lake** | Real-time events | Enterprise-scale analytics |
+
+**Agentic Demo Script:**
+```
+EXEC: "Show me quarterly progress across all product teams."
+
+[Open org-level Projects view]
+
+ALEX: "Here's our Q2 rollup—directly from GitHub, no manual aggregation:
+       
+       🌙 Dark Mode: 75% complete, on track
+       🔒 Auth Rewrite: 90% complete, shipping next week  
+       🔍 Search v2: 40% complete, flagged at-risk
+       
+       The at-risk flag came from Copilot—it detected 3 blockers
+       that have been open more than 5 days."
+
+EXEC: "Can I see this without a GitHub login?"
+
+[Generate shareable link]
+
+ALEX: "Yes—this link works for anyone. No Confluence page to maintain,
+       no Jira dashboard to configure. It's always live."
+
+EXEC: "What about our Power BI executive dashboard?"
+
+[Switch to Power BI]
+
+ALEX: "Power BI pulls directly from GitHub via the native connector.
+       Deployment frequency, PR velocity, issue cycle time—all automated.
+       No manual data entry, no stale exports."
+```
+
+#### Why This Beats Atlassian for Leadership
+
+| Concern | GitHub Advantage | Atlassian Challenge |
+|---------|------------------|---------------------|
+| **Single platform** | One login, one bill | Jira + Confluence + Trello = 3 products |
+| **No premium tax** | Insights included | Portfolio requires Premium/Enterprise |
+| **Real-time data** | Always current | Reports often stale |
+| **Shareable views** | Public links, no login | Requires Confluence publish |
+| **Developer adoption** | Devs already live here | Friction between tools |
+| **AI-native** | Copilot understands full context | Atlassian Intelligence limited |
+
 ### 🤖 2026 Agentic Capabilities Summary
 
 | Capability | What It Does | Roles Benefited |
@@ -298,12 +377,14 @@ SECURITY: "Approve and merge."
 | **Copilot Code Review** | AI-powered PR review with fix suggestions | Developer, QA |
 | **Copilot Autofix** | Automatic security vulnerability remediation | Security, Developer |
 | **Copilot Coding Agent** | Autonomous issue resolution with human oversight | Developer, PM |
-| **Copilot Spaces** | Curated context collections for grounded responses | PM, QA, Release |
+| **Copilot Spaces** | Curated context collections for grounded responses | PM, QA, Release, Leadership |
+| **Projects Insights** | Native burndown, velocity, status charts | PM, Leadership |
+| **Power BI Integration** | Advanced dashboards via GitHub connector | Leadership, PM |
 | **MCP (Model Context Protocol)** | Extend Copilot with external tools and data | All (extensibility) |
 | **GitHub Actions** | CI/CD automation for any workflow | Release, QA, Security |
 | **Dependabot** | Automated dependency updates with context | Security, Developer |
 | **Secret Scanning** | Prevent credential leaks with push protection | Security |
-| **Issue/PR Auto-linking** | Connect code changes to work items | PM, Release |
+| **Issue/PR Auto-linking** | Connect code changes to work items | PM, Release, Leadership |
 
 ### When to Demo Agentic Capabilities
 
@@ -311,6 +392,7 @@ SECURITY: "Approve and merge."
 |----------|-----------|-----------|
 | **Engineering Leadership** | Copilot Code Review, Coding Agent | Security Autofix, Actions |
 | **Product Leadership** | Copilot Spaces, Issue Generation | Prototype Agent |
+| **Executive Leadership** | Projects Insights, Power BI dashboards | Shareable views, Copilot analysis |
 | **Security/Compliance** | Autofix, Secret Scanning, Dependabot | Audit trails |
 | **QA Leadership** | Test Generation, PR Automation | Copilot Spaces for context |
 | **Release Management** | Release Notes, Actions Workflows | Change Impact Analysis |
