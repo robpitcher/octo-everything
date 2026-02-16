@@ -3,54 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub for the Full SDLC</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="author" content="Microsoft Product Team">
+    <meta name="date" content="February 16, 2026">
+    <title>GitHub for the Full SDLC | Compete vs Atlassian</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
     <style>
+        /* Email-safe CSS with fallbacks */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0d1117;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
             color: #e6edf3;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
-        .container {
-            max-width: 900px;
+        .email-container {
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 24px;
+            background: #0d1117;
         }
         
         /* Header */
         .header {
-            padding: 80px 0 60px;
+            background: linear-gradient(135deg, #161b22 0%, #0d1117 50%, #1a2332 100%);
+            padding: 60px 40px;
             text-align: center;
-            background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
-            border-bottom: 1px solid #21262d;
+            border-bottom: 2px solid #238636;
+        }
+        .header-badge {
+            display: inline-block;
+            background: rgba(35, 134, 54, 0.15);
+            border: 1px solid #238636;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #3fb950;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
         }
         .header h1 {
-            font-size: 42px;
+            font-size: 36px;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
         .header h1 span { color: #3fb950; }
         .header p {
             font-size: 18px;
             color: #8b949e;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 24px;
+        }
+        .header-meta {
+            font-size: 12px;
+            color: #6e7681;
         }
         
         /* Section */
         .section {
-            padding: 60px 0;
+            padding: 48px 40px;
             border-bottom: 1px solid #21262d;
         }
         .section-title {
             font-size: 24px;
             font-weight: 600;
             color: #ffffff;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -59,7 +88,29 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: #21262d;
+            background: linear-gradient(90deg, #21262d, transparent);
+        }
+        .section-subtitle {
+            font-size: 15px;
+            color: #8b949e;
+            margin-bottom: 32px;
+            max-width: 600px;
+        }
+        
+        /* Key Message */
+        .key-message {
+            background: linear-gradient(135deg, rgba(35, 134, 54, 0.1) 0%, rgba(35, 134, 54, 0.05) 100%);
+            border: 1px solid rgba(35, 134, 54, 0.3);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .key-message-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: #e6edf3;
+            font-style: italic;
         }
         
         /* SDLC Flow */
@@ -72,100 +123,89 @@
             border-radius: 12px;
             border: 1px solid #21262d;
             overflow-x: auto;
+            margin-bottom: 32px;
         }
         .sdlc-step {
             text-align: center;
-            padding: 0 8px;
+            padding: 0 12px;
+            flex: 1;
         }
         .sdlc-icon {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            margin: 0 auto 8px;
-            background: #21262d;
+            font-size: 22px;
+            margin: 0 auto 10px;
+            background: linear-gradient(135deg, #21262d, #30363d);
+            border: 1px solid #30363d;
         }
         .sdlc-label {
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             color: #8b949e;
         }
         .sdlc-arrow {
             color: #3fb950;
-            font-size: 16px;
-            opacity: 0.5;
+            font-size: 18px;
+            opacity: 0.6;
         }
         
-        /* Phase Cards */
-        .phases-grid {
+        /* Persona Cards */
+        .persona-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 16px;
         }
-        .phase-card {
+        .persona-card {
             background: #161b22;
             border: 1px solid #21262d;
             border-radius: 12px;
-            padding: 24px;
-            transition: border-color 0.2s;
+            padding: 20px;
+            transition: border-color 0.2s, transform 0.2s;
         }
-        .phase-card:hover {
+        .persona-card:hover {
             border-color: #3fb950;
+            transform: translateY(-2px);
         }
-        .phase-header {
+        .persona-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
-        .phase-icon {
+        .persona-icon {
             font-size: 24px;
         }
-        .phase-name {
-            font-size: 16px;
+        .persona-name {
+            font-size: 15px;
             font-weight: 600;
             color: #ffffff;
         }
-        .phase-items {
-            list-style: none;
-        }
-        .phase-items li {
-            font-size: 13px;
-            color: #8b949e;
-            padding: 6px 0;
-            border-bottom: 1px solid #21262d;
+        .persona-mapping {
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 13px;
         }
-        .phase-items li:last-child { border-bottom: none; }
-        .role-tag {
-            font-size: 10px;
+        .persona-from {
+            color: #f85149;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        .persona-arrow {
+            color: #3fb950;
+        }
+        .persona-to {
+            color: #3fb950;
             font-weight: 500;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background: #21262d;
-            color: #8b949e;
         }
-        .role-tag.pm { background: rgba(63, 185, 80, 0.15); color: #3fb950; }
-        .role-tag.dev { background: rgba(88, 166, 255, 0.15); color: #58a6ff; }
-        .role-tag.qa { background: rgba(163, 113, 247, 0.15); color: #a371f7; }
-        .role-tag.sec { background: rgba(248, 81, 73, 0.15); color: #f85149; }
-        .phase-footer {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #21262d;
-            font-size: 11px;
-            color: #6e7681;
-        }
-        .phase-footer strong { color: #8b949e; }
         
-        /* Comparison Grid */
+        /* Comparison Section */
         .comparison-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -175,7 +215,7 @@
             background: #161b22;
             border: 1px solid #21262d;
             border-radius: 12px;
-            padding: 24px;
+            padding: 28px;
         }
         .comparison-card h3 {
             font-size: 16px;
@@ -183,7 +223,7 @@
             margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .comparison-card.negative h3 { color: #f85149; }
         .comparison-card.positive h3 { color: #3fb950; }
@@ -191,75 +231,82 @@
             list-style: none;
         }
         .comparison-card li {
-            font-size: 13px;
+            font-size: 14px;
             color: #8b949e;
-            padding: 8px 0;
-            padding-left: 20px;
+            padding: 10px 0;
+            padding-left: 24px;
             position: relative;
+            border-bottom: 1px solid rgba(33, 38, 45, 0.5);
         }
+        .comparison-card li:last-child { border-bottom: none; }
         .comparison-card li::before {
             position: absolute;
             left: 0;
-            font-size: 12px;
+            font-size: 14px;
         }
         .comparison-card.negative li::before { content: '✗'; color: #f85149; }
         .comparison-card.positive li::before { content: '✓'; color: #3fb950; }
         
-        /* Stats Grid */
+        /* Stats */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
         .stat-card {
-            background: #161b22;
+            background: linear-gradient(135deg, #161b22, #1c2128);
             border: 1px solid #21262d;
             border-radius: 12px;
-            padding: 24px;
+            padding: 24px 16px;
             text-align: center;
         }
         .stat-number {
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 700;
-            color: #3fb950;
+            background: linear-gradient(135deg, #3fb950, #2ea043);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .stat-label {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: #e6edf3;
             margin-top: 4px;
         }
         .stat-sublabel {
-            font-size: 12px;
+            font-size: 11px;
             color: #6e7681;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         
         /* Feature Table */
         .feature-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 13px;
+            border-radius: 12px;
+            overflow: hidden;
         }
         .feature-table th {
             background: #161b22;
             color: #8b949e;
             font-weight: 600;
             text-align: left;
-            padding: 12px;
-            border-bottom: 1px solid #21262d;
+            padding: 14px 16px;
+            border-bottom: 2px solid #21262d;
             text-transform: uppercase;
-            font-size: 10px;
+            font-size: 11px;
             letter-spacing: 0.05em;
         }
         .feature-table td {
-            padding: 10px 12px;
+            padding: 12px 16px;
             border-bottom: 1px solid #21262d;
             color: #8b949e;
         }
         .feature-table tr:hover td {
-            background: rgba(63, 185, 80, 0.05);
+            background: rgba(35, 134, 54, 0.05);
         }
         .feature-table .phase-cell {
             font-weight: 600;
@@ -267,36 +314,38 @@
         }
         .feature-table .ai-cell {
             color: #a371f7;
+            font-weight: 500;
         }
         
-        /* Dashboard Preview */
+        /* Executive Dashboard Preview */
         .dashboard-preview {
-            background: #0d1117;
+            background: linear-gradient(135deg, #0d1117, #161b22);
             border: 1px solid #21262d;
             border-radius: 12px;
-            padding: 24px;
+            padding: 28px;
         }
         .dashboard-header {
-            font-size: 10px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: #6e7681;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         .metrics-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         .metric-box {
             background: #161b22;
-            border-radius: 8px;
-            padding: 16px;
+            border: 1px solid #21262d;
+            border-radius: 10px;
+            padding: 18px;
             text-align: center;
         }
         .metric-value {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
         }
         .metric-value.green { color: #3fb950; }
@@ -306,7 +355,9 @@
         .metric-name {
             font-size: 10px;
             color: #6e7681;
-            margin-top: 4px;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         .portfolio-row {
             display: grid;
@@ -315,122 +366,77 @@
         }
         .portfolio-box {
             background: #161b22;
-            border-radius: 8px;
-            padding: 16px;
+            border: 1px solid #21262d;
+            border-radius: 10px;
+            padding: 18px;
         }
         .portfolio-box h4 {
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: #6e7681;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .portfolio-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 12px;
+            gap: 10px;
+            font-size: 13px;
             color: #e6edf3;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
+        .portfolio-item:last-child { margin-bottom: 0; }
         .portfolio-item .dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
         }
         .portfolio-item .dot.green { background: #3fb950; }
         .portfolio-item .dot.blue { background: #58a6ff; }
         .portfolio-item .dot.red { background: #f85149; }
         
-        /* ROI Table */
-        .roi-table {
-            width: 100%;
-            border-collapse: collapse;
+        /* Benefits */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
-        .roi-table th {
-            background: #161b22;
-            color: #8b949e;
-            font-weight: 600;
-            text-align: left;
-            padding: 12px;
-            border-bottom: 1px solid #21262d;
-            font-size: 11px;
-        }
-        .roi-table td {
-            padding: 12px;
-            border-bottom: 1px solid #21262d;
-            font-size: 13px;
-        }
-        .roi-table tr:hover td {
-            background: rgba(63, 185, 80, 0.05);
-        }
-        .roi-table .metric-name {
-            color: #e6edf3;
-            font-weight: 500;
-        }
-        .roi-table .question {
-            color: #8b949e;
-        }
-        .roi-table .target {
-            color: #3fb950;
-            font-weight: 600;
-        }
-        
-        /* Benefits List */
-        .benefits-list {
+        .benefit-card {
             background: #161b22;
             border: 1px solid #21262d;
             border-radius: 12px;
             padding: 24px;
+            text-align: center;
         }
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid #21262d;
+        .benefit-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
         }
-        .benefit-item:last-child { border-bottom: none; }
-        .benefit-check {
-            color: #3fb950;
-            font-size: 16px;
-            margin-top: 2px;
-        }
-        .benefit-text strong {
+        .benefit-title {
+            font-size: 15px;
+            font-weight: 600;
             color: #e6edf3;
+            margin-bottom: 8px;
         }
-        .benefit-text span {
-            color: #8b949e;
-            font-size: 14px;
-        }
-        
-        /* Code Block */
-        .code-block {
-            background: #0d1117;
-            border: 1px solid #21262d;
-            border-radius: 8px;
-            padding: 20px;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 12px;
+        .benefit-text {
+            font-size: 13px;
             color: #8b949e;
         }
-        .code-block .folder { color: #3fb950; }
-        .code-block .file { color: #58a6ff; }
-        .code-block .comment { color: #6e7681; }
         
         /* Quote */
         .quote-block {
-            background: #161b22;
-            border-left: 3px solid #3fb950;
+            background: linear-gradient(135deg, #161b22, #1c2128);
+            border-left: 4px solid #3fb950;
             border-radius: 0 12px 12px 0;
-            padding: 32px;
+            padding: 36px;
             text-align: center;
         }
         .quote-text {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 500;
             color: #e6edf3;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            font-style: italic;
         }
         .quote-attribution {
             font-size: 14px;
@@ -440,7 +446,8 @@
         /* CTA */
         .cta-section {
             text-align: center;
-            padding: 60px 0;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #161b22 0%, #0d1117 50%, #1a2332 100%);
         }
         .cta-section h2 {
             font-size: 28px;
@@ -450,56 +457,68 @@
         }
         .cta-section p {
             color: #8b949e;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
+            font-size: 16px;
         }
         .cta-button {
             display: inline-block;
-            background: #238636;
+            background: linear-gradient(135deg, #238636, #2ea043);
             color: #ffffff;
-            padding: 14px 28px;
+            padding: 14px 32px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 14px;
-            transition: background 0.2s;
+            font-size: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 14px rgba(35, 134, 54, 0.3);
         }
         .cta-button:hover {
-            background: #2ea043;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(35, 134, 54, 0.4);
         }
         
         /* Footer */
         .footer {
             text-align: center;
-            padding: 32px 0;
+            padding: 28px 40px;
             color: #6e7681;
             font-size: 12px;
             border-top: 1px solid #21262d;
+            background: #0d1117;
         }
         
+        /* Responsive */
         @media (max-width: 768px) {
-            .phases-grid, .comparison-grid, .stats-grid, .metrics-row, .portfolio-row {
+            .persona-grid, .comparison-grid, .stats-grid, .metrics-row, .portfolio-row, .benefits-grid {
                 grid-template-columns: 1fr;
             }
             .sdlc-flow {
-                justify-content: flex-start;
-                gap: 4px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
             }
+            .header h1 { font-size: 28px; }
+            .section { padding: 32px 24px; }
         }
     </style>
 </head>
 <body>
-
+    <div class="email-container">
     <!-- Header -->
-    <header class="header">
-        <div class="container">
+        <header class="header">
+            <div class="header-badge">Compete Brief</div>
             <h1>GitHub for the <span>Full SDLC</span></h1>
             <p>One platform for planning, coding, testing, deploying, and operating—with AI that understands your code, your team, and your workflow.</p>
-        </div>
-    </header>
+            <div class="header-meta">Author: Microsoft Product Team | Last Updated: February 16, 2026</div>
+        </header>
 
-    <!-- SDLC Flow -->
-    <section class="section">
-        <div class="container">
+        <!-- Key Message -->
+        <section class="section">
+            <div class="key-message">
+                <div class="key-message-text">"One platform for your entire SDLC—with AI that understands your code, your team, and your workflow."</div>
+            </div>
+            
+            <!-- SDLC Flow -->
             <h2 class="section-title">The Complete Journey</h2>
             <div class="sdlc-flow">
                 <div class="sdlc-step">
@@ -534,143 +553,139 @@
                 <div class="sdlc-arrow">→</div>
                 <div class="sdlc-step">
                     <div class="sdlc-icon">📊</div>
-                    <div class="sdlc-label">Analyze</div>
+                    <div class="sdlc-label">Operate</div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Phase Cards -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Every Phase, Every Role</h2>
-            <div class="phases-grid">
-                <!-- PLAN -->
-                <div class="phase-card">
-                    <div class="phase-header">
-                        <span class="phase-icon">📋</span>
-                        <span class="phase-name">Plan</span>
+        <!-- Personas -->
+        <section class="section">
+            <h2 class="section-title">Every Persona, One Platform</h2>
+            <p class="section-subtitle">GitHub replaces fragmented Atlassian tools with a unified experience for every role in your SDLC.</p>
+            <div class="persona-grid">
+                <div class="persona-card">
+                    <div class="persona-header">
+                        <span class="persona-icon">📊</span>
+                        <span class="persona-name">Product Manager</span>
                     </div>
-                    <ul class="phase-items">
-                        <li><span class="role-tag pm">PM</span> PRDs in Markdown → Copilot generates Issues</li>
-                        <li><span class="role-tag qa">QA</span> Review specs → Identify testable requirements</li>
-                    </ul>
-                    <div class="phase-footer">
-                        <strong>GitHub:</strong> Issues, Projects, Copilot Spaces
+                    <div class="persona-mapping">
+                        <span class="persona-from">Confluence + Jira</span>
+                        <span class="persona-arrow">→</span>
+                        <span class="persona-to">Issues + Projects + Copilot Spaces</span>
                     </div>
                 </div>
-
-                <!-- DESIGN -->
-                <div class="phase-card">
-                    <div class="phase-header">
-                        <span class="phase-icon">🎨</span>
-                        <span class="phase-name">Design</span>
+                <div class="persona-card">
+                    <div class="persona-header">
+                        <span class="persona-icon">👨‍💻</span>
+                        <span class="persona-name">Developer</span>
                     </div>
-                    <ul class="phase-items">
-                        <li><span class="role-tag dev">Dev</span> Technical docs → Copilot generates diagrams</li>
-                        <li><span class="role-tag pm">PM</span> Build prototypes with AI in minutes</li>
-                    </ul>
-                    <div class="phase-footer">
-                        <strong>GitHub:</strong> ADRs in repo, Mermaid, Copilot
+                    <div class="persona-mapping">
+                        <span class="persona-from">Jira + Bitbucket</span>
+                        <span class="persona-arrow">→</span>
+                        <span class="persona-to">Issues + Repos + Copilot</span>
                     </div>
                 </div>
-
-                <!-- DEVELOP -->
-                <div class="phase-card">
-                    <div class="phase-header">
-                        <span class="phase-icon">💻</span>
-                        <span class="phase-name">Develop</span>
+                <div class="persona-card">
+                    <div class="persona-header">
+                        <span class="persona-icon">🧪</span>
+                        <span class="persona-name">QA Engineer</span>
                     </div>
-                    <ul class="phase-items">
-                        <li><span class="role-tag dev">Dev</span> Coding Agent implements features</li>
-                        <li><span class="role-tag pm">PM</span> Track progress → Auto-updated from PRs</li>
-                    </ul>
-                    <div class="phase-footer">
-                        <strong>GitHub:</strong> Copilot, PRs, Projects
+                    <div class="persona-mapping">
+                        <span class="persona-from">Jira + Confluence</span>
+                        <span class="persona-arrow">→</span>
+                        <span class="persona-to">Issues + Actions + Copilot</span>
                     </div>
                 </div>
-
-                <!-- TEST -->
-                <div class="phase-card">
-                    <div class="phase-header">
-                        <span class="phase-icon">🧪</span>
-                        <span class="phase-name">Test</span>
+                <div class="persona-card">
+                    <div class="persona-header">
+                        <span class="persona-icon">🔐</span>
+                        <span class="persona-name">Security Engineer</span>
                     </div>
-                    <ul class="phase-items">
-                        <li><span class="role-tag qa">QA</span> Copilot generates test cases from specs</li>
-                        <li><span class="role-tag dev">Dev</span> AI identifies untested code paths</li>
-                    </ul>
-                    <div class="phase-footer">
-                        <strong>GitHub:</strong> Actions, Copilot
+                    <div class="persona-mapping">
+                        <span class="persona-from">Jira + 3rd party scanners</span>
+                        <span class="persona-arrow">→</span>
+                        <span class="persona-to">GHAS + Copilot Autofix</span>
                     </div>
                 </div>
-
-                <!-- SECURE -->
-                <div class="phase-card">
-                    <div class="phase-header">
-                        <span class="phase-icon">🔒</span>
-                        <span class="phase-name">Secure</span>
+                <div class="persona-card">
+                    <div class="persona-header">
+                        <span class="persona-icon">📦</span>
+                        <span class="persona-name">Release Manager</span>
                     </div>
-                    <ul class="phase-items">
-                        <li><span class="role-tag sec">Sec</span> CodeQL + Dependabot → Copilot Autofix</li>
-                        <li><span class="role-tag dev">Dev</span> Secret scanning with push protection</li>
-                    </ul>
-                    <div class="phase-footer">
-                        <strong>GitHub:</strong> GHAS, Dependabot, Autofix
+                    <div class="persona-mapping">
+                        <span class="persona-from">Jira + Confluence + CI</span>
+                        <span class="persona-arrow">→</span>
+                        <span class="persona-to">Releases + Actions + Projects</span>
                     </div>
                 </div>
-
-                <!-- DEPLOY -->
-                <div class="phase-card">
-                    <div class="phase-header">
-                        <span class="phase-icon">🚀</span>
-                        <span class="phase-name">Deploy</span>
+                <div class="persona-card">
+                    <div class="persona-header">
+                        <span class="persona-icon">⚙️</span>
+                        <span class="persona-name">DevOps / SRE</span>
                     </div>
-                    <ul class="phase-items">
-                        <li><span class="role-tag dev">DevOps</span> Actions workflows → Environment gates</li>
-                        <li><span class="role-tag pm">Release</span> Auto-generated release notes</li>
-                    </ul>
-                    <div class="phase-footer">
-                        <strong>GitHub:</strong> Actions, Releases, Environments
+                    <div class="persona-mapping">
+                        <span class="persona-from">Jira + external CI/CD</span>
+                        <span class="persona-arrow">→</span>
+                        <span class="persona-to">Actions + Environments</span>
+                    </div>
+                </div>
+                <div class="persona-card">
+                    <div class="persona-header">
+                        <span class="persona-icon">✍️</span>
+                        <span class="persona-name">Technical Writer</span>
+                    </div>
+                    <div class="persona-mapping">
+                        <span class="persona-from">Confluence</span>
+                        <span class="persona-arrow">→</span>
+                        <span class="persona-to">Markdown + Pages + Copilot</span>
+                    </div>
+                </div>
+                <div class="persona-card">
+                    <div class="persona-header">
+                        <span class="persona-icon">👔</span>
+                        <span class="persona-name">Leadership / Executive</span>
+                    </div>
+                    <div class="persona-mapping">
+                        <span class="persona-from">Jira Align + manual exports</span>
+                        <span class="persona-arrow">→</span>
+                        <span class="persona-to">Projects Insights + Power BI</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Critical Difference -->
-    <section class="section">
-        <div class="container">
+        <!-- Critical Difference -->
+        <section class="section">
             <h2 class="section-title">The Critical Difference</h2>
             <div class="comparison-grid">
                 <div class="comparison-card negative">
-                    <h3>Atlassian + Rovo</h3>
+                    <h3>⚠️ Atlassian + Rovo</h3>
                     <ul>
                         <li>Rovo searches documents, not code</li>
                         <li>No understanding of your codebase</li>
                         <li>Can't suggest code fixes</li>
                         <li>Can't implement features autonomously</li>
                         <li>4+ separate tools required</li>
+                        <li>Context scattered across systems</li>
                     </ul>
                 </div>
                 <div class="comparison-card positive">
-                    <h3>GitHub + Copilot</h3>
+                    <h3>✅ GitHub + Copilot</h3>
                     <ul>
                         <li>Copilot understands your code</li>
                         <li>Reads repos, PRs, issues, history</li>
                         <li>Suggests fixes with full context</li>
                         <li>Coding Agent implements features</li>
                         <li>One unified platform</li>
+                        <li>All context in one place</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Productivity Stats -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Productivity Impact</h2>
+        <!-- Productivity Stats -->
+        <section class="section">
+            <h2 class="section-title">Proven Productivity Impact</h2>
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">55%</div>
@@ -687,87 +702,37 @@
                     <div class="stat-label">More Satisfied</div>
                     <div class="stat-sublabel">Developer experience</div>
                 </div>
-            </div>
-            <div class="benefits-list">
-                <div class="benefit-item">
-                    <span class="benefit-check">✓</span>
-                    <div class="benefit-text">
-                        <strong>Zero context switching</strong><br>
-                        <span>Every role works in the same tool</span>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <span class="benefit-check">✓</span>
-                    <div class="benefit-text">
-                        <strong>Faster onboarding</strong><br>
-                        <span>Copilot Spaces provide instant project context</span>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <span class="benefit-check">✓</span>
-                    <div class="benefit-text">
-                        <strong>Reduced tool sprawl</strong><br>
-                        <span>One platform instead of 4+ products</span>
-                    </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Platform</div>
+                    <div class="stat-sublabel">vs 4+ tools</div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <div class="benefit-title">Zero Context Switching</div>
+                    <div class="benefit-text">Every role works in the same tool—from PM to SRE</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <div class="benefit-title">Faster Onboarding</div>
+                    <div class="benefit-text">Copilot Spaces provide instant project context</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔗</div>
+                    <div class="benefit-title">Unified Platform</div>
+                    <div class="benefit-text">One platform replaces 4+ separate products</div>
+                </div>
+            </div>
+        </section>
 
-    <!-- ROI Metrics -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Key ROI Metrics</h2>
-            <table class="roi-table">
-                <thead>
-                    <tr>
-                        <th>Metric</th>
-                        <th>Business Question</th>
-                        <th>Target</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="metric-name">Developer Productivity</td>
-                        <td class="question">Are developers more productive?</td>
-                        <td class="target">+20%</td>
-                    </tr>
-                    <tr>
-                        <td class="metric-name">Time to Market</td>
-                        <td class="question">Are we shipping faster?</td>
-                        <td class="target">-30%</td>
-                    </tr>
-                    <tr>
-                        <td class="metric-name">Quality</td>
-                        <td class="question">Are we shipping better code?</td>
-                        <td class="target">-25% defects</td>
-                    </tr>
-                    <tr>
-                        <td class="metric-name">Security Posture</td>
-                        <td class="question">Are we more secure?</td>
-                        <td class="target">&lt;7 days MTTR</td>
-                    </tr>
-                    <tr>
-                        <td class="metric-name">Context Switching</td>
-                        <td class="question">Less tool hopping?</td>
-                        <td class="target">&lt;2 tools</td>
-                    </tr>
-                    <tr>
-                        <td class="metric-name">Meeting Reduction</td>
-                        <td class="question">Fewer status meetings?</td>
-                        <td class="target">-50%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- Leadership Dashboard -->
-    <section class="section">
-        <div class="container">
+        <!-- Executive Dashboard -->
+        <section class="section">
             <h2 class="section-title">Executive Dashboard</h2>
+            <p class="section-subtitle">Leadership gets real-time visibility via GitHub API + Power BI—no manual exports required.</p>
             <div class="dashboard-preview">
-                <div class="dashboard-header">DORA Metrics via GitHub API + Power BI</div>
+                <div class="dashboard-header">DORA Metrics — Live from GitHub</div>
                 <div class="metrics-row">
                     <div class="metric-box">
                         <div class="metric-value green">12</div>
@@ -789,25 +754,23 @@
                 <div class="portfolio-row">
                     <div class="portfolio-box">
                         <h4>Portfolio Status</h4>
-                        <div class="portfolio-item"><span class="dot green"></span> Checkout: 90%</div>
-                        <div class="portfolio-item"><span class="dot blue"></span> Search: 45%</div>
-                        <div class="portfolio-item"><span class="dot red"></span> Mobile: 20% (at risk)</div>
+                        <div class="portfolio-item"><span class="dot green"></span> Checkout Redesign: 90%</div>
+                        <div class="portfolio-item"><span class="dot blue"></span> Search Rewrite: 45%</div>
+                        <div class="portfolio-item"><span class="dot red"></span> Mobile Refresh: 20% (at risk)</div>
                     </div>
                     <div class="portfolio-box">
                         <h4>Security Posture</h4>
-                        <div class="portfolio-item"><span class="dot red"></span> 2 Critical</div>
-                        <div class="portfolio-item"><span class="dot orange" style="background: #d29922;"></span> 8 High</div>
+                        <div class="portfolio-item"><span class="dot red"></span> 2 Critical vulnerabilities</div>
+                        <div class="portfolio-item"><span class="dot" style="background: #d29922;"></span> 8 High priority</div>
                         <div class="portfolio-item"><span class="dot green"></span> ↓ 15% from last month</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SDLC Feature Mapping -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Complete Feature Mapping</h2>
+        <!-- Feature Mapping -->
+        <section class="section">
+            <h2 class="section-title">Complete SDLC Feature Mapping</h2>
             <div style="overflow-x: auto;">
                 <table class="feature-table">
                     <thead>
@@ -825,28 +788,28 @@
                             <td>Write requirements</td>
                             <td>Confluence Pages</td>
                             <td>Markdown in repo</td>
-                            <td class="ai-cell">Copilot drafts</td>
+                            <td class="ai-cell">Copilot drafts PRDs</td>
                         </tr>
                         <tr>
                             <td class="phase-cell">PLAN</td>
                             <td>Manage backlog</td>
                             <td>Jira Backlog</td>
                             <td>Projects Table</td>
-                            <td class="ai-cell">Copilot prioritizes</td>
+                            <td class="ai-cell">Copilot generates issues</td>
                         </tr>
                         <tr>
                             <td class="phase-cell">DESIGN</td>
                             <td>Technical design</td>
                             <td>Confluence + draw.io</td>
                             <td>ADR + Mermaid</td>
-                            <td class="ai-cell">Copilot generates</td>
+                            <td class="ai-cell">Copilot generates diagrams</td>
                         </tr>
                         <tr>
                             <td class="phase-cell">DEVELOP</td>
                             <td>Issue tracking</td>
                             <td>Jira Issues</td>
                             <td>GitHub Issues</td>
-                            <td class="ai-cell">Coding Agent</td>
+                            <td class="ai-cell">Coding Agent resolves</td>
                         </tr>
                         <tr>
                             <td class="phase-cell">DEVELOP</td>
@@ -857,13 +820,13 @@
                         </tr>
                         <tr>
                             <td class="phase-cell">TEST</td>
-                            <td>CI execution</td>
-                            <td>Jenkins / Bamboo</td>
-                            <td>GitHub Actions</td>
-                            <td class="ai-cell">—</td>
+                            <td>Test generation</td>
+                            <td>Manual / Zephyr</td>
+                            <td>Actions + repo</td>
+                            <td class="ai-cell">Copilot generates tests</td>
                         </tr>
                         <tr>
-                            <td class="phase-cell">TEST</td>
+                            <td class="phase-cell">SECURE</td>
                             <td>Security scanning</td>
                             <td>Snyk (external)</td>
                             <td>Dependabot + CodeQL</td>
@@ -878,7 +841,7 @@
                         </tr>
                         <tr>
                             <td class="phase-cell">OPERATE</td>
-                            <td>Incident tracking</td>
+                            <td>Incident response</td>
                             <td>Jira + Opsgenie</td>
                             <td>Issues + Discussions</td>
                             <td class="ai-cell">Copilot postmortem</td>
@@ -886,53 +849,30 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Demo Repository -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Demo Repository Structure</h2>
-            <div class="code-block">
-                <div class="folder">product-brain/</div>
-                <div style="margin-left: 20px;">├── <span class="file">specs/</span> <span class="comment"># PM: PRDs, feature specs</span></div>
-                <div style="margin-left: 20px;">├── <span class="file">src/</span> <span class="comment"># Developer: Application code</span></div>
-                <div style="margin-left: 20px;">├── <span class="file">tests/</span> <span class="comment"># QA: Test suites</span></div>
-                <div style="margin-left: 20px;">├── <span class="file">.github/</span> <span class="comment"># DevOps: Actions, workflows</span></div>
-                <div style="margin-left: 20px;">├── <span class="file">docs/</span> <span class="comment"># Tech Writer: ADRs, runbooks</span></div>
-                <div style="margin-left: 20px;">├── <span class="file">security/</span> <span class="comment"># Security: Policies, compliance</span></div>
-                <div style="margin-left: 20px;">└── <span class="file">analysis/</span> <span class="comment"># Leadership: Power BI scripts</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quote -->
-    <section class="section">
-        <div class="container">
+        <!-- Quote -->
+        <section class="section">
             <div class="quote-block">
                 <div class="quote-text">"VS Code for everyone. GitHub for everything. Copilot everywhere."</div>
                 <div class="quote-attribution">The unified workspace for your entire SDLC</div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>See the Full SDLC in Action</h2>
-            <p>From planning to production — every role, one platform.</p>
-            <a href="https://github.com/digitarald/product-brain" class="cta-button">
-                Explore Product Brain →
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Ready to Consolidate Your SDLC?</h2>
+            <p>From planning to production — every role, one platform, AI-powered.</p>
+            <a href="#" class="cta-button" style="cursor: default;">
+                Schedule a Demo
             </a>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            GitHub • One platform for the full SDLC • Powered by Copilot
-        </div>
-    </footer>
-
+        <!-- Footer -->
+        <footer class="footer">
+            Microsoft Product Team | GitHub for the Full SDLC | Compete vs Atlassian<br>
+            <span style="opacity: 0.7;">Document updated: February 16, 2026</span>
+        </footer>
+    </div>
 </body>
 </html>

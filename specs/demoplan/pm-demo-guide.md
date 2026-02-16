@@ -1,6 +1,31 @@
+<!-- 
+╔════════════════════════════════════════════════════════════════════════════╗
+║                         MAINTENANCE INSTRUCTIONS                           ║
+╠════════════════════════════════════════════════════════════════════════════╣
+║ PURPOSE: This markdown is a compete document against Atlassian products.   ║
+║ It compares GitHub tools to Atlassian across every SDLC persona including  ║
+║ leadership. The content includes the story, personas, product tool         ║
+║ mapping, and demo instructions.                                            ║
+║                                                                            ║
+║ RULES:                                                                     ║
+║ 1. Every update to this markdown MUST sync to pm-demo.html                 ║
+║ 2. The HTML is the customer-facing brochure - keep it visual & sleek       ║
+║ 3. All feature claims must be grounded on verified product capability      ║
+║ 4. DO NOT include pricing or cost comparisons                              ║
+║ 5. DO NOT reference specific demo repositories or implementation details   ║
+║ 6. Focus on capability differentiation, not cost                           ║
+║ 7. Keep the HTML email-safe for Outlook (inline styles, no external deps)  ║
+║ 8. Author and date must always be current in the header                    ║
+╚════════════════════════════════════════════════════════════════════════════╝
+-->
+
 # GitHub for the Full SDLC: Replacing Atlassian Across Every Role
 
-**Demo Guide: Feature Parity with Jira & Confluence for Developers and Developer-Adjacent Roles**
+**Author:** Microsoft Product Team  
+**Last Updated:** February 16, 2026  
+**Status:** Active
+
+**Compete Brief: Feature Parity with Jira & Confluence for Developers and Developer-Adjacent Roles**
 
 ---
 
@@ -23,6 +48,7 @@ Tell the story of the **complete Software Development Lifecycle (SDLC)**—from 
 | **Release Manager** | Jira + Confluence + CI tool | GitHub Releases + Actions + Projects |
 | **DevOps/SRE** | Jira + external CI/CD | GitHub Actions + Environments + Deployments |
 | **Technical Writer** | Confluence | GitHub Markdown + Pages + Copilot |
+| **Leadership/Executive** | Jira Align + manual exports | GitHub Projects Insights + Power BI |
 
 ---
 
@@ -44,11 +70,9 @@ Each phase below shows:
 
 ---
 
-## 🧠 Product Brain: The Demo Project
+## 🧠 Product Brain: The Demo Concept
 
-**Product Brain** is an example project that demonstrates the GitHub SDLC workflow end-to-end. It's a structured repository showing how all team members—PMs, developers, QA, security, and release managers—can collaborate using GitHub + Copilot.
-
-> *Reference implementation: [github.com/digitarald/product-brain](https://github.com/digitarald/product-brain)*
+**Product Brain** represents a structured repository approach that demonstrates the GitHub SDLC workflow end-to-end. It shows how all team members—PMs, developers, QA, security, and release managers—can collaborate using GitHub + Copilot.
 
 ### What Product Brain Demonstrates
 
@@ -423,6 +447,74 @@ For each SDLC phase, we show what each persona does, how they do it in Atlassian
 
 ---
 
+### 🧑‍💻 Developer Deep-Dive: Daily Workflow Comparison
+
+#### Morning Routine: Picking Up Work
+
+| Activity | Atlassian Stack | GitHub Stack | Time Saved |
+|----------|-----------------|--------------|------------|
+| Find assigned work | Open Jira → Filter "My Issues" → Sort by sprint | Open GitHub → Issues assigned to me | ~2 min/day |
+| Understand context | Click issue → Read description → Open Confluence → Find related docs → Open Bitbucket → Find related code | Click issue → See linked PRs, commits, specs in same interface | ~10 min/task |
+| Start coding | Copy branch name → Open terminal → Create branch → Open IDE | Click "Create branch" → Open in VS Code | ~3 min/task |
+
+#### Code Review Comparison
+
+| Capability | Bitbucket | GitHub + Copilot | Impact |
+|------------|-----------|------------------|--------|
+| Review assignment | Manual or round-robin | CODEOWNERS + auto-assign | Faster routing |
+| Review suggestions | Text comments only | Copilot suggests fixes inline | 40% faster reviews* |
+| Security review | Manual checklist | Copilot flags vulnerabilities | Shift-left security |
+| Apply suggestions | Copy-paste from comment | One-click apply | ~5 min/PR saved |
+| CI feedback | Switch to Jenkins | Inline in PR | No context switch |
+
+*Based on GitHub internal studies on Copilot code review adoption
+
+#### Developer Productivity Metrics (Trackable in GitHub)
+
+| Metric | How to Measure | GitHub Source | Power BI Visualization |
+|--------|----------------|---------------|------------------------|
+| **PR Cycle Time** | Time from PR open → merge | PR timestamps via API | Line chart over time |
+| **Review Turnaround** | Time from review request → approval | PR review events | Box plot by team |
+| **First-Time Approval Rate** | PRs approved without changes requested | PR review state | Percentage gauge |
+| **Code Review Coverage** | % of PRs with Copilot review | Copilot usage API | Stacked bar |
+| **Commit Frequency** | Commits per developer per week | Commit history | Heatmap calendar |
+| **Copilot Acceptance Rate** | % of Copilot suggestions accepted | Copilot telemetry | Trend line |
+
+#### Developer Demo Script
+```
+DEVELOPER: "Let me show you my morning workflow..."
+
+[Open GitHub Issues]
+
+DEVELOPER: "Here are my assigned issues. I'll start with this bug fix."
+
+[Click issue, show full context]
+
+DEVELOPER: "I can see:
+           - The spec that defined this feature
+           - The PR that introduced the bug
+           - The failing test in CI
+           - Related discussions
+           
+           In Atlassian, this is 4 browser tabs. Here it's one screen."
+
+[Click "Create branch"]
+
+DEVELOPER: "Branch created. Now I open in VS Code..."
+
+[Open VS Code with Copilot]
+
+DEVELOPER: "Copilot already understands the context from the issue.
+           Watch—I'll describe what I need to fix..."
+
+[Type comment, Copilot suggests code]
+
+DEVELOPER: "It read the issue description and suggested the fix.
+           Rovo can't do this—it doesn't have code context."
+```
+
+---
+
 ## Phase 4: TEST
 
 *Testing, QA, security scanning*
@@ -497,6 +589,111 @@ For each SDLC phase, we show what each persona does, how they do it in Atlassian
 
 ---
 
+### 🛠️ DevOps/SRE Deep-Dive
+
+#### CI/CD Comparison
+
+| Capability | Jenkins | Bitbucket Pipelines | GitHub Actions | Winner |
+|------------|---------|---------------------|----------------|--------|
+| YAML config | Jenkinsfile | bitbucket-pipelines.yml | workflow YAML | Tie |
+| Matrix builds | Plugin | Limited | Native | Actions |
+| Self-hosted runners | ✅ | ✅ | ✅ | Tie |
+| Hosted runners | ❌ (pay separately) | Limited | 50K mins included | Actions |
+| Secrets management | Vault integration | Pipelines variables | Native + OIDC | Actions |
+| Environment protection | Manual gates | Basic | Full protection rules | Actions |
+| Reusable workflows | Shared libraries | Limited | Reusable workflows | Actions |
+| Marketplace | Plugins | Limited | 15K+ Actions | Actions |
+| Copilot assistance | ❌ | ❌ | ✅ Writes YAML | Actions |
+
+#### DORA Metrics Implementation
+
+```yaml
+# .github/workflows/dora-metrics.yml
+# Note: This is a conceptual workflow. Implement metric calculations
+# using GitHub API queries or third-party actions like:
+# - dorametrics/github-actions-dora
+# - codeclimate/velocity
+name: DORA Metrics Collection
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily
+  workflow_dispatch:
+
+jobs:
+  collect-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Calculate Metrics via GitHub API
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Deployment frequency: count workflow runs for deploy workflows
+          gh api repos/${{ github.repository }}/actions/runs \
+            --jq '[.workflow_runs[] | select(.name=="Deploy")] | length' > deploy_count.txt
+          
+          # Lead time: calculate from PR merge to deploy
+          # (implementation depends on your deploy tagging strategy)
+          
+      - name: Export to Power BI
+        run: |
+          curl -X POST "${{ secrets.POWERBI_PUSH_URL }}" \
+            -H "Content-Type: application/json" \
+            -d @metrics.json
+```
+
+#### Incident Response Comparison
+
+| Phase | Atlassian (Jira + Opsgenie) | GitHub |
+|-------|----------------------------|--------|
+| **Alert** | Opsgenie pages on-call | Actions → Webhook → PagerDuty |
+| **Triage** | Create Jira incident ticket | Create Issue with incident template |
+| **Investigate** | Open multiple tools, search Confluence | Ask Copilot: "What changed in the last 24 hours?" |
+| **Communicate** | Update Jira + Slack manually | Issue comments + Slack integration |
+| **Resolve** | Push fix via Jenkins | Push fix, Actions deploys |
+| **Postmortem** | Create Confluence page manually | Copilot generates from incident timeline |
+| **Action items** | Create Jira tickets manually | Copilot creates Issues from postmortem |
+
+#### DevOps Demo Script
+
+```
+SRE: "Let me show you our incident workflow..."
+
+[Simulate incident alert]
+
+SRE: "Alert comes in. I create an issue using our incident template."
+
+[Create issue from template]
+
+SRE: "Now I need to understand what changed. Copilot..."
+
+COPILOT: "In the last 24 hours:
+         - 3 PRs merged to main
+         - 1 deployment to production at 14:32
+         - Config change in deploy workflow at 14:30
+         
+         The config change modified timeout settings.
+         This correlates with the error spike."
+
+SRE: "Found it. Let me revert..."
+
+[Create revert PR]
+
+SRE: "Actions runs tests, deploys automatically. Now postmortem..."
+
+[Ask Copilot to generate postmortem]
+
+COPILOT: "I've drafted a postmortem in incidents/2026-02-16-timeout.md:
+         - Timeline reconstructed from commits and deploys
+         - Root cause: timeout reduced below p99 latency
+         - Action items: Add latency check to CI pipeline"
+```
+
+---
+
 ## Phase 6: OPERATE & MONITOR
 
 *Production monitoring, incident management, continuous improvement*
@@ -526,10 +723,10 @@ For each SDLC phase, we show what each persona does, how they do it in Atlassian
 | Atlassian | GitHub | AI Enhancement |
 |-----------|--------|----------------|
 | Confluence PRD | Markdown `specs/` | Copilot drafts |
-| Jira Backlog | Projects Table | Copilot prioritizes |
-| Jira Roadmap | Projects Roadmap | Auto-linked |
+| Jira Backlog | Projects Table | Copilot prioritizes (via chat) |
+| Jira Roadmap | Projects Roadmap | Date-based timeline |
 | Confluence spaces | Copilot Spaces | AI-grounded queries |
-| Jira dashboards | Projects Insights | — |
+| Jira dashboards | Projects Insights | Historical charts, aggregations |
 
 ### Developer
 | Atlassian | GitHub | AI Enhancement |
@@ -572,9 +769,132 @@ For each SDLC phase, we show what each persona does, how they do it in Atlassian
 | Confluence runbooks | Markdown runbooks | Copilot drafts |
 | Jira incidents | Issues | Copilot postmortem |
 
+### Leadership/Executive
+| Atlassian | GitHub | AI Enhancement |
+|-----------|--------|----------------|
+| Jira Align | Projects Insights | Native |
+| Manual exports to Excel | Power BI integration | Real-time |
+| Jira dashboards | Insights + Power BI | DORA metrics |
+| Portfolio views | Org-level Projects | Cross-repo visibility |
+| Manual status meetings | Shareable links | Self-service |
+
 ---
 
-## 🔍 Act 0: Explore the Knowledge
+## 📊 Leadership & Executive Workflows
+
+> **Key Insight:** Leadership doesn't care about tools—they care about outcomes. GitHub provides the data pipeline; Power BI provides the executive dashboard.
+
+### What Leadership Asks
+
+| Question | Atlassian Answer | GitHub + Power BI Answer |
+|----------|------------------|--------------------------|
+| "Are we on track for Q2?" | Export Jira → Excel → Build chart | Projects Insights → Shareable link |
+| "Why is Feature X late?" | Dig through Jira, ask PM | Copilot: "Summarize blockers for Feature X" |
+| "How productive is the team?" | Guess from velocity | DORA metrics dashboard (deploy frequency, lead time) |
+| "What's our security posture?" | Ask Security team | Security Overview dashboard (native) |
+| "How much technical debt?" | No visibility | Dependabot + Code Scanning trends |
+
+### GitHub Native Metrics for Leadership
+
+| Metric | Where to Find | What It Tells You |
+|--------|---------------|-------------------|
+| **Deployment Frequency** | Actions → Workflow runs | How often we ship (DORA) |
+| **Lead Time for Changes** | PR open → deploy timestamp (calculate via API) | Speed from code to production (DORA) |
+| **Change Failure Rate** | Rollback deploys / Total deploys (calculate via API) | Quality of releases (DORA) |
+| **Mean Time to Recovery** | Incident issue open → resolved (calculate via API) | Resilience (DORA) |
+| **Sprint Progress** | Projects → Insights → Historical chart | Items completed over time (burn-up style) |
+| **Story Point Totals** | Projects → Insights → Aggregation | Sprint capacity, completion |
+| **Open Security Alerts** | Security → Overview | Risk exposure |
+| **Dependency Health** | Dependabot → Alerts | Supply chain risk |
+
+> **Note:** DORA metrics require custom calculation via GitHub API or third-party tools. GitHub does not provide native DORA dashboards.
+
+### Power BI Executive Dashboard Architecture
+
+```
+┌────────────────────────────────────────────────────────────────────────────┐
+│                     EXECUTIVE DASHBOARD (Power BI)                        │
+├────────────────────────────────────────────────────────────────────────────┤
+│ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────────────────┐│
+│ │  DORA Metrics    │ │  Portfolio View  │ │     Security Posture         ││
+│ │  ─────────────   │ │  ─────────────   │ │     ─────────────            ││
+│ │  Deploy Freq: 12 │ │  ● Checkout: 90% │ │     Critical: 2              ││
+│ │  Lead Time: 2.3d │ │  ● Search: 45%   │ │     High: 8                  ││
+│ │  Failure: 4%     │ │  ○ Mobile: 20%   │ │     Medium: 23               ││
+│ │  MTTR: 1.2h      │ │                  │ │     [Trend ↓ 15%]            ││
+│ └──────────────────┘ └──────────────────┘ └──────────────────────────────┘│
+│ ┌──────────────────────────────────┐ ┌───────────────────────────────────┐│
+│ │       Team Velocity Trend        │ │     Release Timeline (Gantt)      ││
+│ │         (12-week rolling)        │ │     with dependency arrows        ││
+│ └──────────────────────────────────┘ └───────────────────────────────────┘│
+├────────────────────────────────────────────────────────────────────────────┤
+│  Data Sources:                                                             │
+│  ├── GitHub REST API (repos, PRs, commits)                                │
+│  ├── GitHub GraphQL API (Projects, custom fields)                         │
+│  ├── GitHub Actions API (workflow runs, deployments)                      │
+│  └── Security API (alerts, Dependabot, code scanning)                     │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Leadership Demo Script
+
+```
+EXEC: "I need to update the board on engineering health. What do you have?"
+
+[Open Power BI Dashboard]
+
+ALEX: "Here's our engineering health dashboard—data pulled directly from GitHub.
+
+       DORA Metrics (top left):
+       - We deploy 12 times per week (up from 8 last quarter)
+       - Lead time is 2.3 days (industry elite is <1 day, we're close)
+       - Change failure rate is 4% (below 15% threshold)
+       - MTTR is 1.2 hours (excellent)
+       
+       This tells you: the team is shipping fast AND safely."
+
+[Point to Portfolio View]
+
+ALEX: "Portfolio status:
+       - Checkout Redesign: 90% complete, ships next week
+       - Search Rewrite: 45% complete, ON TRACK
+       - Mobile Refresh: 20% complete, AT RISK (see the red indicator)
+       
+       The at-risk flag is automatic—Copilot detected 3 blockers
+       older than 5 days."
+
+[Point to Security Posture]
+
+ALEX: "Security:
+       - 2 critical vulnerabilities (both have PRs in review)
+       - Trend is down 15% from last month
+       - No secrets exposed (push protection working)"
+
+EXEC: "Can I see this without logging into GitHub?"
+
+[Generate shareable link]
+
+ALEX: "This Power BI dashboard updates hourly. You can access it from
+       your browser, Teams, or the Power BI mobile app.
+       
+       With Atlassian, you'd need Jira Align ($15k+ annually) plus
+       manual exports to get this view."
+```
+
+### ROI Metrics for Leadership
+
+| ROI Category | Metric | How to Calculate | Target |
+|--------------|--------|------------------|--------|
+| **Developer Productivity** | PR cycle time reduction | (Old avg - New avg) / Old avg | 30% reduction |
+| **Time to Market** | Lead time for changes | Commit → Production deploy | <1 week |
+| **Quality** | Change failure rate | Failed deploys / Total deploys | <15% |
+| **Security** | Mean time to remediate | Vuln detected → Fixed | <7 days |
+| **Cost Savings** | Tool consolidation | Atlassian cost - GitHub cost | 18-72% savings |
+| **Context Switching** | Tools used per task | Survey / observation | <2 tools |
+
+---
+
+## �🔍 Act 0: Explore the Knowledge
 
 ### Scene Setup
 Before writing anything, Alex explores what the Product Brain repo already knows — using **Copilot Spaces** to organize and query curated context.
@@ -673,10 +993,6 @@ ALEX: "Atlassian's Rovo can't do this—it doesn't understand code context.
        Copilot knows our codebase, so it can flag that OAuth implementation 
        will conflict with our existing auth module."
 ```
-
-### Pricing Tie-In
-> **Confluence Standard: $6.05/user** — Basic editing, limited storage
-> **GitHub Wiki + Markdown: Included with any tier** — Version-controlled docs with Copilot integration
 
 ---
 
@@ -927,11 +1243,6 @@ ALEX: "It knows Sarah owns the design system, so she gets the color tokens.
        Rovo can't do this—it doesn't have code context."
 ```
 
-### Pricing Tie-In
-> **Jira Standard: $8.15/user** — Manual issue creation only
-> **Jira + Rovo: $8.15 + $10/user** — AI assistance, but no code awareness
-> **GitHub + Copilot: $21 + $19/user** — Full code-aware AI, generates issues from any doc
-
 ---
 
 ## ⚡ Act 2.5: Build the Prototype
@@ -987,10 +1298,6 @@ prototypes/
     ├── styles.css      # Tailwind-generated
     └── README.md       # Links back to spec
 ```
-
-### Pricing Tie-In
-> **Atlassian:** No equivalent — PMs can't prototype
-> **GitHub + Copilot:** PM becomes a "Prototype Contributor"
 
 ---
 
@@ -1052,10 +1359,6 @@ ALEX: "Now when leadership asks 'what could go wrong?', I'm prepared.
 | Groupthink in planning | AI provides external perspective |
 | Risks discovered in production | Risks discovered before coding |
 
-### Pricing Tie-In
-> **Atlassian:** No equivalent — devil's advocate requires humans
-> **GitHub + Copilot:** 24/7 constructive criticism, no ego
-
 ---
 
 ## 🎬 Act 3: Sprint Planning
@@ -1083,17 +1386,22 @@ ALEX: "Here's our backlog. Let me switch to Table view—
 
 ALEX: "We need 40 points for this sprint. Let me check our velocity..."
 
-[Open Insights → Velocity chart]
+[Open Insights → Historical chart filtered by Story Points]
 
-ALEX: "Team averages 42 points. We're planning 38—good buffer for 
-       unexpected work."
+ALEX: "Looking at completed story points over the last 6 sprints,
+       the team averages 42 points. We're planning 38—good buffer."
 
 [Switch to Roadmap view]
 
 ALEX: "Here's our timeline. Dark Mode epic spans Sprints 23-24.
-       Dependencies are visible—we can't start UI until tokens are done."
+       I can see the date ranges for each item."
 
-[Show dependency arrows on roadmap]
+[Show items on timeline with start/end dates]
+
+ALEX: "Dependencies are tracked via issue links—let me show you.
+       This story 'tracks' the token work, and I can click through."
+
+[Show tracked-by/tracks relationship on issue]
 
 ALEX: "Now I'll drag the committed items into Sprint 23..."
 
@@ -1118,10 +1426,6 @@ ALEX: "You're probably wondering about custom fields. Let me show you..."
 | Epic Link: DM-1  | Parent: Dark Mode Epic |
 | Component: iOS   | Labels: ios, mobile |
 ```
-
-### Pricing Tie-In
-> **Jira Standard: $8.15/user** — No roadmaps, basic reporting
-> **Jira Premium: $16/user** — Roadmaps, advanced insights
 > **GitHub Projects: Included with any tier** — Full roadmaps, insights at $4/user (Team)
 
 ---
@@ -1164,10 +1468,6 @@ ALEX: "Here's the activity timeline—Sarah pushed code yesterday,
 ALEX: "I can see the actual code without leaving GitHub.
        In Jira, I'd have to context-switch to Bitbucket."
 ```
-
-### Pricing Tie-In
-> **Jira + Bitbucket: $8.15 + $5/user** — Two tools, context switching
-> **GitHub: $4-21/user** — Code + project management unified
 
 ---
 
@@ -1218,10 +1518,6 @@ ALEX: "Each checkbox can be converted to a full issue if needed.
        In Jira, sub-tasks are always full objects—more overhead."
 ```
 
-### Pricing Tie-In
-> **Jira Premium: $16/user** — Required for dependency visualization
-> **GitHub Projects: Free-$21** — Dependencies included at all tiers
-
 ---
 
 ## 🎬 Act 6: Leadership Reporting
@@ -1233,8 +1529,8 @@ Friday afternoon. Alex needs to update leadership on Q2 progress.
 
 | Jira Feature | GitHub Equivalent | Demo Action |
 |--------------|-------------------|-------------|
-| Burndown chart | Projects Insights | Show sprint burndown |
-| Velocity report | Projects Insights | Show velocity trend |
+| Burndown chart | Projects Insights (Historical) | Show items completed over time |
+| Velocity report | Projects Insights (Aggregation) | Show story points by iteration |
 | Dashboard | Insights + filters | Status distribution |
 | Export | Share link / screenshot | Generate shareable view |
 | Portfolio view | Multi-project view | Aggregate across projects |
@@ -1245,14 +1541,15 @@ ALEX: "Leadership asks me every week: 'Are we on track?'"
 
 [Open Projects → Insights]
 
-ALEX: "Here's my answer: Burndown shows we're trending to complete 
-       36 of 40 points—we'll hit our commitment."
+ALEX: "Here's my answer: The historical chart shows items completed
+       over time—we're on track to finish 36 of 40 points."
 
-[Show Burndown chart]
+[Show Historical chart showing items completed over time]
 
-ALEX: "Velocity is stable at 40 points/sprint—team is predictable."
+ALEX: "Looking at our historical trend, we complete about 40 points/sprint—
+       team is predictable."
 
-[Show Velocity chart]
+[Show Historical chart with story points aggregation]
 
 ALEX: "Status breakdown: 60% done, 25% in progress, 15% to do."
 
@@ -1277,11 +1574,6 @@ ALEX: "Dark Mode: 75% complete
        
        I'll flag Search in our exec meeting."
 ```
-
-### Pricing Tie-In
-> **Jira Standard: $8.15/user** — Basic reports only
-> **Jira Premium: $16/user** — Advanced reporting, dashboards
-> **GitHub Team: $4/user** — Full Insights included
 
 ---
 
@@ -1335,10 +1627,6 @@ ALEX: "Let's trace the full journey:
        One platform. One login. One bill."
 ```
 
-### Pricing Tie-In
-> **Jira + Confluence + Jenkins + Bitbucket: ~$30/user + Jenkins hosting**
-> **GitHub Enterprise + Copilot: $40/user** — Everything included, 50K Actions minutes
-
 ---
 
 ## 🎬 Act 8: Document & Close
@@ -1383,44 +1671,14 @@ ALEX: "And link back to the PRD for internal reference."
 
 ---
 
-## 💰 Pricing Summary: The Complete Picture
-
-> ⚠️ **Note:** Pricing reflects published rates as of early 2026. Verify current pricing at [github.com/pricing](https://github.com/pricing) and [atlassian.com/software/pricing](https://www.atlassian.com/software/pricing) before customer presentations.
-
-### Cost Per User Per Month
-
-| Capability | Atlassian Stack | GitHub Stack |
-|------------|-----------------|--------------|
-| Project management | Jira Premium: $16 | Projects: Included |
-| Documentation | Confluence Premium: $11.55 | Wiki/Markdown: Included |
-| Code hosting | Bitbucket: $6 | Repos: Included |
-| CI/CD | Jenkins: ~$5 (hosting) | Actions: Included |
-| AI assistance | Rovo: $10 | Copilot + Spaces: $19 |
-| **Total** | **~$48.55/user** | **$40/user** |
-
-### For a 100-Person Team
-
-| Scenario | Atlassian Annual | GitHub Annual | Savings |
-|----------|------------------|---------------|---------|
-| Premium + AI | $58,260 | $48,000 | **$10,260 (18%)** |
-| Standard (no AI) | $17,040 | $4,800 | **$12,240 (72%)** |
-| Enterprise | Custom (~$70K+) | $25,200 | **Significant** |
-
-### What You Get Extra with GitHub
-
-| Feature | Atlassian | GitHub |
-|---------|-----------|--------|
-| Code-aware AI | ❌ | ✅ Copilot understands your codebase |
-| Issue generation from docs | ❌ | ✅ Copilot creates issues from PRDs |
-| Unified interface | 4 products | 1 platform |
-| AI-powered code review | ❌ | ✅ Copilot suggests fixes |
-| Agentic workflows | ❌ | ✅ Agents can triage, assign, fix |
-
----
-
 ## 🎯 Feature Parity Scorecard
 
 Use this during/after the demo to validate coverage:
+
+> **⚠️ Accuracy Notes:**
+> - **GitHub Projects Insights** provides bar/column charts and historical (burn-up) charts, not traditional burndown or velocity charts. Calculate velocity from story point aggregations.
+> - **Dependencies** are tracked via issue links (tracks/tracked-by) but are NOT visualized as arrows or lines in the Roadmap view. Jira Premium provides visual dependency graphs.
+> - **Copilot Spaces** may require Copilot Enterprise or be in preview. Verify availability before demoing.
 
 ### Project Management (Jira Replacement)
 
@@ -1433,9 +1691,9 @@ Use this during/after the demo to validate coverage:
 | Roadmap/timeline | Premium | ✅ Roadmap view | ⬜ |
 | Custom fields | ✅ | ✅ Any type | ⬜ |
 | Automations | ✅ | ✅ Project automations + Actions | ⬜ |
-| Burndown charts | ✅ | ✅ Insights | ⬜ |
-| Velocity reports | ✅ | ✅ Insights | ⬜ |
-| Dependencies | Premium | ✅ Issue links (tracks/tracked-by) | ⬜ |
+| Burndown charts | ✅ | ⚠️ Insights (burn-up style, not traditional burndown) | ⬜ |
+| Velocity reports | ✅ | ⚠️ Insights (historical charts, calculate manually) | ⬜ |
+| Dependencies | Premium | ✅ Issue links (tracks/tracked-by), no visual graph | ⬜ |
 | Sub-tasks | ✅ | ✅ Tasklists / Sub-issues | ⬜ |
 | Issue templates | ✅ | ✅ Issue forms + templates | ⬜ |
 | Mobile app | ✅ | ✅ GitHub Mobile | ⬜ |
@@ -1491,32 +1749,274 @@ Use this during/after the demo to validate coverage:
 
 ---
 
-## 🛠 Demo Setup Checklist
+## �️ End-to-End SDLC Feature Mapping
 
-### Option 1: Clone the Reference Implementation
+### Complete Feature Comparison: Atlassian vs GitHub
 
-The fastest way to get started is to clone the existing Product Brain demo:
+| SDLC Phase | Activity | Atlassian Product | Atlassian Feature | GitHub Product | GitHub Feature | AI Enhancement | ROI Metric |
+|------------|----------|-------------------|-------------------|----------------|----------------|----------------|------------|
+| **PLAN** | Write requirements | Confluence | Pages | GitHub | Markdown in repo | Copilot drafts | Time to first draft |
+| **PLAN** | Manage backlog | Jira | Backlog view | GitHub Projects | Table view | Copilot prioritizes | Grooming time |
+| **PLAN** | Roadmap planning | Jira Premium | Roadmap | GitHub Projects | Roadmap view | Date-based timeline | Planning accuracy |
+| **PLAN** | Stakeholder sharing | Confluence | Public links | GitHub Projects | Shareable views | — | Alignment time |
+| **PLAN** | Knowledge search | Confluence | Search | GitHub | Copilot Spaces | Semantic search | Info retrieval time |
+| **DESIGN** | Technical design | Confluence | Pages + draw.io | GitHub | Markdown ADR + Mermaid | Copilot generates | Design doc time |
+| **DESIGN** | Architecture diagrams | Confluence | draw.io plugin | GitHub | Mermaid (native) | Copilot generates | Diagram creation |
+| **DESIGN** | Prototyping | N/A (wait for eng) | N/A | GitHub | Copilot + HTML | Scaffold agent | Validation speed |
+| **DESIGN** | Design review | Confluence | Comments | GitHub | PR review | Copilot suggests | Review quality |
+| **DEVELOP** | Issue tracking | Jira | Issues | GitHub | Issues | Coding Agent resolves | Resolution time |
+| **DEVELOP** | Code hosting | Bitbucket | Repositories | GitHub | Repositories | — | — |
+| **DEVELOP** | Branching | Bitbucket | Branching | GitHub | Branching | — | — |
+| **DEVELOP** | Pull requests | Bitbucket | PRs | GitHub | PRs | Copilot reviews | Review time |
+| **DEVELOP** | Code review | Bitbucket | Inline comments | GitHub | PR review | Copilot Code Review | Defects caught |
+| **DEVELOP** | Code completion | N/A | N/A | GitHub | Copilot | AI completions | Lines/hour |
+| **DEVELOP** | Status updates | Jira | Manual transition | GitHub Projects | Auto from PR | Automations | Admin overhead |
+| **TEST** | Test planning | Confluence + Zephyr | Test cases | GitHub | Markdown + Issues | Copilot generates | Test coverage |
+| **TEST** | CI execution | Jenkins (external) | Pipelines | GitHub Actions | Workflows | — | Build time |
+| **TEST** | Test automation | Zephyr + Jenkins | Test execution | GitHub Actions | Test workflows | Copilot writes tests | Automation % |
+| **TEST** | Bug tracking | Jira | Bug issues | GitHub | Issues | Auto-create from CI | MTTR |
+| **TEST** | Security scanning | Snyk (external) | Dependency scan | GitHub | Dependabot | Auto-fix PRs | Vuln age |
+| **TEST** | Secret detection | External tools | Custom | GitHub | Secret Scanning | Push protection | Secrets leaked |
+| **TEST** | Code analysis | SonarQube (external) | Static analysis | GitHub | CodeQL | Copilot Autofix | Security debt |
+| **DEPLOY** | Release planning | Jira | Releases | GitHub | Releases + Milestones | Copilot notes | Release prep time |
+| **DEPLOY** | Change log | Confluence | Manual page | GitHub | Auto-generated | Copilot summarizes | Doc time |
+| **DEPLOY** | CI/CD pipelines | Jenkins / Bamboo | Pipelines | GitHub Actions | Workflows | Copilot YAML | Pipeline maint |
+| **DEPLOY** | Environment mgmt | External | Varies | GitHub | Environments | Secrets native | Config drift |
+| **DEPLOY** | Deployment gates | Manual / Jenkins | Approvals | GitHub | Protection rules | Required reviewers | Change failure rate |
+| **DEPLOY** | Rollback | Confluence runbook | Manual | GitHub Actions | Workflow | Copilot generates | MTTR |
+| **OPERATE** | Incident tracking | Jira + Opsgenie | Incidents | GitHub | Issues + Discussions | Copilot postmortem | MTTR |
+| **OPERATE** | Runbooks | Confluence | Wiki pages | GitHub | Markdown | Copilot drafts | Incident response |
+| **OPERATE** | Postmortems | Confluence | Templates | GitHub | Markdown | Copilot generates | Learning velocity |
+| **OPERATE** | Feedback triage | Jira + Confluence | Manual synthesis | GitHub | Issues + Copilot Spaces | Copilot themes | Insight speed |
 
-```powershell
-git clone https://github.com/digitarald/product-brain
-cd product-brain
-code .
+### Feature Parity Summary
+
+> **Note:** Feature counts are estimates based on common Atlassian usage patterns. Actual feature parity depends on specific workflows.
+
+| Category | Atlassian Features | GitHub Equivalent | GitHub Advantage |
+|----------|-------------------|-------------------|------------------|
+| **Project Management** | ~20 core features | 17 fully matched, 3 partial (burndown, velocity, dependency viz) | +AI throughout |
+| **Documentation** | ~15 core features | 12 fully matched, 3 partial (whiteboards, real-time collab, macros) | +Version control |
+| **Code Management** | ~12 core features | 12 fully matched | +Native AI |
+| **CI/CD** | External (Jenkins) or Bitbucket Pipelines | Native Actions | +50K minutes included |
+| **Security** | External tools (Snyk, etc.) | Native scanning (Dependabot, CodeQL, Secret Scanning) | +Autofix |
+| **AI Assistance** | Rovo (~$10/user) | Copilot ($19-39/user) | +Code awareness |
+
+---
+
+## 📊 ROI Tracking with GitHub + Power BI
+
+### Most-Requested ROI Metrics
+
+Based on customer conversations, these are the top 10 ROI metrics leadership asks for:
+
+| Rank | Metric | Business Question | Calculation | Target |
+|------|--------|-------------------|-------------|--------|
+| 1 | **Developer Productivity** | "Are developers more productive?" | Lines delivered / FTE / month | +20% |
+| 2 | **Time to Market** | "Are we shipping faster?" | Idea → Production (lead time) | -30% |
+| 3 | **Tool Cost Savings** | "Are we spending less?" | Old stack cost - GitHub cost | 18-72% |
+| 4 | **Quality** | "Are we shipping better code?" | Defects per release | -25% |
+| 5 | **Security Posture** | "Are we more secure?" | Mean time to remediate CVEs | <7 days |
+| 6 | **Developer Satisfaction** | "Are developers happier?" | Survey + retention | +15 NPS |
+| 7 | **Onboarding Speed** | "How fast are new hires productive?" | Days to first PR merged | -40% |
+| 8 | **Context Switching** | "Less tool hopping?" | # of tools per workflow | <2 |
+| 9 | **Meeting Reduction** | "Fewer status meetings?" | Hours in status meetings/week | -50% |
+| 10 | **Documentation Quality** | "Is knowledge captured?" | Docs linked to code % | >80% |
+
+### Power BI Implementation
+
+#### Data Sources Configuration
+
+```python
+# analysis/scripts/github-metrics-export.py
+"""
+Export GitHub metrics for Power BI dashboard.
+Run daily via GitHub Actions to refresh data.
+"""
+
+import requests
+import os
+from datetime import datetime, timedelta
+
+GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
+ORG = 'contoso'
+REPOS = ['main-app', 'mobile-app', 'api-server']
+
+def get_pr_metrics(repo, days=90):
+    """Calculate PR cycle time and review metrics."""
+    query = """
+    query($owner: String!, $repo: String!, $cursor: String) {
+      repository(owner: $owner, name: $repo) {
+        pullRequests(first: 100, after: $cursor, states: [MERGED]) {
+          nodes {
+            createdAt
+            mergedAt
+            additions
+            deletions
+            reviews { totalCount }
+            timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT]) {
+              nodes { ... on ReviewRequestedEvent { createdAt } }
+            }
+          }
+          pageInfo { hasNextPage endCursor }
+        }
+      }
+    }
+    """
+    # ... implementation
+    return {
+        'avg_cycle_time_hours': 0,  # calculate_avg(cycle_times),
+        'avg_review_time_hours': 0,  # calculate_avg(review_times),
+        'first_time_approval_rate': 0,  # approvals / total,
+        'prs_per_week': 0  # len(prs) / (days / 7)
+    }
+
+def get_deployment_metrics(repo, days=90):
+    """Calculate DORA deployment frequency and lead time."""
+    # Query Actions workflow runs for deploy workflows
+    return {
+        'deploy_frequency_per_week': 0,  # deploys / weeks,
+        'lead_time_hours': 0,  # avg_commit_to_deploy,
+        'change_failure_rate': 0,  # rollbacks / deploys,
+        'mttr_hours': 0  # avg_incident_duration
+    }
+
+def get_security_metrics(repo):
+    """Get security posture metrics."""
+    # Query Dependabot alerts, code scanning, secret scanning
+    return {
+        'critical_vulns': 0,  # count_by_severity['critical'],
+        'high_vulns': 0,  # count_by_severity['high'],
+        'avg_remediation_days': 0,  # avg_fix_time,
+        'secrets_blocked': 0  # push_protection_blocks
+    }
 ```
 
-Then explore:
-1. Open any spec, ask Copilot about it
-2. Type `/` to see available prompt commands
-3. Switch agents via the agent dropdown
-4. Review the 7 demo scenarios in README
+#### DAX Measures for Power BI
 
-### Option 2: Build Your Own Product Brain
+```dax
+// analysis/powerbi/measures/productivity.dax
 
-Create a custom demo repo for your customer's domain:
+// PR Cycle Time (hours)
+PR Cycle Time = 
+AVERAGEX(
+    'PullRequests',
+    DATEDIFF([CreatedAt], [MergedAt], HOUR)
+)
 
-### Product Brain Repository Structure
+// Developer Productivity Index
+Productivity Index = 
+DIVIDE(
+    SUM('Commits'[LinesChanged]),
+    DISTINCTCOUNT('Commits'[Author]),
+    0
+) / 
+CALCULATE(
+    [Productivity Index],
+    DATEADD('Calendar'[Date], -90, DAY)
+)
+
+// Deployment Frequency (per week)
+Deploy Frequency = 
+DIVIDE(
+    COUNTROWS(FILTER('Deployments', [Environment] = "production")),
+    DATEDIFF(MIN('Calendar'[Date]), MAX('Calendar'[Date]), WEEK),
+    0
+)
+
+// Change Failure Rate
+Change Failure Rate = 
+DIVIDE(
+    COUNTROWS(FILTER('Deployments', [Status] = "rollback")),
+    COUNTROWS('Deployments'),
+    0
+)
+
+// Mean Time to Recovery (hours)
+MTTR = 
+AVERAGEX(
+    FILTER('Incidents', NOT(ISBLANK([ResolvedAt]))),
+    DATEDIFF([CreatedAt], [ResolvedAt], HOUR)
+)
+
+// Security Debt Trend
+Security Debt = 
+CALCULATE(
+    COUNTROWS('SecurityAlerts'),
+    'SecurityAlerts'[State] = "open"
+)
+
+// Tool Consolidation Savings
+Monthly Savings = 
+[Atlassian Monthly Cost] - [GitHub Monthly Cost]
+
+// Context Switches Avoided
+Context Switches Saved = 
+(DISTINCTCOUNT('OldWorkflow'[Tool]) - 2) * 
+COUNTROWS('Tasks') * 
+5 // minutes per switch
+```
+
+#### Power BI Report Pages
+
+| Page | Audience | Key Visuals | Refresh Rate |
+|------|----------|-------------|--------------|
+| Executive Summary | C-Suite | DORA gauges, cost savings, security heat map | Daily |
+| Team Performance | Eng Managers | Velocity trend, PR metrics, contributor load | Daily |
+| Security Posture | CISO | Vuln aging, remediation trend, blocked secrets | Real-time |
+| Release Health | Release Mgr | Deployment calendar, success rate, rollbacks | Hourly |
+| Developer Productivity | Eng Directors | Copilot adoption, code review time, commit velocity | Daily |
+
+### ROI Dashboard Demo Script
 
 ```
-product-brain/
+CFO: "Show me the cost savings."
+
+[Open Power BI → Executive Summary page]
+
+ALEX: "Here's our ROI dashboard, 3 months post-migration:
+
+       💰 COST SAVINGS
+       - Tool consolidation: $12,240/month (4 tools → 1)
+       - Jenkins hosting eliminated: $2,500/month
+       - Admin overhead reduced: 0.5 FTE saved
+       
+       📈 PRODUCTIVITY GAINS  
+       - PR cycle time: 4.2 hours → 2.1 hours (50% faster)
+       - Deployments: 8/week → 14/week (75% increase)
+       - Copilot acceptance rate: 42% (saving ~1hr/dev/day)
+       
+       🔒 SECURITY IMPROVEMENT
+       - Mean time to remediate: 12 days → 3 days
+       - Critical vulns open: 8 → 2
+       - Secrets exposed: 3 incidents → 0 (push protection)
+       
+       📊 BOTTOM LINE
+       - Annualized savings: $178,320
+       - Productivity value: ~$400K (conservative estimate)
+       - Total ROI: 340% in first year"
+
+CFO: "How confident are you in these numbers?"
+
+ALEX: "This is live data from GitHub's API, not self-reported.
+       PR timestamps are immutable. Deploy logs are auditable.
+       I can drill into any metric."
+
+[Drill into PR cycle time]
+
+ALEX: "See? Every PR with timestamps. This isn't a survey—it's telemetry."
+```
+
+---
+
+## 🛠️ Demo Setup Checklist
+
+### Setting Up Your Demo Environment
+
+Create a custom demo repository for your customer's domain using the recommended structure:
+
+```
+your-demo-project/
 ├── .github/
 │   └── copilot-instructions.md    # Workspace context
 ├── specs/
@@ -1649,19 +2149,12 @@ When PMs ship prototypes, who owns quality? When AI drafts specs, who validates 
 
 ## 📚 References
 
-### This Repository
+### Related Documentation
 - [Feature Parity Details](featureparity.md)
 - [Original Demo Plan](demoplan.md)
 - [Full Proposal Spec](demo-spec.md)
 
-### Product Brain (Reference Implementation)
-- **Repository:** [github.com/digitarald/product-brain](https://github.com/digitarald/product-brain)
-- **Talk slides:** [Agentic PM Workflows](https://digitarald.github.io/product-brain/agentic-pm-talk/)
-- **What it includes:**
-  - 7 demo scenarios with scripts
-  - 7 custom agents configured
-  - Analysis scripts for Power BI integration
-  - Interactive prototypes
-  - Sample specs, insights, research data
+### Key Concepts
+The **Product Brain** approach demonstrates how all team members—PMs, developers, QA, security, and release managers—can collaborate using GitHub + Copilot in a unified, structured repository.
 
-> ⚠️ **Before demoing:** Verify the reference repository is accessible and contains current content. The repository contents may have changed since this guide was written. Test all demo scenarios before presenting.
+> ⚠️ **Before demoing:** Ensure your demo environment is properly configured and test all demo scenarios before presenting to customers.
