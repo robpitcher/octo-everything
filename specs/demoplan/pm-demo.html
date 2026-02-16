@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Microsoft Product Team">
     <meta name="date" content="February 16, 2026">
-    <title>GitHub for the Full SDLC | Compete vs Atlassian</title>
+    <title>GitHub for the Full SDLC | Microsoft + GitHub</title>
     <!--[if mso]>
     <noscript>
         <xml>
@@ -16,100 +16,131 @@
     </noscript>
     <![endif]-->
     <style>
-        /* Email-safe CSS with fallbacks */
+        /* Light Theme - Email-safe CSS */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
-            color: #e6edf3;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f6f8fa;
+            color: #24292f;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
         .email-container {
             max-width: 800px;
             margin: 0 auto;
-            background: #0d1117;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(31, 35, 40, 0.12);
         }
         
-        /* Header */
+        /* Microsoft + GitHub Branded Header */
         .header {
-            background: linear-gradient(135deg, #161b22 0%, #0d1117 50%, #1a2332 100%);
-            padding: 60px 40px;
-            text-align: center;
-            border-bottom: 2px solid #238636;
+            background: linear-gradient(135deg, #24292f 0%, #1b1f23 100%);
+            padding: 0;
+        }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .brand-logos {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .brand-microsoft {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+        .brand-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+        }
+        .brand-github {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .github-mark {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
         }
         .header-badge {
-            display: inline-block;
-            background: rgba(35, 134, 54, 0.15);
+            background: rgba(35, 134, 54, 0.2);
             border: 1px solid #238636;
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 12px;
+            border-radius: 16px;
+            padding: 4px 12px;
+            font-size: 11px;
             font-weight: 600;
             color: #3fb950;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 20px;
+        }
+        .header-content {
+            padding: 48px 40px;
+            text-align: center;
         }
         .header h1 {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             letter-spacing: -0.5px;
         }
-        .header h1 span { color: #3fb950; }
+        .header h1 span { color: #7ee787; }
         .header p {
             font-size: 18px;
-            color: #8b949e;
+            color: rgba(255,255,255,0.8);
             max-width: 600px;
-            margin: 0 auto 24px;
+            margin: 0 auto 20px;
         }
         .header-meta {
             font-size: 12px;
-            color: #6e7681;
+            color: rgba(255,255,255,0.5);
         }
         
         /* Section */
         .section {
             padding: 48px 40px;
-            border-bottom: 1px solid #21262d;
+            border-bottom: 1px solid #d0d7de;
+        }
+        .section-alt {
+            background: #f6f8fa;
         }
         .section-title {
             font-size: 24px;
             font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, #21262d, transparent);
+            color: #24292f;
+            margin-bottom: 8px;
         }
         .section-subtitle {
             font-size: 15px;
-            color: #8b949e;
+            color: #57606a;
             margin-bottom: 32px;
             max-width: 600px;
         }
         
         /* Key Message */
         .key-message {
-            background: linear-gradient(135deg, rgba(35, 134, 54, 0.1) 0%, rgba(35, 134, 54, 0.05) 100%);
-            border: 1px solid rgba(35, 134, 54, 0.3);
+            background: linear-gradient(135deg, #dafbe1 0%, #aceebb 100%);
+            border: 1px solid #4ac26b;
             border-radius: 12px;
-            padding: 32px;
+            padding: 28px 32px;
             text-align: center;
             margin-bottom: 40px;
         }
         .key-message-text {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 500;
-            color: #e6edf3;
+            color: #1a7f37;
             font-style: italic;
         }
         
@@ -119,11 +150,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 24px;
-            background: #161b22;
+            background: #ffffff;
             border-radius: 12px;
-            border: 1px solid #21262d;
+            border: 1px solid #d0d7de;
             overflow-x: auto;
             margin-bottom: 32px;
+            box-shadow: 0 1px 3px rgba(31, 35, 40, 0.04);
         }
         .sdlc-step {
             text-align: center;
@@ -139,20 +171,20 @@
             justify-content: center;
             font-size: 22px;
             margin: 0 auto 10px;
-            background: linear-gradient(135deg, #21262d, #30363d);
-            border: 1px solid #30363d;
+            background: linear-gradient(135deg, #f6f8fa, #eaeef2);
+            border: 1px solid #d0d7de;
         }
         .sdlc-label {
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #8b949e;
+            color: #57606a;
         }
         .sdlc-arrow {
-            color: #3fb950;
+            color: #1a7f37;
             font-size: 18px;
-            opacity: 0.6;
+            font-weight: 600;
         }
         
         /* Persona Cards */
@@ -162,15 +194,15 @@
             gap: 16px;
         }
         .persona-card {
-            background: #161b22;
-            border: 1px solid #21262d;
+            background: #ffffff;
+            border: 1px solid #d0d7de;
             border-radius: 12px;
             padding: 20px;
-            transition: border-color 0.2s, transform 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
         .persona-card:hover {
-            border-color: #3fb950;
-            transform: translateY(-2px);
+            border-color: #1a7f37;
+            box-shadow: 0 4px 12px rgba(26, 127, 55, 0.1);
         }
         .persona-header {
             display: flex;
@@ -184,24 +216,26 @@
         .persona-name {
             font-size: 15px;
             font-weight: 600;
-            color: #ffffff;
+            color: #24292f;
         }
         .persona-mapping {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 13px;
+            flex-wrap: wrap;
         }
         .persona-from {
-            color: #f85149;
+            color: #cf222e;
             text-decoration: line-through;
-            opacity: 0.7;
+            opacity: 0.8;
         }
         .persona-arrow {
-            color: #3fb950;
+            color: #1a7f37;
+            font-weight: 600;
         }
         .persona-to {
-            color: #3fb950;
+            color: #1a7f37;
             font-weight: 500;
         }
         
@@ -212,8 +246,8 @@
             gap: 24px;
         }
         .comparison-card {
-            background: #161b22;
-            border: 1px solid #21262d;
+            background: #ffffff;
+            border: 1px solid #d0d7de;
             border-radius: 12px;
             padding: 28px;
         }
@@ -225,18 +259,20 @@
             align-items: center;
             gap: 10px;
         }
-        .comparison-card.negative h3 { color: #f85149; }
-        .comparison-card.positive h3 { color: #3fb950; }
+        .comparison-card.negative { border-top: 3px solid #cf222e; }
+        .comparison-card.positive { border-top: 3px solid #1a7f37; }
+        .comparison-card.negative h3 { color: #cf222e; }
+        .comparison-card.positive h3 { color: #1a7f37; }
         .comparison-card ul {
             list-style: none;
         }
         .comparison-card li {
             font-size: 14px;
-            color: #8b949e;
+            color: #57606a;
             padding: 10px 0;
             padding-left: 24px;
             position: relative;
-            border-bottom: 1px solid rgba(33, 38, 45, 0.5);
+            border-bottom: 1px solid #eaeef2;
         }
         .comparison-card li:last-child { border-bottom: none; }
         .comparison-card li::before {
@@ -244,8 +280,8 @@
             left: 0;
             font-size: 14px;
         }
-        .comparison-card.negative li::before { content: '✗'; color: #f85149; }
-        .comparison-card.positive li::before { content: '✓'; color: #3fb950; }
+        .comparison-card.negative li::before { content: '✗'; color: #cf222e; }
+        .comparison-card.positive li::before { content: '✓'; color: #1a7f37; }
         
         /* Stats */
         .stats-grid {
@@ -255,8 +291,8 @@
             margin-bottom: 32px;
         }
         .stat-card {
-            background: linear-gradient(135deg, #161b22, #1c2128);
-            border: 1px solid #21262d;
+            background: #ffffff;
+            border: 1px solid #d0d7de;
             border-radius: 12px;
             padding: 24px 16px;
             text-align: center;
@@ -264,136 +300,19 @@
         .stat-number {
             font-size: 36px;
             font-weight: 700;
-            background: linear-gradient(135deg, #3fb950, #2ea043);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #1a7f37;
         }
         .stat-label {
             font-size: 13px;
-            font-weight: 500;
-            color: #e6edf3;
+            font-weight: 600;
+            color: #24292f;
             margin-top: 4px;
         }
         .stat-sublabel {
             font-size: 11px;
-            color: #6e7681;
+            color: #57606a;
             margin-top: 2px;
         }
-        
-        /* Feature Table */
-        .feature-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .feature-table th {
-            background: #161b22;
-            color: #8b949e;
-            font-weight: 600;
-            text-align: left;
-            padding: 14px 16px;
-            border-bottom: 2px solid #21262d;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.05em;
-        }
-        .feature-table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #21262d;
-            color: #8b949e;
-        }
-        .feature-table tr:hover td {
-            background: rgba(35, 134, 54, 0.05);
-        }
-        .feature-table .phase-cell {
-            font-weight: 600;
-            color: #3fb950;
-        }
-        .feature-table .ai-cell {
-            color: #a371f7;
-            font-weight: 500;
-        }
-        
-        /* Executive Dashboard Preview */
-        .dashboard-preview {
-            background: linear-gradient(135deg, #0d1117, #161b22);
-            border: 1px solid #21262d;
-            border-radius: 12px;
-            padding: 28px;
-        }
-        .dashboard-header {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #6e7681;
-            margin-bottom: 20px;
-        }
-        .metrics-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .metric-box {
-            background: #161b22;
-            border: 1px solid #21262d;
-            border-radius: 10px;
-            padding: 18px;
-            text-align: center;
-        }
-        .metric-value {
-            font-size: 26px;
-            font-weight: 700;
-        }
-        .metric-value.green { color: #3fb950; }
-        .metric-value.blue { color: #58a6ff; }
-        .metric-value.orange { color: #d29922; }
-        .metric-value.purple { color: #a371f7; }
-        .metric-name {
-            font-size: 10px;
-            color: #6e7681;
-            margin-top: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .portfolio-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        .portfolio-box {
-            background: #161b22;
-            border: 1px solid #21262d;
-            border-radius: 10px;
-            padding: 18px;
-        }
-        .portfolio-box h4 {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #6e7681;
-            margin-bottom: 14px;
-        }
-        .portfolio-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            color: #e6edf3;
-            margin-bottom: 10px;
-        }
-        .portfolio-item:last-child { margin-bottom: 0; }
-        .portfolio-item .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-        .portfolio-item .dot.green { background: #3fb950; }
-        .portfolio-item .dot.blue { background: #58a6ff; }
-        .portfolio-item .dot.red { background: #f85149; }
         
         /* Benefits */
         .benefits-grid {
@@ -402,8 +321,8 @@
             gap: 16px;
         }
         .benefit-card {
-            background: #161b22;
-            border: 1px solid #21262d;
+            background: #ffffff;
+            border: 1px solid #d0d7de;
             border-radius: 12px;
             padding: 24px;
             text-align: center;
@@ -415,18 +334,139 @@
         .benefit-title {
             font-size: 15px;
             font-weight: 600;
-            color: #e6edf3;
+            color: #24292f;
             margin-bottom: 8px;
         }
         .benefit-text {
             font-size: 13px;
-            color: #8b949e;
+            color: #57606a;
         }
+        
+        /* Feature Table */
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #d0d7de;
+        }
+        .feature-table th {
+            background: #f6f8fa;
+            color: #24292f;
+            font-weight: 600;
+            text-align: left;
+            padding: 14px 16px;
+            border-bottom: 2px solid #d0d7de;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+        .feature-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eaeef2;
+            color: #57606a;
+            background: #ffffff;
+        }
+        .feature-table tr:hover td {
+            background: #f6f8fa;
+        }
+        .feature-table .phase-cell {
+            font-weight: 600;
+            color: #1a7f37;
+        }
+        .feature-table .ai-cell {
+            color: #8250df;
+            font-weight: 500;
+        }
+        
+        /* Executive Dashboard Preview */
+        .dashboard-preview {
+            background: #ffffff;
+            border: 1px solid #d0d7de;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 1px 3px rgba(31, 35, 40, 0.04);
+        }
+        .dashboard-header {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #57606a;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .metric-box {
+            background: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+        }
+        .metric-value.green { color: #1a7f37; }
+        .metric-value.blue { color: #0969da; }
+        .metric-value.orange { color: #bf8700; }
+        .metric-value.purple { color: #8250df; }
+        .metric-name {
+            font-size: 10px;
+            color: #57606a;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .portfolio-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .portfolio-box {
+            background: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 10px;
+            padding: 18px;
+        }
+        .portfolio-box h4 {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #57606a;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+        .portfolio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #24292f;
+            margin-bottom: 10px;
+        }
+        .portfolio-item:last-child { margin-bottom: 0; }
+        .portfolio-item .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .portfolio-item .dot.green { background: #1a7f37; }
+        .portfolio-item .dot.blue { background: #0969da; }
+        .portfolio-item .dot.red { background: #cf222e; }
+        .portfolio-item .dot.orange { background: #bf8700; }
         
         /* Quote */
         .quote-block {
-            background: linear-gradient(135deg, #161b22, #1c2128);
-            border-left: 4px solid #3fb950;
+            background: linear-gradient(135deg, #f6f8fa, #eaeef2);
+            border-left: 4px solid #1a7f37;
             border-radius: 0 12px 12px 0;
             padding: 36px;
             text-align: center;
@@ -434,20 +474,20 @@
         .quote-text {
             font-size: 22px;
             font-weight: 500;
-            color: #e6edf3;
+            color: #24292f;
             margin-bottom: 12px;
             font-style: italic;
         }
         .quote-attribution {
             font-size: 14px;
-            color: #6e7681;
+            color: #57606a;
         }
         
         /* CTA */
         .cta-section {
             text-align: center;
             padding: 60px 40px;
-            background: linear-gradient(135deg, #161b22 0%, #0d1117 50%, #1a2332 100%);
+            background: linear-gradient(135deg, #24292f 0%, #1b1f23 100%);
         }
         .cta-section h2 {
             font-size: 28px;
@@ -456,35 +496,43 @@
             margin-bottom: 12px;
         }
         .cta-section p {
-            color: #8b949e;
+            color: rgba(255,255,255,0.8);
             margin-bottom: 28px;
             font-size: 16px;
         }
         .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, #238636, #2ea043);
+            background: #238636;
             color: #ffffff;
             padding: 14px 32px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 14px rgba(35, 134, 54, 0.3);
+            transition: background 0.2s;
         }
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(35, 134, 54, 0.4);
+            background: #2ea043;
         }
         
         /* Footer */
         .footer {
             text-align: center;
             padding: 28px 40px;
-            color: #6e7681;
+            background: #24292f;
+            color: rgba(255,255,255,0.6);
             font-size: 12px;
-            border-top: 1px solid #21262d;
-            background: #0d1117;
+        }
+        .footer-brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .footer-brand span {
+            color: #ffffff;
+            font-weight: 600;
         }
         
         /* Responsive */
@@ -499,17 +547,32 @@
             }
             .header h1 { font-size: 28px; }
             .section { padding: 32px 24px; }
+            .header-brand { flex-direction: column; gap: 12px; }
         }
     </style>
 </head>
 <body>
     <div class="email-container">
-    <!-- Header -->
+        <!-- Microsoft + GitHub Branded Header -->
         <header class="header">
-            <div class="header-badge">Compete Brief</div>
-            <h1>GitHub for the <span>Full SDLC</span></h1>
-            <p>One platform for planning, coding, testing, deploying, and operating—with AI that understands your code, your team, and your workflow.</p>
-            <div class="header-meta">Author: Microsoft Product Team | Last Updated: February 16, 2026</div>
+            <div class="header-brand">
+                <div class="brand-logos">
+                    <span class="brand-microsoft">Microsoft</span>
+                    <span class="brand-divider"></span>
+                    <span class="brand-github">
+                        <svg class="github-mark" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                        GitHub
+                    </span>
+                </div>
+                <span class="header-badge">Compete Brief</span>
+            </div>
+            <div class="header-content">
+                <h1>GitHub for the <span>Full SDLC</span></h1>
+                <p>One platform for planning, coding, testing, deploying, and operating—with AI that understands your code, your team, and your workflow.</p>
+                <div class="header-meta">Author: Microsoft Product Team | Last Updated: February 16, 2026</div>
+            </div>
         </header>
 
         <!-- Key Message -->
@@ -520,6 +583,7 @@
             
             <!-- SDLC Flow -->
             <h2 class="section-title">The Complete Journey</h2>
+            <p class="section-subtitle">From ideation to production—every phase powered by GitHub + Copilot.</p>
             <div class="sdlc-flow">
                 <div class="sdlc-step">
                     <div class="sdlc-icon">📋</div>
@@ -559,9 +623,9 @@
         </section>
 
         <!-- Personas -->
-        <section class="section">
+        <section class="section section-alt">
             <h2 class="section-title">Every Persona, One Platform</h2>
-            <p class="section-subtitle">GitHub replaces fragmented Atlassian tools with a unified experience for every role in your SDLC.</p>
+            <p class="section-subtitle">GitHub replaces fragmented Atlassian tools with a unified experience for every role.</p>
             <div class="persona-grid">
                 <div class="persona-card">
                     <div class="persona-header">
@@ -657,6 +721,7 @@
         <!-- Critical Difference -->
         <section class="section">
             <h2 class="section-title">The Critical Difference</h2>
+            <p class="section-subtitle">Why GitHub + Copilot wins against Atlassian + Rovo.</p>
             <div class="comparison-grid">
                 <div class="comparison-card negative">
                     <h3>⚠️ Atlassian + Rovo</h3>
@@ -684,8 +749,9 @@
         </section>
 
         <!-- Productivity Stats -->
-        <section class="section">
+        <section class="section section-alt">
             <h2 class="section-title">Proven Productivity Impact</h2>
+            <p class="section-subtitle">Real results from teams using GitHub + Copilot.</p>
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">55%</div>
@@ -761,7 +827,7 @@
                     <div class="portfolio-box">
                         <h4>Security Posture</h4>
                         <div class="portfolio-item"><span class="dot red"></span> 2 Critical vulnerabilities</div>
-                        <div class="portfolio-item"><span class="dot" style="background: #d29922;"></span> 8 High priority</div>
+                        <div class="portfolio-item"><span class="dot orange"></span> 8 High priority</div>
                         <div class="portfolio-item"><span class="dot green"></span> ↓ 15% from last month</div>
                     </div>
                 </div>
@@ -769,8 +835,9 @@
         </section>
 
         <!-- Feature Mapping -->
-        <section class="section">
+        <section class="section section-alt">
             <h2 class="section-title">Complete SDLC Feature Mapping</h2>
+            <p class="section-subtitle">How GitHub replaces every Atlassian tool across the SDLC.</p>
             <div style="overflow-x: auto;">
                 <table class="feature-table">
                     <thead>
@@ -870,8 +937,13 @@
 
         <!-- Footer -->
         <footer class="footer">
-            Microsoft Product Team | GitHub for the Full SDLC | Compete vs Atlassian<br>
-            <span style="opacity: 0.7;">Document updated: February 16, 2026</span>
+            <div class="footer-brand">
+                <span>Microsoft</span>
+                <span style="opacity: 0.5;">|</span>
+                <span>GitHub</span>
+            </div>
+            <div>GitHub for the Full SDLC | Compete vs Atlassian</div>
+            <div style="margin-top: 8px; opacity: 0.7;">Document updated: February 16, 2026</div>
         </footer>
     </div>
 </body>
