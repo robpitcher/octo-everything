@@ -1147,7 +1147,195 @@ ALEX: "This Power BI dashboard updates hourly. You can access it from
 
 ---
 
-## �🔍 Act 0: Explore the Knowledge
+## 🏢 SAFe at Scale: Enterprise Agile Support
+
+> **Key Insight:** GitHub Projects can support SAFe concepts natively. For full SAFe implementations (3+ ARTs), a GitHub + Azure DevOps hybrid provides the best of both worlds.
+
+### When to Use Which Approach
+
+| Scenario | Recommended Solution |
+|----------|---------------------|
+| Teams < 50, no formal SAFe | GitHub Projects native |
+| SAFe Essential (1-2 ARTs) | GitHub Projects + Power BI dashboards |
+| SAFe Large Solution (3+ ARTs) | GitHub + Azure DevOps hybrid |
+| Full SAFe (Portfolio level) | GitHub + Azure DevOps hybrid |
+
+### GitHub Projects: Native SAFe Capabilities
+
+GitHub Projects V2 supports SAFe-style planning with these native features:
+
+| SAFe Artifact | GitHub Implementation | How |
+|---------------|----------------------|-----|
+| **Epic** | Issue Type: Epic | Org-level issue types |
+| **Feature** | Issue Type: Feature | Parent issue with sub-issues |
+| **Story** | Issue Type: Story | Sub-issues under Features |
+| **PI (Program Increment)** | Custom Field: Iteration | Single-select: "PI 25.1", "PI 25.2" |
+| **ART (Agile Release Train)** | Custom Field: Train | Single-select: "Platform", "Mobile" |
+| **Team** | Repository or Label | Filter by repo or team label |
+| **Story Points** | Custom Field: Points | Number field |
+| **WSJF** | Custom Field: WSJF | Calculated or manual number |
+
+### SAFe Board Views in GitHub Projects
+
+Create multiple views in a single org-level Project:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    GitHub Project: "SAFe Program Board"                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  View: Portfolio Kanban (Filter: type=Epic)                                │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐       │
+│  │   Funnel     │ │   Analyzing  │ │  Implementing│ │     Done     │       │
+│  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘       │
+│                                                                             │
+│  View: Program Board (Filter: type=Feature, group by: PI)                  │
+│  ┌──────────────────────────────────────────────────────────────────────┐  │
+│  │  PI 25.1                 │  PI 25.2                 │  Backlog       │  │
+│  └──────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+│  View: Team Board (Filter: team=Platform, group by: Sprint)               │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐       │
+│  │   To Do      │ │ In Progress  │ │   Review     │ │     Done     │       │
+│  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### SAFe Metrics via GitHub GraphQL + Power BI
+
+GitHub doesn't provide native SAFe dashboards, but metrics can be calculated:
+
+| SAFe Metric | Data Source | Calculation |
+|-------------|-------------|-------------|
+| **PI Predictability** | GitHub GraphQL API | Features Completed ÷ Features Committed |
+| **Feature Cycle Time** | Issue timestamps | Created → Closed (days) |
+| **Team Velocity** | Custom field sum | Story Points completed per sprint |
+| **Epic Progress** | Sub-issue rollup | Child Features Done ÷ Total |
+| **Flow Efficiency** | Issue state history | Active time ÷ Total time |
+
+**Implementation:** Python script queries GraphQL API → exports to JSON → Power BI visualizes.
+
+### GitHub + Azure DevOps Hybrid for Full SAFe
+
+For enterprises requiring full SAFe ceremonies (PI Planning, ART sync, dependency management):
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         SAFe HYBRID ARCHITECTURE                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  AZURE DEVOPS (SAFe Layer)                                                 │
+│  ├── Portfolio Kanban (Epics, Themes)                                      │
+│  ├── Program Board (Features, PI Objectives)                               │
+│  ├── PI Planning (Capacity, Dependencies)                                  │
+│  └── Delivery Plans (Cross-team visualization)                             │
+│                                                                             │
+│                    ↕ AB# Linking (Native Integration) ↕                    │
+│                                                                             │
+│  GITHUB (Development Layer)                                                │
+│  ├── Code, PRs, Branches                                                   │
+│  ├── GitHub Actions (CI/CD)                                                │
+│  ├── Copilot (AI-assisted development)                                     │
+│  └── Advanced Security (GHAS)                                              │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+**How AB# Linking Works:**
+
+```bash
+# In commit message or PR description:
+git commit -m "Add Apple Pay integration
+
+Closes #42
+AB#456"
+
+# Azure DevOps automatically:
+# - Links the commit/PR to ADO work item AB#456
+# - Shows PR status in ADO Feature
+# - Updates Feature progress when PR merges
+```
+
+**Role Mapping:**
+
+| Role | Primary Tool | Secondary Tool |
+|------|--------------|----------------|
+| Portfolio Manager | Azure DevOps | — |
+| Release Train Engineer | Azure DevOps | GitHub (visibility) |
+| Product Manager | Both | — |
+| Scrum Master | GitHub Projects | ADO (rollup) |
+| Developer | GitHub | — (never leaves GitHub) |
+| QA Engineer | GitHub | ADO (test plans) |
+| Security Engineer | GitHub | — |
+
+### SAFe Feasibility Summary
+
+| Capability | GitHub Native | With Automation | Gap |
+|------------|---------------|-----------------|-----|
+| Epic/Feature/Story hierarchy | ✅ Sub-issues | — | — |
+| Custom fields (PI, Points) | ✅ Projects V2 | — | — |
+| Multiple board views | ✅ Project views | — | — |
+| PI Predictability metric | — | ✅ GraphQL + calc | — |
+| Feature cycle time | — | ✅ GraphQL + calc | — |
+| Team velocity | — | ✅ Custom field sum | — |
+| Roll-up to parent | — | ✅ Script required | — |
+| Dependency visualization | — | — | ❌ |
+| PI Planning board (native) | — | — | ❌ |
+| Capacity planning | — | — | ❌ |
+
+### Demo Script: SAFe Support
+
+```
+EXEC: "We practice SAFe. Can GitHub handle our PI Planning and ARTs?"
+
+ALEX: "Let me show you our options based on your scale..."
+
+[Show GitHub Projects with SAFe custom fields]
+
+ALEX: "For essential SAFe, GitHub Projects handles it natively:
+       - Issue Types: Epic, Feature, Story
+       - Custom fields: PI, ART, Story Points
+       - Views filtered by team, PI, or status"
+
+[Show Program Board view]
+
+ALEX: "Here's our Program Board—Features grouped by PI.
+       Each Feature has sub-issues that are the Stories."
+
+EXEC: "What about PI Planning with 100+ people?"
+
+ALEX: "For full SAFe, we recommend a hybrid:
+       Azure DevOps for PI Planning ceremonies—it has native support.
+       GitHub for all development—developers never leave.
+       
+       AB# links connect them automatically. When a PR merges,
+       the ADO Feature shows progress. No manual updates."
+
+[Show AB# link in a PR]
+
+ALEX: "Best part: developers stay in GitHub with Copilot.
+       Leadership gets SAFe views in ADO or Power BI.
+       Jira Align costs $15K+ annually—this is included."
+```
+
+### Comparison: Jira Align vs GitHub Solutions
+
+| Capability | Jira Align | GitHub Native | GitHub + ADO |
+|------------|------------|---------------|--------------|
+| PI Planning board | ✅ Native | ❌ | ✅ ADO native |
+| ART visualization | ✅ Native | ⚠️ Views | ✅ ADO native |
+| Story hierarchy | ✅ | ✅ Sub-issues | ✅ |
+| Dependency mapping | ✅ Native | ❌ | ✅ ADO native |
+| AI code assistance | ❌ | ✅ Copilot | ✅ Copilot |
+| Security scanning | ❌ | ✅ GHAS | ✅ GHAS |
+| CI/CD integrated | ❌ Separate | ✅ Actions | ✅ Actions |
+| Developer experience | ⚠️ Context switch | ✅ Native | ✅ Native |
+| Cost | $15K+/year | Included | Included (M365) |
+
+---
+
+## 🔍 Act 0: Explore the Knowledge
 
 ### Scene Setup
 Before writing anything, Alex explores what the Product Brain repo already knows — using **Copilot Spaces** to organize and query curated context.
