@@ -1,0 +1,53 @@
+# TODO: Commenting out until we confirm if we want to auto-generate HTML summaries and update the README TOC on every push to main. 
+
+# # .github/workflows/docs-publish.yml
+# name: Generate Documentation
+
+# on:
+#   push:
+#     branches: [main]
+#     paths:
+#       - 'specs/**/*.md'
+#       - 'insights/**/*.md'
+#       - 'research/**/*.md'
+#   workflow_dispatch:
+
+# jobs:
+#   generate-docs:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+#     steps:
+#       - uses: actions/checkout@v4
+      
+#       - name: Generate HTML Summaries
+#         run: |
+#           # For each spec, generate email-safe HTML
+#           for file in specs/**/*.md; do
+#             output="${file%.md}.html"
+#             # Use pandoc or custom script to convert
+#             pandoc "$file" -o "$output" --standalone --metadata title="$(basename $file .md)"
+#           done
+          
+#       - name: Update README TOC
+#         run: |
+#           echo "## Documentation" > docs-toc.md
+#           echo "" >> docs-toc.md
+#           echo "### Specifications" >> docs-toc.md
+#           for file in specs/*.md; do
+#             title=$(head -1 "$file" | sed 's/# //')
+#             echo "- [$title]($file)" >> docs-toc.md
+#           done
+#           echo "" >> docs-toc.md
+#           echo "### Insights" >> docs-toc.md
+#           for file in insights/*.md; do
+#             title=$(head -1 "$file" | sed 's/# //')
+#             echo "- [$title]($file)" >> docs-toc.md
+#           done
+#           # Inject into README.md
+          
+#       - name: Commit Generated Files
+#         uses: stefanzweifel/git-auto-commit-action@v5
+#         with:
+#           commit_message: "docs: Auto-generate HTML summaries and update TOC"
+#           file_pattern: "**/*.html README.md"
