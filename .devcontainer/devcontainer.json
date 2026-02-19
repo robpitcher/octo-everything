@@ -1,15 +1,16 @@
 {
   "name": "Contoso Product Brain",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
-
   "features": {
     "ghcr.io/devcontainers/features/git-lfs:1": {},
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
     },
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/dotnet:2": {
+      "version": "8.0"
+    }
   },
-
   "customizations": {
     "vscode": {
       "settings": {
@@ -23,12 +24,18 @@
         "bierner.markdown-mermaid",
         "ms-python.python",
         "ms-toolsai.jupyter",
-        "ms-toolsai.jupyter-renderers"
+        "ms-toolsai.jupyter-renderers",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.vscode-dotnet-runtime"
       ]
     }
   },
-
-  "postCreateCommand": "pip install pandas matplotlib numpy",
-
+  "postCreateCommand": {
+    "python-deps": "pip install pandas matplotlib numpy",
+    "dotnet-tools": "dotnet tool install -g docfx && echo 'export PATH=\"$PATH:/home/vscode/.dotnet/tools\"' >> ~/.bashrc"
+  },
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:${containerEnv:HOME}/.dotnet/tools"
+  },
   "remoteUser": "vscode"
 }

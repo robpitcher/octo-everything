@@ -56,3 +56,5 @@ npm-debug.log*
 
 # Node modules (if needed later)
 node_modules/
+
+docfx/_site
