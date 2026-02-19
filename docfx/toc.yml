@@ -1,5 +1,2 @@
-- name: Home
-  href: index.md
-- name: Specs
-  href: specs/
-  topicHref: specs/index.md
+# This file is no longer used. TOC is sourced from specs/toc.yml
+# See docfx.json content configuration
