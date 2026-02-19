@@ -4,6 +4,44 @@
 
 This repo showcases how Product Managers use AI coding tools (Cursor, Claude Code, GitHub Copilot) as **thinking partners** throughout the product lifecycle—from research synthesis to stakeholder communication. Not just builders; partners in discovery, critique, and persuasion.
 
+Primary demo repository: **https://github.com/tmcclell/octo-everything**
+
+---
+
+## GitHub SDLC Demo Plan (12 Acts)
+
+This workspace now supports a full **end-to-end SDLC story arc** designed for live demos.
+
+### Core Story Arc
+
+1. Explore the Knowledge
+2. The Idea (PRD Creation)
+3. Analyze Data
+4. The Breakdown (PRD → Issues)
+5. Build the Prototype
+6. Challenge the Thinking
+7. Sprint Planning
+8. Daily Standup
+9. Blockers & Dependencies
+10. Leadership Reporting
+11. Ship It
+12. Release Documentation
+
+### GitHub Capabilities Demonstrated
+
+- Repos + Markdown for product documentation (Confluence parity)
+- Issues + Projects for planning, sprint tracking, and reporting
+- Copilot Chat, Copilot Coding Agent, and MCP-assisted workflows
+- Actions for CI/CD and documentation automation
+- Advanced Security (Dependabot, CodeQL, secret scanning)
+- Releases + environments for controlled delivery
+
+### Demo Reliability Mode
+
+- **Act 2 uses pre-staged issues by default** for predictable live demos.
+- MCP issue creation is still documented as an optional rehearsal path.
+- Documentation automation should run in **PR-first mode** (no direct writes to `main`).
+
 ---
 
 ## What's Inside
@@ -309,9 +347,11 @@ Agents are specialized modes you switch to using the **agent picker** (click the
 
 ## Live Demos
 
-View prototypes and explainers online at **[digitarald.github.io/product-brain](https://digitarald.github.io/product-brain)**
+If GitHub Pages is enabled for this repository, prototypes can be shared from:
 
-All HTML prototypes in `prototypes/` are automatically deployed to GitHub Pages on every push to `main`.
+- **https://tmcclell.github.io/octo-everything/prototypes/**
+
+All HTML prototypes in `prototypes/` are intended to be publishable without a build step.
 
 ## Getting Started
 
