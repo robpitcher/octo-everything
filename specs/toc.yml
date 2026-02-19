@@ -1,4 +1,4 @@
-- name: Home
+- name: Overview
   href: index.md
 - name: Checkout Redesign
   href: checkout-redesign.md
