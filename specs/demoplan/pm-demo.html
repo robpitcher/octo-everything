@@ -772,7 +772,7 @@
                     <div class="persona-mapping">
                         <span class="persona-from">Jira + Confluence</span>
                         <span class="persona-arrow">→</span>
-                        <span class="persona-to">Issues + Actions + GitHub Copilot</span>
+                        <span class="persona-to">Issues + Actions + GitHub Copilot + Playwright</span>
                     </div>
                 </div>
                 <div class="persona-card">
@@ -911,9 +911,9 @@
         <!-- Executive Dashboard -->
         <section class="section">
             <h2 class="section-title">Executive Dashboard</h2>
-            <p class="section-subtitle">Leadership gets real-time visibility via GitHub API + Power BI—no manual exports required.</p>
+            <p class="section-subtitle">Leadership gets real-time visibility via GitHub Projects Insights, GitHub Copilot Metrics API, and GitHub REST API—no manual exports required.</p>
             <div class="dashboard-preview">
-                <div class="dashboard-header">DORA Metrics — Live from GitHub</div>
+                <div class="dashboard-header">Engineering Metrics — Powered by GitHub API</div>
                 <div class="metrics-row">
                     <div class="metric-box">
                         <div class="metric-value green">12</div>
@@ -977,7 +977,7 @@
                             <td>Manage backlog</td>
                             <td>Jira Backlog</td>
                             <td>Projects Table</td>
-                            <td class="ai-cell">GitHub Copilot + MCP creates from plan</td>
+                            <td class="ai-cell">GitHub Copilot + GitHub MCP creates from plan</td>
                         </tr>
                         <tr>
                             <td class="phase-cell">DESIGN</td>
@@ -1047,7 +1047,7 @@
                 <div class="mcp-flow-arrow">→</div>
                 <div class="mcp-flow-item highlight">
                     <div class="icon">🤖</div>
-                    <div class="label">GitHub Copilot + MCP</div>
+                    <div class="label">GitHub Copilot + GitHub MCP</div>
                     <div class="sublabel">Reads & Executes</div>
                 </div>
                 <div class="mcp-flow-arrow">→</div>
@@ -1191,54 +1191,42 @@
         <!-- Regulatory Compliance Section -->
         <section class="section">
             <h2 class="section-title">Enterprise Compliance for Regulated Industries</h2>
-            <p class="section-subtitle">GitHub meets stringent requirements for financial services, healthcare, and government workloads.</p>
+            <p class="section-subtitle">GitHub Enterprise Cloud is FedRAMP High authorized. For AI in regulated environments, Azure OpenAI provides FedRAMP High coverage with BYOK.</p>
             
             <div style="overflow-x: auto; margin-bottom: 24px;">
                 <table class="feature-table">
                     <thead>
                         <tr>
-                            <th>Certification</th>
-                            <th>GitHub</th>
-                            <th>Atlassian</th>
-                            <th>Advantage</th>
+                            <th>Product</th>
+                            <th>FedRAMP Status</th>
+                            <th>Other Certifications</th>
+                            <th>Use Case</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>FedRAMP High</strong></td>
-                            <td style="color: #1a7f37; font-weight: 600;">✓ Authorized</td>
-                            <td style="color: #bf8700;">Moderate only</td>
-                            <td class="ai-cell">GitHub wins</td>
+                            <td><strong>GitHub Enterprise Cloud</strong></td>
+                            <td style="color: #1a7f37; font-weight: 600;">✓ FedRAMP High</td>
+                            <td>SOC 2, ISO 27001, PCI DSS</td>
+                            <td>Code, Actions, Advanced Security</td>
                         </tr>
                         <tr>
-                            <td><strong>StateRAMP</strong></td>
-                            <td style="color: #1a7f37; font-weight: 600;">✓ Authorized</td>
-                            <td style="color: #cf222e;">Not listed</td>
-                            <td class="ai-cell">GitHub wins</td>
+                            <td><strong>GitHub Copilot</strong></td>
+                            <td style="color: #bf8700;">Not FedRAMP</td>
+                            <td>SOC 2, ISO 27001, No Code Retention</td>
+                            <td>AI for non-regulated workloads</td>
                         </tr>
                         <tr>
-                            <td><strong>DoD IL4</strong></td>
-                            <td style="color: #1a7f37; font-weight: 600;">✓ ATO</td>
-                            <td style="color: #bf8700;">Limited</td>
-                            <td class="ai-cell">GitHub wins</td>
+                            <td><strong>Azure OpenAI Service</strong></td>
+                            <td style="color: #1a7f37; font-weight: 600;">✓ FedRAMP High</td>
+                            <td>DoD IL5, BYOK, Data Residency</td>
+                            <td>AI for regulated workloads</td>
                         </tr>
                         <tr>
-                            <td><strong>HIPAA BAA</strong></td>
-                            <td style="color: #1a7f37;">✓ Available</td>
-                            <td style="color: #1a7f37;">✓ Available</td>
-                            <td>Parity</td>
-                        </tr>
-                        <tr>
-                            <td><strong>SOC 2 Type II</strong></td>
-                            <td style="color: #1a7f37;">✓ Certified</td>
-                            <td style="color: #1a7f37;">✓ Certified</td>
-                            <td>Parity</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ISO 27001/27017/27018</strong></td>
-                            <td style="color: #1a7f37;">✓ Certified</td>
-                            <td style="color: #1a7f37;">✓ Certified</td>
-                            <td>Parity</td>
+                            <td><strong>GitHub Enterprise Server</strong></td>
+                            <td style="color: #57606a;">Self-hosted</td>
+                            <td>Your infrastructure controls</td>
+                            <td>Air-gapped, on-premises</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1246,20 +1234,20 @@
 
             <div class="capability-grid">
                 <div class="capability-card">
+                    <h4>🏛️ Federal Customers</h4>
+                    <p>GitHub Enterprise Cloud (FedRAMP High) + Azure OpenAI (FedRAMP High) = Complete AI-powered DevSecOps for federal workloads.</p>
+                </div>
+                <div class="capability-card">
                     <h4>🏦 Financial Services</h4>
                     <p>Branch protection enforces segregation of duties. Git history provides immutable audit trail for SOX compliance.</p>
                 </div>
                 <div class="capability-card">
                     <h4>🏥 Healthcare</h4>
-                    <p>HIPAA BAA available. Secret scanning prevents PHI in code. Enterprise audit log exports to SIEM.</p>
+                    <p>Secret scanning prevents sensitive data in code. Enterprise audit log exports to SIEM for compliance monitoring.</p>
                 </div>
                 <div class="capability-card">
-                    <h4>🏛️ Federal Government</h4>
-                    <p>FedRAMP High authorized—not just Moderate. Enables most sensitive federal workloads.</p>
-                </div>
-                <div class="capability-card">
-                    <h4>🏢 State & Local</h4>
-                    <p>StateRAMP authorized. Atlassian is not on the StateRAMP marketplace.</p>
+                    <h4>🏢 On-Premises Option</h4>
+                    <p>GitHub Enterprise Server available for air-gapped deployments with strict data residency requirements.</p>
                 </div>
             </div>
         </section>
