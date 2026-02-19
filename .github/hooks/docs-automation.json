@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "./.github/hooks/scripts/regenerate-toc.sh",
+        "powershell": "./.github/hooks/scripts/regenerate-toc.ps1",
+        "cwd": ".",
+        "timeoutSec": 30,
+        "comment": "Regenerate README TOC when Copilot edits spec/insight files"
+      }
+    ]
+  }
+}

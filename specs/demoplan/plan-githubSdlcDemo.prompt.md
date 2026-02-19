@@ -15,6 +15,7 @@ This plan creates a fully functional end-to-end demo competing against Atlassian
 | **GitHub Copilot Spaces** | Plan | Curated context for grounded queries |
 | **GitHub Copilot Code Review** | Develop | AI-powered PR review |
 | **GitHub Copilot Coding Agent** | Develop | Autonomous issue resolution |
+| **GitHub Copilot Hooks** | All phases | postToolUse automation, TOC regeneration |
 | **GitHub Copilot Autofix** | Secure | Security vulnerability remediation |
 | **GitHub MCP** | Plan → Execute | Plan markdown → GitHub artifacts |
 | **GitHub Actions** | All phases | CI/CD, **doc generation**, automation |
@@ -31,7 +32,7 @@ This plan creates a fully functional end-to-end demo competing against Atlassian
 
 | Confluence Feature | GitHub Equivalent | Automation |
 |--------------------|-------------------|------------|
-| Spaces & page trees | Folders + README TOC | Actions updates README |
+| Spaces & page trees | Folders + README TOC | Actions + **Copilot Hooks** update TOC |
 | Page creation | Markdown files | Copilot drafts via MCP |
 | Rich content | Mermaid, images, tables | Native markdown rendering |
 | Search/discovery | Copilot Spaces + `@workspace` | Semantic search |
@@ -39,6 +40,7 @@ This plan creates a fully functional end-to-end demo competing against Atlassian
 | Comments & review | PR-based review | Approval workflow |
 | Version history | Git history | Full audit trail |
 | Permissions | Branch protection + CODEOWNERS | Granular access |
+| Real-time sync | postToolUse hooks | TOC regenerates on every Copilot edit |
 
 ### Documentation Workflow (Actions-Based)
 
@@ -720,6 +722,9 @@ changelog:
 | `.github/workflows/deploy.yml` | Deploy with environments | High |
 | `.github/workflows/auto-add-to-project.yml` | **Required** — Auto-add labeled issues to Project | **Critical** |
 | `.github/workflows/docs-publish.yml` | **Required** — Generate HTML + update README TOC | **Critical** |
+| `.github/hooks/docs-automation.json` | **New** — postToolUse hook for TOC regeneration | High |
+| `.github/hooks/scripts/regenerate-toc.sh` | Bash script for TOC generation | High |
+| `.github/hooks/scripts/regenerate-toc.ps1` | PowerShell script for TOC generation | High |
 | `.github/release.yml` | Release note categories | Medium |
 | `analysis/scripts/survey-analysis.py` | Data analysis example | Medium |
 | `analysis/powerbi/dax-examples.md` | DAX measures | Medium |
@@ -764,6 +769,55 @@ jobs:
 - This workflow bridges the gap automatically
 - Labels act as the trigger — MCP sets labels, workflow adds to Project
 - No manual intervention required during demo
+
+### Copilot Hooks for Documentation Automation
+
+Copilot hooks extend agent behavior by executing shell commands at key points during Copilot sessions. The `postToolUse` hook triggers TOC regeneration whenever Copilot edits a spec, insight, or research file.
+
+**Hook Configuration:** `.github/hooks/docs-automation.json`
+
+```json
+{
+  "version": 1,
+  "hooks": {
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "./.github/hooks/scripts/regenerate-toc.sh",
+        "powershell": "./.github/hooks/scripts/regenerate-toc.ps1",
+        "cwd": ".",
+        "timeoutSec": 30,
+        "comment": "Regenerate README TOC when Copilot edits spec/insight files"
+      }
+    ]
+  }
+}
+```
+
+**How It Works:**
+
+```
+┌─────────────────────────┐     ┌─────────────────────────┐     ┌─────────────────────────┐
+│  1. Copilot edits       │────▶│  2. postToolUse hook    │────▶│  3. TOC regenerated     │
+│  specs/feature.md       │     │  fires automatically    │     │  docs-toc.md updated    │
+└─────────────────────────┘     └─────────────────────────┘     └─────────────────────────┘
+```
+
+**Script Logic:**
+1. Reads tool execution details from stdin (JSON)
+2. Checks if operation was successful edit/create
+3. Validates file is in `specs/`, `insights/`, or `research/`
+4. Regenerates `docs-toc.md` with current file listing
+5. Logs action to `logs/docs-automation.log`
+
+**Demo Points:**
+| Confluence Action | GitHub + Hooks |
+|-------------------|----------------|
+| "Page tree auto-updates" | TOC regenerates on every Copilot edit |
+| "No manual refresh needed" | Hook runs automatically after tool use |
+| "Audit trail" | All regenerations logged with timestamps |
+
+**Efficiency Gain:** Eliminates manual TOC maintenance — documentation stays current as Copilot works.
 
 ---
 
