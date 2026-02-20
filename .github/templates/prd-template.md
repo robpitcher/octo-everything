@@ -1,9 +1,10 @@
 # [Feature Name] PRD
 
-**Status:** Draft  
-**Author:** [Your Name], [Role]  
-**Last Updated:** [Date]  
-**Stakeholders:** [Engineering, Design, Marketing, etc.]
+- **Status:** Draft
+- **Author:** [Your Name], [Role]
+- **Last Updated:** [Date]
+- **Stakeholders:** [Engineering, Design, Marketing, etc.]
+- **Description:** [One-sentence summary of what this PRD addresses]
 
 ---
 

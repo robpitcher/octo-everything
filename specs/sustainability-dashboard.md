@@ -1,9 +1,10 @@
 # Sustainability Dashboard PRD
 
-**Status:** Approved  
-**Author:** Marcus Webb, Product Manager  
-**Last Updated:** January 30, 2026  
-**Stakeholders:** Sustainability Team, Marketing, Engineering, Legal
+- **Status:** Approved
+- **Author:** Marcus Webb, Product Manager
+- **Last Updated:** January 30, 2026
+- **Stakeholders:** Sustainability Team, Marketing, Engineering, Legal
+- **Description:** Provide customers transparency into eco-impact and product certifications
 
 ---
 

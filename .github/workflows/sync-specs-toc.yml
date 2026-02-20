@@ -1,0 +1,155 @@
+name: Sync specs TOC and index
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+    paths:
+      - 'specs/**'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  sync-toc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Detect fork PR
+        id: fork-check
+        run: |
+          if [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]; then
+            echo "is_fork=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::PR is from a fork — auto-commit is disabled"
+          else
+            echo "is_fork=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 1
+
+      - name: Regenerate specs TOC and index
+        run: |
+          set -euo pipefail
+
+          SPECS_DIR="specs"
+          TOC_FILE="$SPECS_DIR/toc.yml"
+          INDEX_FILE="$SPECS_DIR/index.md"
+
+          # Collect top-level .md files, excluding index.md
+          mapfile -t spec_files < <(find "$SPECS_DIR" -maxdepth 1 -name '*.md' ! -name 'index.md' -printf '%f\n' | sort)
+
+          if [ ${#spec_files[@]} -eq 0 ]; then
+            echo "No spec files found"
+            exit 0
+          fi
+
+          echo "Found ${#spec_files[@]} spec(s)"
+
+          # Start toc.yml with Overview entry
+          printf '%s\n' '- name: Overview' '  href: index.md' > "$TOC_FILE"
+
+          # Start index.md
+          printf '%s\n' '# Product Specs' '' 'All product requirement documents (PRDs) for Contoso outdoor gear e-commerce.' '' '| Spec | Status | Description |' '|------|--------|-------------|' > "$INDEX_FILE"
+
+          for fname in "${spec_files[@]}"; do
+            filepath="$SPECS_DIR/$fname"
+
+            # Extract first H1 heading
+            title=$(grep -m 1 '^# ' "$filepath" | sed 's/^# //' || true)
+            if [ -z "$title" ]; then
+              title=$(echo "${fname%.md}" | sed 's/-/ /g; s/\b\(.\)/\u\1/g')
+            fi
+
+            # Extract Status metadata (trim trailing whitespace)
+            status=$(grep -m 1 '^\*\*Status:\*\*' "$filepath" | sed 's/\*\*Status:\*\*\s*//; s/[[:space:]]*$//' || true)
+            if [ -z "$status" ]; then
+              status="—"
+            fi
+
+            # Extract Description metadata (trim trailing whitespace)
+            description=$(grep -m 1 '^\*\*Description:\*\*' "$filepath" | sed 's/\*\*Description:\*\*\s*//; s/[[:space:]]*$//' || true)
+            if [ -z "$description" ]; then
+              description="—"
+            fi
+
+            # Append to toc.yml
+            echo "- name: $title" >> "$TOC_FILE"
+            echo "  href: $fname" >> "$TOC_FILE"
+
+            # Append to index.md
+            echo "| [$title]($fname) | $status | $description |" >> "$INDEX_FILE"
+          done
+
+          echo "Wrote $TOC_FILE and $INDEX_FILE"
+
+      - name: Check for changes
+        id: diff-check
+        run: |
+          if git diff --quiet specs/toc.yml specs/index.md; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "specs/toc.yml and specs/index.md are up to date"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "specs/toc.yml and/or specs/index.md need updating"
+            echo "::group::Diff"
+            git diff specs/toc.yml specs/index.md
+            echo "::endgroup::"
+          fi
+
+      - name: Commit changes (same-repo PR)
+        if: steps.fork-check.outputs.is_fork == 'false' && steps.diff-check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add specs/toc.yml specs/index.md
+          git commit -m "chore: sync specs toc.yml and index.md"
+          git push
+
+      - name: Fail with instructions (fork PR)
+        if: steps.fork-check.outputs.is_fork == 'true' && steps.diff-check.outputs.has_changes == 'true'
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          ## ⚠️ Specs TOC / Index out of sync
+
+          Your PR modifies files in `specs/` but `specs/toc.yml` and/or `specs/index.md`
+          are not up to date. Because this PR is from a fork, the workflow cannot
+          auto-commit the fix.
+
+          **Please regenerate these files locally and push to your branch.**
+
+          Run the following from the repo root:
+
+          ```bash
+          SPECS_DIR="specs"
+          TOC_FILE="$SPECS_DIR/toc.yml"
+          INDEX_FILE="$SPECS_DIR/index.md"
+
+          mapfile -t spec_files < <(find "$SPECS_DIR" -maxdepth 1 -name '*.md' ! -name 'index.md' -printf '%f\n' | sort)
+
+          printf '%s\n' '- name: Overview' '  href: index.md' > "$TOC_FILE"
+          printf '%s\n' '# Product Specs' '' 'All product requirement documents (PRDs) for Contoso outdoor gear e-commerce.' '' '| Spec | Status | Description |' '|------|--------|-------------|' > "$INDEX_FILE"
+
+          for fname in "${spec_files[@]}"; do
+            filepath="$SPECS_DIR/$fname"
+            title=$(grep -m 1 '^# ' "$filepath" | sed 's/^# //' || true)
+            [ -z "$title" ] && title=$(echo "${fname%.md}" | sed 's/-/ /g; s/\b\(.\)/\u\1/g')
+            status=$(grep -m 1 '^\*\*Status:\*\*' "$filepath" | sed 's/\*\*Status:\*\*\s*//; s/[[:space:]]*$//' || true)
+            [ -z "$status" ] && status="—"
+            description=$(grep -m 1 '^\*\*Description:\*\*' "$filepath" | sed 's/\*\*Description:\*\*\s*//; s/[[:space:]]*$//' || true)
+            [ -z "$description" ] && description="—"
+            echo "- name: $title" >> "$TOC_FILE"
+            echo "  href: $fname" >> "$TOC_FILE"
+            echo "| [$title]($fname) | $status | $description |" >> "$INDEX_FILE"
+          done
+          ```
+
+          Then commit and push the updated `specs/toc.yml` and `specs/index.md`.
+          This check will pass once those files are in sync.
+          EOF
+          echo "::error::specs/toc.yml and/or specs/index.md are out of sync. See the job summary for instructions."
+          exit 1
