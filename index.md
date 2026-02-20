@@ -1,4 +1,4 @@
-# Contoso PRD Hub
+# Contoso PRD Wiki
 
 Welcome to the Contoso Product Requirements Documentation hub. This site contains the canonical product specs for Contoso's outdoor gear e-commerce platform.
 
