@@ -15,13 +15,12 @@ This plan creates a fully functional end-to-end demo competing against Atlassian
 | **GitHub Copilot Spaces** | Plan | Curated context for grounded queries |
 | **GitHub Copilot Code Review** | Develop | AI-powered PR review |
 | **GitHub Copilot Coding Agent** | Develop | Autonomous issue resolution |
-| **GitHub Copilot Hooks** | All phases | postToolUse automation, TOC regeneration |
 | **GitHub Copilot Autofix** | Secure | Security vulnerability remediation |
 | **GitHub MCP** | Plan → Execute | Plan markdown → GitHub artifacts |
-| **GitHub Actions** | All phases | CI/CD, **doc generation**, automation |
+| **GitHub Actions** | All phases | CI/CD, **DocFX publishing**, **TOC sync**, automation |
 | **GitHub Advanced Security** | Secure | Dependabot, CodeQL, Secret Scanning |
 | **GitHub Releases** | Deploy | Auto-generated changelogs |
-| **GitHub Pages** | Operate | Documentation hosting (optional) |
+| **GitHub Pages** | Operate | DocFX wiki hosting |
 | **GitHub Environments** | Deploy | Staging/production approvals |
 
 ---
@@ -32,15 +31,15 @@ This plan creates a fully functional end-to-end demo competing against Atlassian
 
 | Confluence Feature | GitHub Equivalent | Automation |
 |--------------------|-------------------|------------|
-| Spaces & page trees | Folders + README TOC | Actions + **Copilot Hooks** update TOC |
+| Spaces & page trees | Folders + DocFX TOC | `sync-specs-toc.yml` auto-syncs `specs/toc.yml` + `specs/index.md` |
 | Page creation | Markdown files | Copilot drafts via MCP |
 | Rich content | Mermaid, images, tables | Native markdown rendering |
 | Search/discovery | Copilot Spaces + `@workspace` | Semantic search |
-| Publishing | HTML summaries in repo | Actions generates HTML |
+| Publishing | DocFX wiki on GitHub Pages | `docfx-to-gh-pages.yml` builds & deploys |
 | Comments & review | PR-based review | Approval workflow |
 | Version history | Git history | Full audit trail |
 | Permissions | Branch protection + CODEOWNERS | Granular access |
-| Real-time sync | postToolUse hooks | TOC regenerates on every Copilot edit |
+| Real-time sync | `sync-specs-toc.yml` | TOC + index auto-updated on PR |
 
 ### Documentation Workflow (Actions-Based)
 
@@ -51,81 +50,99 @@ This plan creates a fully functional end-to-end demo competing against Atlassian
 └─────────────────────────┘       └───────────┬─────────────┘
                                               │
                                               ▼
-                                  ┌─────────────────────────┐
-                                  │ 3. PR Review & Approve  │
-                                  │    (Confluence = none)  │
-                                  └───────────┬─────────────┘
-                                              │
-                                              ▼
                           ┌───────────────────┴───────────────────┐
                           │                                       │
               ┌───────────▼───────────┐           ┌───────────────▼───────────┐
-              │ 4a. Generate HTML     │           │ 4b. Update README TOC     │
-              │     Summary           │           │     with new links        │
+              │ 3a. sync-specs-toc    │           │ 3b. PR Review & Approve   │
+              │  Auto-sync toc.yml +  │           │     (Confluence = none)   │
+              │  index.md on PR       │           │                           │
               └───────────┬───────────┘           └───────────────┬───────────┘
                           │                                       │
                           └───────────────────┬───────────────────┘
+                                              │  Merge to main
                                               ▼
                                   ┌─────────────────────────┐
-                                  │ 5. Commit Generated     │
-                                  │    Files to Repo        │
+                                  │ 4. docfx-to-gh-pages    │
+                                  │    Build & deploy DocFX │
+                                  │    wiki to GitHub Pages │
                                   └─────────────────────────┘
 ```
 
-### Documentation Actions Workflow
+### Documentation Actions Workflows
+
+**1. DocFX to GitHub Pages** — Builds and deploys the DocFX wiki on push to `main`:
 
 ```yaml
-# .github/workflows/docs-publish.yml
-name: Generate Documentation
+# .github/workflows/docfx-to-gh-pages.yml
+name: Deploy DocFX to GitHub Pages
 
 on:
   push:
     branches: [main]
-    paths:
-      - 'specs/**/*.md'
-      - 'insights/**/*.md'
-      - 'research/**/*.md'
+    paths: ['specs/**', 'docfx.json', 'toc.yml', 'index.md']
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  generate-docs:
+  publish-docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with: { dotnet-version: 8.x }
+    - run: dotnet tool update -g docfx
+    - run: docfx docfx.json
+    - uses: actions/upload-pages-artifact@v3
+      with: { path: '_site' }
+    - uses: actions/deploy-pages@v4
+```
+
+**2. Sync Specs TOC** — Auto-updates `specs/toc.yml` and `specs/index.md` on PRs that touch `specs/`:
+
+```yaml
+# .github/workflows/sync-specs-toc.yml
+name: Sync specs TOC and index
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: [main]
+    paths: ['specs/**']
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-toc:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Generate HTML Summaries
+        with: { ref: "${{ github.head_ref }}", fetch-depth: 1 }
+
+      - name: Regenerate specs TOC and index
         run: |
-          # For each spec, generate email-safe HTML
-          for file in specs/**/*.md; do
-            output="${file%.md}.html"
-            # Use pandoc or custom script to convert
-            pandoc "$file" -o "$output" --standalone --metadata title="$(basename $file .md)"
-          done
-          
-      - name: Update README TOC
+          # Scans specs/*.md, extracts title/status/description metadata,
+          # regenerates specs/toc.yml and specs/index.md
+          # (see full script in repo)
+
+      - name: Commit changes (same-repo PR)
         run: |
-          echo "## Documentation" > docs-toc.md
-          echo "" >> docs-toc.md
-          echo "### Specifications" >> docs-toc.md
-          for file in specs/*.md; do
-            title=$(head -1 "$file" | sed 's/# //')
-            echo "- [$title]($file)" >> docs-toc.md
-          done
-          echo "" >> docs-toc.md
-          echo "### Insights" >> docs-toc.md
-          for file in insights/*.md; do
-            title=$(head -1 "$file" | sed 's/# //')
-            echo "- [$title]($file)" >> docs-toc.md
-          done
-          # Inject into README.md
-          
-      - name: Commit Generated Files
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "docs: Auto-generate HTML summaries and update TOC"
-          file_pattern: "**/*.html README.md"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add specs/toc.yml specs/index.md
+          git commit -m "chore: sync specs toc.yml and index.md" && git push || true
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        # Posts: "📋 Specs sync: I updated specs/toc.yml and specs/index.md..."
 ```
 
 ### Demo Points for Confluence Parity
@@ -133,11 +150,11 @@ jobs:
 | Confluence Action | Demo in GitHub |
 |-------------------|----------------|
 | "Create a new spec page" | Create `specs/dark-mode.md` via Copilot |
-| "Navigate to spec" | Click link in README TOC |
+| "Navigate to spec" | Browse DocFX wiki on GitHub Pages or click link in `specs/index.md` |
 | "Search for topic" | Use Copilot Spaces: "What specs mention payments?" |
 | "See page history" | Git history: `git log specs/dark-mode.md` |
 | "Approve changes" | PR approval workflow |
-| "Share with stakeholder" | Send HTML file or repo link |
+| "Share with stakeholder" | Share GitHub Pages URL or repo link |
 
 ---
 
@@ -330,17 +347,12 @@ jobs:
 ### Step 2: Configure MCP in VS Code
 
 ```json
-// VS Code settings.json
+// VS Code mcp.json
 {
-  "mcp": {
-    "servers": {
-      "github": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-github"],
-        "env": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
-        }
-      }
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
     }
   }
 }
@@ -352,7 +364,7 @@ jobs:
 
 **Copilot Prompt:**
 ```
-Read specs/checkout-redesign.md and create GitHub Issues for each requirement 
+Read specs/checkout-redesign.md and create GitHub Issues for each requirement
 in the 'Proposed Solution' section. For each issue:
 - Use title format: '[Checkout] <feature name>'
 - Include acceptance criteria from the spec
@@ -370,7 +382,7 @@ Repository: contoso/product-brain
 
 **For Epic/Sub-Issues:**
 ```
-"Create a parent issue 'Express Payment Integration' with label 'epic', 
+"Create a parent issue 'Express Payment Integration' with label 'epic',
 then add sub-issues for Apple Pay, Google Pay, and PayPal optimization"
 ```
 
@@ -441,7 +453,7 @@ then add sub-issues for Apple Pay, Google Pay, and PayPal optimization"
 
 **Copilot Prompt:**
 ```
-Create a prototype in prototypes/dark-mode/index.html that demonstrates 
+Create a prototype in prototypes/dark-mode/index.html that demonstrates
 dark mode toggle functionality. Use our design system from AGENTS.md:
 - Dark base: #0a0c0a
 - Card bg: rgba(17, 20, 17, 0.85)
@@ -675,19 +687,19 @@ jobs:
 
 **Objective:** Generate release notes, verify documentation is up to date
 
-> **Note:** Ongoing documentation (specs, ADRs, insights) is managed continuously via the `docs-publish.yml` workflow from the Confluence Parity section. Act 8 focuses on **release documentation**.
+> **Note:** Ongoing documentation (specs, ADRs, insights) is managed continuously via two workflows: `docfx-to-gh-pages.yml` (builds and deploys the DocFX wiki) and `sync-specs-toc.yml` (auto-syncs `specs/toc.yml` and `specs/index.md` on PRs). Act 8 focuses on **release documentation**.
 
 **Pre-requisites:**
 - [ ] Merged PRs with conventional commit messages
 - [ ] Release template configured
-- [ ] docs-publish workflow active (verifies README TOC is current)
+- [ ] DocFX + TOC sync workflows active
 
 **Demo Artifacts:**
 | Artifact | Location | Purpose |
 |----------|----------|---------|
 | Release template | [.github/release.yml](.github/) | Auto-generated categories |
-| Updated README TOC | README.md | Auto-updated by docs-publish workflow |
-| HTML summaries | `specs/*.html` | Email-safe documentation |
+| DocFX wiki | GitHub Pages | Auto-built by `docfx-to-gh-pages.yml` |
+| Specs TOC + index | `specs/toc.yml`, `specs/index.md` | Auto-synced by `sync-specs-toc.yml` |
 
 **Copilot Prompts:**
 - "Generate release notes for v2.3.0 from merged PRs since v2.2.0"
@@ -721,10 +733,8 @@ changelog:
 | `.github/workflows/ci.yml` | Test and build | High |
 | `.github/workflows/deploy.yml` | Deploy with environments | High |
 | `.github/workflows/auto-add-to-project.yml` | **Required** — Auto-add labeled issues to Project | **Critical** |
-| `.github/workflows/docs-publish.yml` | **Required** — Generate HTML + update README TOC | **Critical** |
-| `.github/hooks/docs-automation.json` | **New** — postToolUse hook for TOC regeneration | High |
-| `.github/hooks/scripts/regenerate-toc.sh` | Bash script for TOC generation | High |
-| `.github/hooks/scripts/regenerate-toc.ps1` | PowerShell script for TOC generation | High |
+| `.github/workflows/docfx-to-gh-pages.yml` | **Required** — Build DocFX wiki and deploy to GitHub Pages | **Critical** |
+| `.github/workflows/sync-specs-toc.yml` | **Required** — Auto-sync `specs/toc.yml` + `specs/index.md` on PR | **Critical** |
 | `.github/release.yml` | Release note categories | Medium |
 | `analysis/scripts/survey-analysis.py` | Data analysis example | Medium |
 | `analysis/powerbi/dax-examples.md` | DAX measures | Medium |
@@ -769,55 +779,6 @@ jobs:
 - This workflow bridges the gap automatically
 - Labels act as the trigger — MCP sets labels, workflow adds to Project
 - No manual intervention required during demo
-
-### Copilot Hooks for Documentation Automation
-
-Copilot hooks extend agent behavior by executing shell commands at key points during Copilot sessions. The `postToolUse` hook triggers TOC regeneration whenever Copilot edits a spec, insight, or research file.
-
-**Hook Configuration:** `.github/hooks/docs-automation.json`
-
-```json
-{
-  "version": 1,
-  "hooks": {
-    "postToolUse": [
-      {
-        "type": "command",
-        "bash": "./.github/hooks/scripts/regenerate-toc.sh",
-        "powershell": "./.github/hooks/scripts/regenerate-toc.ps1",
-        "cwd": ".",
-        "timeoutSec": 30,
-        "comment": "Regenerate README TOC when Copilot edits spec/insight files"
-      }
-    ]
-  }
-}
-```
-
-**How It Works:**
-
-```
-┌─────────────────────────┐     ┌─────────────────────────┐     ┌─────────────────────────┐
-│  1. Copilot edits       │────▶│  2. postToolUse hook    │────▶│  3. TOC regenerated     │
-│  specs/feature.md       │     │  fires automatically    │     │  docs-toc.md updated    │
-└─────────────────────────┘     └─────────────────────────┘     └─────────────────────────┘
-```
-
-**Script Logic:**
-1. Reads tool execution details from stdin (JSON)
-2. Checks if operation was successful edit/create
-3. Validates file is in `specs/`, `insights/`, or `research/`
-4. Regenerates `docs-toc.md` with current file listing
-5. Logs action to `logs/docs-automation.log`
-
-**Demo Points:**
-| Confluence Action | GitHub + Hooks |
-|-------------------|----------------|
-| "Page tree auto-updates" | TOC regenerates on every Copilot edit |
-| "No manual refresh needed" | Hook runs automatically after tool use |
-| "Audit trail" | All regenerations logged with timestamps |
-
-**Efficiency Gain:** Eliminates manual TOC maintenance — documentation stays current as Copilot works.
 
 ---
 
@@ -913,25 +874,9 @@ Create 8-10 issues from [specs/checkout-redesign.md](specs/checkout-redesign.md)
 **Settings (settings.json):**
 ```json
 {
-  "mcp": {
-    "servers": {
-      "github": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-github"],
-        "env": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
-        }
-      }
-    }
-  },
   "github.copilot.chat.agent.enabled": true,
   "markdown.preview.autoShowPreviewToSide": true
 }
-```
-
-**Environment Variables:**
-```powershell
-$env:GITHUB_TOKEN = "ghp_xxxx"  # PAT with repo, project scopes
 ```
 
 ### Copilot Spaces Setup
