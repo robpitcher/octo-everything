@@ -1,9 +1,10 @@
 # Checkout Redesign PRD
 
-**Status:** Draft  
-**Author:** Sarah Chen, Product Manager  
-**Last Updated:** January 15, 2026  
+**Status:** Draft
+**Author:** Sarah Chen, Product Manager
+**Last Updated:** January 15, 2026
 **Stakeholders:** Engineering, Design, Payments, Marketing
+**Description:** Streamline the purchase flow to reduce cart abandonment and checkout time
 
 ---
 

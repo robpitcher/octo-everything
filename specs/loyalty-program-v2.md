@@ -1,9 +1,10 @@
 # Loyalty Program v2 PRD
 
-**Status:** In Review  
-**Author:** Marcus Webb, Product Manager  
-**Last Updated:** January 18, 2026  
+**Status:** In Review
+**Author:** Marcus Webb, Product Manager
+**Last Updated:** January 18, 2026
 **Stakeholders:** Marketing, Engineering, Customer Success, Finance
+**Description:** Revamp the rewards program with sustainability incentives and improved redemption
 
 ---
 

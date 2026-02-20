@@ -1,9 +1,10 @@
 # Returns Experience PRD
 
-**Status:** Draft  
-**Author:** Sarah Chen, Product Manager  
-**Last Updated:** January 25, 2026  
+**Status:** Draft
+**Author:** Sarah Chen, Product Manager
+**Last Updated:** January 25, 2026
 **Stakeholders:** Customer Success, Operations, Engineering, Finance
+**Description:** Simplify and accelerate the returns and exchanges process
 
 ---
 

@@ -7,6 +7,14 @@ applyTo: "specs/**"
 
 ## Spec Template
 
+Every spec MUST include these metadata fields:
+
+- `**Status:**` — Draft, In Review, or Approved
+- `**Author:**` — Name and role
+- `**Last Updated:**` — Date
+- `**Stakeholders:**` — Teams involved
+- `**Description:**` — One-sentence summary (used in the auto-generated specs index page)
+
 Every spec MUST include these sections:
 
 ### 1. Problem Statement

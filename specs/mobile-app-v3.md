@@ -1,9 +1,10 @@
 # Mobile App v3 PRD
 
-**Status:** In Review  
-**Author:** Alex Rivera, PM Lead  
-**Last Updated:** January 28, 2026  
+**Status:** In Review
+**Author:** Alex Rivera, PM Lead
+**Last Updated:** January 28, 2026
 **Stakeholders:** Mobile Engineering, Design, Platform, Marketing
+**Description:** Build the next-generation native mobile app experience for outdoor gear shoppers
 
 ---
 

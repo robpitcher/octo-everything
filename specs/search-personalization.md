@@ -1,9 +1,10 @@
 # Search Personalization PRD
 
-**Status:** Draft  
-**Author:** Jordan Kim, UX Researcher (Acting PM)  
-**Last Updated:** January 22, 2026  
+**Status:** Draft
+**Author:** Jordan Kim, UX Researcher (Acting PM)
+**Last Updated:** January 22, 2026
 **Stakeholders:** Engineering, Data Science, Merchandising, UX
+**Description:** Add AI-powered search and personalized product discovery
 
 ---
 
