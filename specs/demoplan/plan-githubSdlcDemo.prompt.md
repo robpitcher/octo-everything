@@ -94,7 +94,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Generate HTML Summaries
         run: |
           # For each spec, generate email-safe HTML
@@ -103,7 +103,7 @@ jobs:
             # Use pandoc or custom script to convert
             pandoc "$file" -o "$output" --standalone --metadata title="$(basename $file .md)"
           done
-          
+
       - name: Update README TOC
         run: |
           echo "## Documentation" > docs-toc.md
@@ -120,7 +120,7 @@ jobs:
             echo "- [$title]($file)" >> docs-toc.md
           done
           # Inject into README.md
-          
+
       - name: Commit Generated Files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -330,17 +330,12 @@ jobs:
 ### Step 2: Configure MCP in VS Code
 
 ```json
-// VS Code settings.json
+// VS Code mcp.json
 {
-  "mcp": {
-    "servers": {
-      "github": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-github"],
-        "env": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
-        }
-      }
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
     }
   }
 }
@@ -352,7 +347,7 @@ jobs:
 
 **Copilot Prompt:**
 ```
-Read specs/checkout-redesign.md and create GitHub Issues for each requirement 
+Read specs/checkout-redesign.md and create GitHub Issues for each requirement
 in the 'Proposed Solution' section. For each issue:
 - Use title format: '[Checkout] <feature name>'
 - Include acceptance criteria from the spec
@@ -370,7 +365,7 @@ Repository: contoso/product-brain
 
 **For Epic/Sub-Issues:**
 ```
-"Create a parent issue 'Express Payment Integration' with label 'epic', 
+"Create a parent issue 'Express Payment Integration' with label 'epic',
 then add sub-issues for Apple Pay, Google Pay, and PayPal optimization"
 ```
 
@@ -441,7 +436,7 @@ then add sub-issues for Apple Pay, Google Pay, and PayPal optimization"
 
 **Copilot Prompt:**
 ```
-Create a prototype in prototypes/dark-mode/index.html that demonstrates 
+Create a prototype in prototypes/dark-mode/index.html that demonstrates
 dark mode toggle functionality. Use our design system from AGENTS.md:
 - Dark base: #0a0c0a
 - Card bg: rgba(17, 20, 17, 0.85)
@@ -913,25 +908,9 @@ Create 8-10 issues from [specs/checkout-redesign.md](specs/checkout-redesign.md)
 **Settings (settings.json):**
 ```json
 {
-  "mcp": {
-    "servers": {
-      "github": {
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-github"],
-        "env": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
-        }
-      }
-    }
-  },
   "github.copilot.chat.agent.enabled": true,
   "markdown.preview.autoShowPreviewToSide": true
 }
-```
-
-**Environment Variables:**
-```powershell
-$env:GITHUB_TOKEN = "ghp_xxxx"  # PAT with repo, project scopes
 ```
 
 ### Copilot Spaces Setup
